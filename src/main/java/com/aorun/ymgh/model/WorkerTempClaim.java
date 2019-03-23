@@ -2,7 +2,7 @@ package com.aorun.ymgh.model;
 
 import java.util.Date;
 
-public class WorkerLiveClaim {
+public class WorkerTempClaim {
     private Long id;
 
     private Long workerId;
@@ -12,6 +12,8 @@ public class WorkerLiveClaim {
     private Integer population;
 
     private Integer income;
+
+    private String companyName;
 
     private String telephone;
 
@@ -24,8 +26,6 @@ public class WorkerLiveClaim {
     private Date createTime;
 
     private Date updateTime;
-
-    private String companyName;
 
     public Long getId() {
         return id;
@@ -65,6 +65,14 @@ public class WorkerLiveClaim {
 
     public void setIncome(Integer income) {
         this.income = income;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName == null ? null : companyName.trim();
     }
 
     public String getTelephone() {
@@ -113,13 +121,5 @@ public class WorkerLiveClaim {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
-    }
-
-    public String getCompanyName() {
-        return companyName;
-    }
-
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName == null ? null : companyName.trim();
     }
 }

@@ -3,9 +3,9 @@ package com.aorun.ymgh.controller;
 
 import com.aorun.ymgh.controller.login.UserDto;
 import com.aorun.ymgh.controller.login.WorkerMember;
-import com.aorun.ymgh.dto.WorkerLiveClaimDto;
-import com.aorun.ymgh.model.WorkerLiveClaim;
-import com.aorun.ymgh.service.WorkerLiveClaimService;
+import com.aorun.ymgh.dto.WorkerLegalAidDto;
+import com.aorun.ymgh.model.WorkerLegalAid;
+import com.aorun.ymgh.service.WorkerLegelAidService;
 import com.aorun.ymgh.util.CheckObjectIsNull;
 import com.aorun.ymgh.util.DateFormat;
 import com.aorun.ymgh.util.PageConstant;
@@ -27,14 +27,14 @@ import java.util.List;
  */
 @RequestMapping("/worker")
 @RestController
-public class WorkerLiveClaimRestController {
+public class WorkerLegalAidRestController {
 
     @Autowired
-    private WorkerLiveClaimService workerLiveClaimService;
+    private WorkerLegelAidService workerLegelAidService;
 
 
         //1.列表接口----分页查询
-        @RequestMapping(value = "/workerLiveClaimList", method = RequestMethod.GET)
+        @RequestMapping(value = "/workerLegelAidList", method = RequestMethod.GET)
         public Object workerLiveClaimList(
             @RequestParam(name = "sid", required = true, defaultValue = "") String sid,
             @RequestParam(name="pageIndex", required = true, defaultValue = "1") Integer pageIndex,
@@ -58,34 +58,34 @@ public class WorkerLiveClaimRestController {
             }
 
         Long workerId = workerMember.getId();
-        List<WorkerLiveClaim>   workerLiveClaimList = new ArrayList<WorkerLiveClaim>();
-        List<WorkerLiveClaimDto>   workerLiveClaimDtoList = new ArrayList<WorkerLiveClaimDto>();
-        workerLiveClaimList = workerLiveClaimService.getWorkerLiveClaimListByWorkerId(workerId,pageIndex,pageSize);
-        for(WorkerLiveClaim workerLiveClaim:workerLiveClaimList){
-            WorkerLiveClaimDto workerLiveClaimDto = new WorkerLiveClaimDto();
-            BeanUtils.copyProperties(workerLiveClaim,workerLiveClaimDto);
-            workerLiveClaimDto.setCreateTime(DateFormat.dateToString3(workerLiveClaim.getCreateTime()));
-            workerLiveClaimDtoList.add(workerLiveClaimDto);
+        List<WorkerLegalAid>   workerLegalAidList = new ArrayList<WorkerLegalAid>();
+        List<WorkerLegalAidDto>   workerLegalAidDtoList = new ArrayList<WorkerLegalAidDto>();
+            workerLegalAidList = workerLegelAidService.getWorkerLegelAidListByWorkerId(workerId,pageIndex,pageSize);
+        for(WorkerLegalAid workerLegalAid:workerLegalAidList){
+            WorkerLegalAidDto workerLegalAidDto = new WorkerLegalAidDto();
+            BeanUtils.copyProperties(workerLegalAid,workerLegalAidDto);
+            workerLegalAidDto.setCreateTime(DateFormat.dateToString3(workerLegalAid.getCreateTime()));
+            workerLegalAidDtoList.add(workerLegalAidDto);
         }
-        return Jsonp_data.success(workerLiveClaimDtoList);
+        return Jsonp_data.success(workerLegalAidDtoList);
     }
 
     //3.详情接口
-    @RequestMapping(value = "/workerLiveClaim/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/workerLegelAid/{id}", method = RequestMethod.GET)
     public Object findOneWorkerLiveClaim(@PathVariable("id") Long id,
      @RequestParam(name = "sid", required = true, defaultValue = "") String sid) {
 
-        WorkerLiveClaim workerLiveClaim = workerLiveClaimService.findWorkerLiveClaimById(id);
-        WorkerLiveClaimDto workerLiveClaimDto = new WorkerLiveClaimDto();
-        BeanUtils.copyProperties(workerLiveClaim,workerLiveClaimDto);
-        workerLiveClaimDto.setCreateTime(DateFormat.dateToString3(workerLiveClaim.getCreateTime()));
-        return Jsonp_data.success(workerLiveClaimDto);
+        WorkerLegalAid workerLegalAid = workerLegelAidService.findWorkerLegelAidById(id);
+        WorkerLegalAidDto workerLegalAidDto = new WorkerLegalAidDto();
+        BeanUtils.copyProperties(workerLegalAid,workerLegalAidDto);
+        workerLegalAidDto.setCreateTime(DateFormat.dateToString3(workerLegalAid.getCreateTime()));
+        return Jsonp_data.success(workerLegalAidDto);
     }
 
     //2.新增接口
-    @RequestMapping(value = "/workerLiveClaim", method = RequestMethod.POST)
-    public Object createWorkerLiveClaim(  @RequestParam(name = "sid", required = true, defaultValue = "") String sid,
-                                          @RequestBody WorkerLiveClaim workerLiveClaim) {
+    @RequestMapping(value = "/workerLegelAid", method = RequestMethod.POST)
+    public Object createWorkerLiveClaim(@RequestParam(name = "sid", required = true, defaultValue = "") String sid,
+                                          @RequestBody WorkerLegalAid workerLegalAid) {
 
         UserDto user = null;
         WorkerMember workerMember = null;
@@ -103,8 +103,8 @@ public class WorkerLiveClaimRestController {
         }
 
         Long workerId = workerMember.getId();
-        workerLiveClaim.setWorkerId(workerId);
-        workerLiveClaimService.saveWorkerLiveClaim(workerLiveClaim);
+        workerLegalAid.setWorkerId(workerId);
+        workerLegelAidService.saveWorkerLegelAid(workerLegalAid);
         return Jsonp.success();
     }
 

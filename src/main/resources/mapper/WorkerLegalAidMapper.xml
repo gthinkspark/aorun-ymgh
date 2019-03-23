@@ -1,46 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.aorun.ymgh.dao.WorkerLiveClaimMapper">
-  <resultMap id="BaseResultMap" type="com.aorun.ymgh.model.WorkerLiveClaim">
+<mapper namespace="com.aorun.ymgh.dao.WorkerLegalAidMapper">
+  <resultMap id="BaseResultMap" type="com.aorun.ymgh.model.WorkerLegalAid">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="worker_id" jdbcType="BIGINT" property="workerId" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="population" jdbcType="INTEGER" property="population" />
-    <result column="income" jdbcType="INTEGER" property="income" />
-    <result column="company_name" jdbcType="VARCHAR" property="companyName" />
+    <result column="name" jdbcType="BIGINT" property="name" />
+    <result column="company_name" jdbcType="BIGINT" property="companyName" />
     <result column="telephone" jdbcType="VARCHAR" property="telephone" />
-    <result column="main_reason" jdbcType="VARCHAR" property="mainReason" />
+    <result column="case_reason" jdbcType="VARCHAR" property="caseReason" />
+    <result column="reply_items" jdbcType="VARCHAR" property="replyItems" />
     <result column="status" jdbcType="INTEGER" property="status" />
     <result column="fail_reason" jdbcType="VARCHAR" property="failReason" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, worker_id, name, population, income, company_name, telephone, main_reason, status, fail_reason,
+    id, worker_id, name, company_name, telephone, case_reason, reply_items, status, fail_reason, 
     create_time, update_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from t_worker_live_claim
+    from t_worker_legal_aid
     where id = #{id,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from t_worker_live_claim
+    delete from t_worker_legal_aid
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.aorun.ymgh.model.WorkerLiveClaim">
-    insert into t_worker_live_claim (id, worker_id, name, 
-      population, income, company_name, telephone,
-      main_reason, status, fail_reason, 
+  <insert id="insert" parameterType="com.aorun.ymgh.model.WorkerLegalAid">
+    insert into t_worker_legal_aid (id, worker_id, name, 
+      company_name, telephone, case_reason, 
+      reply_items, status, fail_reason, 
       create_time, update_time)
-    values (#{id,jdbcType=BIGINT}, #{workerId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, 
-      #{population,jdbcType=INTEGER}, #{income,jdbcType=INTEGER}, #{companyName,jdbcType=VARCHAR}, #{telephone,jdbcType=VARCHAR},
-      #{mainReason,jdbcType=VARCHAR}, 1, #{failReason,jdbcType=VARCHAR},
+    values (#{id,jdbcType=BIGINT}, #{workerId,jdbcType=BIGINT}, #{name,jdbcType=BIGINT}, 
+      #{companyName,jdbcType=BIGINT}, #{telephone,jdbcType=VARCHAR}, #{caseReason,jdbcType=VARCHAR}, 
+      #{replyItems,jdbcType=VARCHAR}, 1, #{failReason,jdbcType=VARCHAR},
       now(), now())
   </insert>
-  <insert id="insertSelective" parameterType="com.aorun.ymgh.model.WorkerLiveClaim">
-    insert into t_worker_live_claim
+  <insert id="insertSelective" parameterType="com.aorun.ymgh.model.WorkerLegalAid">
+    insert into t_worker_legal_aid
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
@@ -51,20 +50,17 @@
       <if test="name != null">
         name,
       </if>
-      <if test="population != null">
-        population,
-      </if>
-      <if test="income != null">
-        income,
-      </if>
       <if test="companyName != null">
         company_name,
       </if>
       <if test="telephone != null">
         telephone,
       </if>
-      <if test="mainReason != null">
-        main_reason,
+      <if test="caseReason != null">
+        case_reason,
+      </if>
+      <if test="replyItems != null">
+        reply_items,
       </if>
       <if test="status != null">
         status,
@@ -87,22 +83,19 @@
         #{workerId,jdbcType=BIGINT},
       </if>
       <if test="name != null">
-        #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="population != null">
-        #{population,jdbcType=INTEGER},
-      </if>
-      <if test="income != null">
-        #{income,jdbcType=INTEGER},
+        #{name,jdbcType=BIGINT},
       </if>
       <if test="companyName != null">
-        #{companyName,jdbcType=VARCHAR},
+        #{companyName,jdbcType=BIGINT},
       </if>
       <if test="telephone != null">
         #{telephone,jdbcType=VARCHAR},
       </if>
-      <if test="mainReason != null">
-        #{mainReason,jdbcType=VARCHAR},
+      <if test="caseReason != null">
+        #{caseReason,jdbcType=VARCHAR},
+      </if>
+      <if test="replyItems != null">
+        #{replyItems,jdbcType=VARCHAR},
       </if>
       <if test="status != null">
         #{status,jdbcType=INTEGER},
@@ -118,29 +111,26 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.aorun.ymgh.model.WorkerLiveClaim">
-    update t_worker_live_claim
+  <update id="updateByPrimaryKeySelective" parameterType="com.aorun.ymgh.model.WorkerLegalAid">
+    update t_worker_legal_aid
     <set>
       <if test="workerId != null">
         worker_id = #{workerId,jdbcType=BIGINT},
       </if>
       <if test="name != null">
-        name = #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="population != null">
-        population = #{population,jdbcType=INTEGER},
-      </if>
-      <if test="income != null">
-        income = #{income,jdbcType=INTEGER},
+        name = #{name,jdbcType=BIGINT},
       </if>
       <if test="companyName != null">
-        company_name = #{companyName,jdbcType=VARCHAR},
+        company_name = #{companyName,jdbcType=BIGINT},
       </if>
       <if test="telephone != null">
         telephone = #{telephone,jdbcType=VARCHAR},
       </if>
-      <if test="mainReason != null">
-        main_reason = #{mainReason,jdbcType=VARCHAR},
+      <if test="caseReason != null">
+        case_reason = #{caseReason,jdbcType=VARCHAR},
+      </if>
+      <if test="replyItems != null">
+        reply_items = #{replyItems,jdbcType=VARCHAR},
       </if>
       <if test="status != null">
         status = #{status,jdbcType=INTEGER},
@@ -157,15 +147,14 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.aorun.ymgh.model.WorkerLiveClaim">
-    update t_worker_live_claim
+  <update id="updateByPrimaryKey" parameterType="com.aorun.ymgh.model.WorkerLegalAid">
+    update t_worker_legal_aid
     set worker_id = #{workerId,jdbcType=BIGINT},
-      name = #{name,jdbcType=VARCHAR},
-      population = #{population,jdbcType=INTEGER},
-      income = #{income,jdbcType=INTEGER},
-      company_name = #{companyName,jdbcType=VARCHAR},
+      name = #{name,jdbcType=BIGINT},
+      company_name = #{companyName,jdbcType=BIGINT},
       telephone = #{telephone,jdbcType=VARCHAR},
-      main_reason = #{mainReason,jdbcType=VARCHAR},
+      case_reason = #{caseReason,jdbcType=VARCHAR},
+      reply_items = #{replyItems,jdbcType=VARCHAR},
       status = #{status,jdbcType=INTEGER},
       fail_reason = #{failReason,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -173,17 +162,15 @@
     where id = #{id,jdbcType=BIGINT}
   </update>
 
-  <select id="getWorkerLiveClaimListByWorkerId" resultMap="BaseResultMap">
+  <select id="getWorkerLegelAidListByWorkerId" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
-    from t_worker_live_claim
+    from t_worker_legal_aid
     where worker_id = #{workerId}
     <if test="start!=null and limit!=null ">
       limit #{start},#{limit}
     </if>
   </select>
-
-
 
 
 </mapper>

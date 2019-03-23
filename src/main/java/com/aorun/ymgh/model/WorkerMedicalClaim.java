@@ -2,7 +2,7 @@ package com.aorun.ymgh.model;
 
 import java.util.Date;
 
-public class WorkerLiveClaim {
+public class WorkerMedicalClaim {
     private Long id;
 
     private Long workerId;
@@ -13,9 +13,13 @@ public class WorkerLiveClaim {
 
     private Integer income;
 
+    private String companyName;
+
     private String telephone;
 
-    private String mainReason;
+    private String diseaseName;
+
+    private String selfPayingCase;
 
     private Integer status;
 
@@ -24,8 +28,6 @@ public class WorkerLiveClaim {
     private Date createTime;
 
     private Date updateTime;
-
-    private String companyName;
 
     public Long getId() {
         return id;
@@ -67,6 +69,14 @@ public class WorkerLiveClaim {
         this.income = income;
     }
 
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName == null ? null : companyName.trim();
+    }
+
     public String getTelephone() {
         return telephone;
     }
@@ -75,12 +85,20 @@ public class WorkerLiveClaim {
         this.telephone = telephone == null ? null : telephone.trim();
     }
 
-    public String getMainReason() {
-        return mainReason;
+    public String getDiseaseName() {
+        return diseaseName;
     }
 
-    public void setMainReason(String mainReason) {
-        this.mainReason = mainReason == null ? null : mainReason.trim();
+    public void setDiseaseName(String diseaseName) {
+        this.diseaseName = diseaseName == null ? null : diseaseName.trim();
+    }
+
+    public String getSelfPayingCase() {
+        return selfPayingCase;
+    }
+
+    public void setSelfPayingCase(String selfPayingCase) {
+        this.selfPayingCase = selfPayingCase == null ? null : selfPayingCase.trim();
     }
 
     public Integer getStatus() {
@@ -113,13 +131,5 @@ public class WorkerLiveClaim {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
-    }
-
-    public String getCompanyName() {
-        return companyName;
-    }
-
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName == null ? null : companyName.trim();
     }
 }

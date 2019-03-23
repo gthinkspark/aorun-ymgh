@@ -3,9 +3,9 @@ package com.aorun.ymgh.controller;
 
 import com.aorun.ymgh.controller.login.UserDto;
 import com.aorun.ymgh.controller.login.WorkerMember;
-import com.aorun.ymgh.dto.WorkerLiveClaimDto;
-import com.aorun.ymgh.model.WorkerLiveClaim;
-import com.aorun.ymgh.service.WorkerLiveClaimService;
+import com.aorun.ymgh.dto.WorkerMedicalClaimDto;
+import com.aorun.ymgh.model.WorkerMedicalClaim;
+import com.aorun.ymgh.service.WorkerMedicalClaimService;
 import com.aorun.ymgh.util.CheckObjectIsNull;
 import com.aorun.ymgh.util.DateFormat;
 import com.aorun.ymgh.util.PageConstant;
@@ -27,15 +27,15 @@ import java.util.List;
  */
 @RequestMapping("/worker")
 @RestController
-public class WorkerLiveClaimRestController {
+public class WorkerMedicalClaimRestController {
 
     @Autowired
-    private WorkerLiveClaimService workerLiveClaimService;
+    private WorkerMedicalClaimService workerMedicalClaimService;
 
 
         //1.列表接口----分页查询
-        @RequestMapping(value = "/workerLiveClaimList", method = RequestMethod.GET)
-        public Object workerLiveClaimList(
+        @RequestMapping(value = "/workerMedicalClaimList", method = RequestMethod.GET)
+        public Object workerMedicalClaimList(
             @RequestParam(name = "sid", required = true, defaultValue = "") String sid,
             @RequestParam(name="pageIndex", required = true, defaultValue = "1") Integer pageIndex,
             @RequestParam(name="pageSize", required = false, defaultValue = PageConstant.APP_PAGE_SIZE + "") Integer pageSize
@@ -58,34 +58,34 @@ public class WorkerLiveClaimRestController {
             }
 
         Long workerId = workerMember.getId();
-        List<WorkerLiveClaim>   workerLiveClaimList = new ArrayList<WorkerLiveClaim>();
-        List<WorkerLiveClaimDto>   workerLiveClaimDtoList = new ArrayList<WorkerLiveClaimDto>();
-        workerLiveClaimList = workerLiveClaimService.getWorkerLiveClaimListByWorkerId(workerId,pageIndex,pageSize);
-        for(WorkerLiveClaim workerLiveClaim:workerLiveClaimList){
-            WorkerLiveClaimDto workerLiveClaimDto = new WorkerLiveClaimDto();
-            BeanUtils.copyProperties(workerLiveClaim,workerLiveClaimDto);
-            workerLiveClaimDto.setCreateTime(DateFormat.dateToString3(workerLiveClaim.getCreateTime()));
-            workerLiveClaimDtoList.add(workerLiveClaimDto);
+        List<WorkerMedicalClaim>   workerMedicalClaimList = new ArrayList<WorkerMedicalClaim>();
+        List<WorkerMedicalClaimDto>   workerMedicalClaimDtoList = new ArrayList<WorkerMedicalClaimDto>();
+        workerMedicalClaimList = workerMedicalClaimService.getWorkerMedicalClaimListByWorkerId(workerId,pageIndex,pageSize);
+        for(WorkerMedicalClaim workerMedicalClaim:workerMedicalClaimList){
+            WorkerMedicalClaimDto workerMedicalClaimDto = new WorkerMedicalClaimDto();
+            BeanUtils.copyProperties(workerMedicalClaim,workerMedicalClaimDto);
+            workerMedicalClaimDto.setCreateTime(DateFormat.dateToString3(workerMedicalClaim.getCreateTime()));
+            workerMedicalClaimDtoList.add(workerMedicalClaimDto);
         }
-        return Jsonp_data.success(workerLiveClaimDtoList);
+        return Jsonp_data.success(workerMedicalClaimDtoList);
     }
 
     //3.详情接口
-    @RequestMapping(value = "/workerLiveClaim/{id}", method = RequestMethod.GET)
-    public Object findOneWorkerLiveClaim(@PathVariable("id") Long id,
+    @RequestMapping(value = "/workerMedicalClaim/{id}", method = RequestMethod.GET)
+    public Object findOneWorkerMedicalClaim(@PathVariable("id") Long id,
      @RequestParam(name = "sid", required = true, defaultValue = "") String sid) {
 
-        WorkerLiveClaim workerLiveClaim = workerLiveClaimService.findWorkerLiveClaimById(id);
-        WorkerLiveClaimDto workerLiveClaimDto = new WorkerLiveClaimDto();
-        BeanUtils.copyProperties(workerLiveClaim,workerLiveClaimDto);
-        workerLiveClaimDto.setCreateTime(DateFormat.dateToString3(workerLiveClaim.getCreateTime()));
-        return Jsonp_data.success(workerLiveClaimDto);
+        WorkerMedicalClaim workerMedicalClaim = workerMedicalClaimService.findWorkerMedicalClaimById(id);
+        WorkerMedicalClaimDto workerMedicalClaimDto = new WorkerMedicalClaimDto();
+        BeanUtils.copyProperties(workerMedicalClaim,workerMedicalClaimDto);
+        workerMedicalClaimDto.setCreateTime(DateFormat.dateToString3(workerMedicalClaim.getCreateTime()));
+        return Jsonp_data.success(workerMedicalClaimDto);
     }
 
     //2.新增接口
-    @RequestMapping(value = "/workerLiveClaim", method = RequestMethod.POST)
-    public Object createWorkerLiveClaim(  @RequestParam(name = "sid", required = true, defaultValue = "") String sid,
-                                          @RequestBody WorkerLiveClaim workerLiveClaim) {
+    @RequestMapping(value = "/workerMedicalClaim", method = RequestMethod.POST)
+    public Object createWorkerMedicalClaim(  @RequestParam(name = "sid", required = true, defaultValue = "") String sid,
+                                          @RequestBody WorkerMedicalClaim workerMedicalClaim) {
 
         UserDto user = null;
         WorkerMember workerMember = null;
@@ -103,8 +103,8 @@ public class WorkerLiveClaimRestController {
         }
 
         Long workerId = workerMember.getId();
-        workerLiveClaim.setWorkerId(workerId);
-        workerLiveClaimService.saveWorkerLiveClaim(workerLiveClaim);
+        workerMedicalClaim.setWorkerId(workerId);
+        workerMedicalClaimService.saveWorkerMedicalClaim(workerMedicalClaim);
         return Jsonp.success();
     }
 

@@ -161,7 +161,7 @@ public class DateFormat {
 	/**
 	 * 
 	 * @Title: dateToMonth
-	 * @Description: TODO(获取当前年份月份)
+	 * @Description: (获取当前年份月份)
 	 * @param @param date
 	 * @param @return 设定文件
 	 * @return String 返回类型
@@ -195,7 +195,7 @@ public class DateFormat {
 	/**
 	 * 
 	 * @Title: dateToMonth
-	 * @Description: TODO(获取当前年份月份日)
+	 * @Description: (获取当前年份月份日)
 	 * @param @param date
 	 * @param @return 设定文件
 	 * @return String 返回类型

@@ -2,20 +2,20 @@ package com.aorun.ymgh.model;
 
 import java.util.Date;
 
-public class WorkerLiveClaim {
+public class WorkerLegalAid {
     private Long id;
 
     private Long workerId;
 
-    private String name;
+    private Long name;
 
-    private Integer population;
-
-    private Integer income;
+    private Long companyName;
 
     private String telephone;
 
-    private String mainReason;
+    private String caseReason;
+
+    private String replyItems;
 
     private Integer status;
 
@@ -24,8 +24,6 @@ public class WorkerLiveClaim {
     private Date createTime;
 
     private Date updateTime;
-
-    private String companyName;
 
     public Long getId() {
         return id;
@@ -43,28 +41,20 @@ public class WorkerLiveClaim {
         this.workerId = workerId;
     }
 
-    public String getName() {
+    public Long getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name == null ? null : name.trim();
+    public void setName(Long name) {
+        this.name = name;
     }
 
-    public Integer getPopulation() {
-        return population;
+    public Long getCompanyName() {
+        return companyName;
     }
 
-    public void setPopulation(Integer population) {
-        this.population = population;
-    }
-
-    public Integer getIncome() {
-        return income;
-    }
-
-    public void setIncome(Integer income) {
-        this.income = income;
+    public void setCompanyName(Long companyName) {
+        this.companyName = companyName;
     }
 
     public String getTelephone() {
@@ -75,12 +65,20 @@ public class WorkerLiveClaim {
         this.telephone = telephone == null ? null : telephone.trim();
     }
 
-    public String getMainReason() {
-        return mainReason;
+    public String getCaseReason() {
+        return caseReason;
     }
 
-    public void setMainReason(String mainReason) {
-        this.mainReason = mainReason == null ? null : mainReason.trim();
+    public void setCaseReason(String caseReason) {
+        this.caseReason = caseReason == null ? null : caseReason.trim();
+    }
+
+    public String getReplyItems() {
+        return replyItems;
+    }
+
+    public void setReplyItems(String replyItems) {
+        this.replyItems = replyItems == null ? null : replyItems.trim();
     }
 
     public Integer getStatus() {
@@ -113,13 +111,5 @@ public class WorkerLiveClaim {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
-    }
-
-    public String getCompanyName() {
-        return companyName;
-    }
-
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName == null ? null : companyName.trim();
     }
 }

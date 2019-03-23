@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.aorun.ymgh.dao.WorkerLiveClaimMapper">
-  <resultMap id="BaseResultMap" type="com.aorun.ymgh.model.WorkerLiveClaim">
+<mapper namespace="com.aorun.ymgh.dao.WorkerTempClaimMapper">
+  <resultMap id="BaseResultMap" type="com.aorun.ymgh.model.WorkerTempClaim">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="worker_id" jdbcType="BIGINT" property="workerId" />
     <result column="name" jdbcType="VARCHAR" property="name" />
@@ -16,31 +16,33 @@
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, worker_id, name, population, income, company_name, telephone, main_reason, status, fail_reason,
-    create_time, update_time
+    id, worker_id, name, population, income, company_name, telephone, main_reason, status, 
+    fail_reason, create_time, update_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from t_worker_live_claim
+    from t_worker_temp_claim
     where id = #{id,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from t_worker_live_claim
+    delete from t_worker_temp_claim
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.aorun.ymgh.model.WorkerLiveClaim">
-    insert into t_worker_live_claim (id, worker_id, name, 
-      population, income, company_name, telephone,
-      main_reason, status, fail_reason, 
-      create_time, update_time)
+  <insert id="insert" parameterType="com.aorun.ymgh.model.WorkerTempClaim">
+    insert into t_worker_temp_claim (id, worker_id, name, 
+      population, income, company_name, 
+      telephone, main_reason, status, 
+      fail_reason, create_time, update_time
+      )
     values (#{id,jdbcType=BIGINT}, #{workerId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, 
-      #{population,jdbcType=INTEGER}, #{income,jdbcType=INTEGER}, #{companyName,jdbcType=VARCHAR}, #{telephone,jdbcType=VARCHAR},
-      #{mainReason,jdbcType=VARCHAR}, 1, #{failReason,jdbcType=VARCHAR},
-      now(), now())
+      #{population,jdbcType=INTEGER}, #{income,jdbcType=INTEGER}, #{companyName,jdbcType=VARCHAR}, 
+      #{telephone,jdbcType=VARCHAR}, #{mainReason,jdbcType=VARCHAR}, 1,
+      #{failReason,jdbcType=VARCHAR}, now(),now()
+      )
   </insert>
-  <insert id="insertSelective" parameterType="com.aorun.ymgh.model.WorkerLiveClaim">
-    insert into t_worker_live_claim
+  <insert id="insertSelective" parameterType="com.aorun.ymgh.model.WorkerTempClaim">
+    insert into t_worker_temp_claim
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
@@ -118,8 +120,8 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.aorun.ymgh.model.WorkerLiveClaim">
-    update t_worker_live_claim
+  <update id="updateByPrimaryKeySelective" parameterType="com.aorun.ymgh.model.WorkerTempClaim">
+    update t_worker_temp_claim
     <set>
       <if test="workerId != null">
         worker_id = #{workerId,jdbcType=BIGINT},
@@ -157,8 +159,8 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.aorun.ymgh.model.WorkerLiveClaim">
-    update t_worker_live_claim
+  <update id="updateByPrimaryKey" parameterType="com.aorun.ymgh.model.WorkerTempClaim">
+    update t_worker_temp_claim
     set worker_id = #{workerId,jdbcType=BIGINT},
       name = #{name,jdbcType=VARCHAR},
       population = #{population,jdbcType=INTEGER},
@@ -173,17 +175,14 @@
     where id = #{id,jdbcType=BIGINT}
   </update>
 
-  <select id="getWorkerLiveClaimListByWorkerId" resultMap="BaseResultMap">
+  <select id="getWorkerTempClaimListByWorkerId" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
-    from t_worker_live_claim
+    from t_worker_temp_claim
     where worker_id = #{workerId}
     <if test="start!=null and limit!=null ">
       limit #{start},#{limit}
     </if>
   </select>
-
-
-
 
 </mapper>
