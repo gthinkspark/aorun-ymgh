@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.aorun.ymgh.dao.MessageMapper" >
+  <resultMap id="BaseResultMap" type="com.aorun.ymgh.model.Message" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="time" property="time" jdbcType="TIMESTAMP" />
+    <result column="link" property="link" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="icon_url" property="iconUrl" jdbcType="VARCHAR" />
+    <result column="statu" property="statu" jdbcType="INTEGER" />
+    <result column="source" property="source" jdbcType="INTEGER" />
+    <result column="member_id" property="memberId" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="checkup" property="checkup" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.aorun.ymgh.model.Message" extends="BaseResultMap" >
+    <result column="body" property="body" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, title, time, link, type, icon_url, statu, source, member_id, create_time, checkup
+  </sql>
+  <sql id="Blob_Column_List" >
+    body
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_message
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+   <!-- 条件查询 -->
+  <select id="selectSelective" resultMap="ResultMapWithBLOBs" parameterType="java.util.Map">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_message
+    <where>
+	  <if test="title != null" >
+        and title = #{title,jdbcType=VARCHAR}
+      </if>
+      <if test="time != null" >
+        and time = #{time,jdbcType=TIMESTAMP}
+      </if>
+      <if test="link != null" >
+        and link = #{link,jdbcType=VARCHAR}
+      </if>
+      <if test="type != null" >
+        and type = #{type,jdbcType=INTEGER}
+      </if>
+      <if test="iconUrl != null" >
+        and icon_url = #{iconUrl,jdbcType=VARCHAR}
+      </if>
+      <if test="statu != null" >
+        and statu = #{statu,jdbcType=INTEGER}
+      </if>
+      <if test="source != null" >
+        and source = #{source,jdbcType=INTEGER}
+      </if>
+      <if test="body != null" >
+        and body = #{body,jdbcType=LONGVARCHAR}
+      </if>
+      <if test="memberId != null" >
+        and member_id = #{memberId,jdbcType=BIGINT}
+      </if>
+      <if test="createTime != null" >
+        and create_time = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="checkup != null" >
+        and checkup = #{checkup,jdbcType=INTEGER}
+      </if>
+    </where>
+     order by 
+     <if test="sort != null" >
+        ${sort} 
+        <if test="dir != null" >
+        ${dir}
+        </if>
+        ,
+     </if>
+     create_time DESC,id DESC
+	 <if test="limit != null and start!=null">
+	 LIMIT #{start},#{limit}
+  	 </if>
+  </select>
+  <!-- 查询该表的总数  -->
+  <select id="getTotal" resultType="java.lang.Integer" parameterType="java.util.Map">
+    select count(1) from t_message
+    <where>
+      <if test="title != null" >
+        and title = #{title,jdbcType=VARCHAR}
+      </if>
+      <if test="time != null" >
+        and time = #{time,jdbcType=TIMESTAMP}
+      </if>
+      <if test="link != null" >
+        and link = #{link,jdbcType=VARCHAR}
+      </if>
+      <if test="type != null" >
+        and type = #{type,jdbcType=INTEGER}
+      </if>
+      <if test="iconUrl != null" >
+        and icon_url = #{iconUrl,jdbcType=VARCHAR}
+      </if>
+      <if test="statu != null" >
+        and statu = #{statu,jdbcType=INTEGER}
+      </if>
+      <if test="source != null" >
+        and source = #{source,jdbcType=INTEGER}
+      </if>
+      <if test="body != null" >
+        and body = #{body,jdbcType=LONGVARCHAR}
+      </if>
+      <if test="memberId != null" >
+        and member_id = #{memberId,jdbcType=BIGINT}
+      </if>
+      <if test="createTime != null" >
+        and create_time = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="checkup != null" >
+        and checkup = #{checkup,jdbcType=INTEGER}
+      </if>
+    </where>
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_message
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.aorun.ymgh.model.Message" >
+    insert into t_message (id, title, time, 
+      link, type, icon_url, 
+      statu, source, member_id, 
+      create_time, checkup, body
+      )
+    values (#{id,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, #{time,jdbcType=TIMESTAMP}, 
+      #{link,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, #{iconUrl,jdbcType=VARCHAR}, 
+      #{statu,jdbcType=INTEGER}, #{source,jdbcType=INTEGER}, #{memberId,jdbcType=BIGINT}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{checkup,jdbcType=INTEGER}, #{body,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.aorun.ymgh.model.Message" >
+    insert into t_message
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="time != null" >
+        time,
+      </if>
+      <if test="link != null" >
+        link,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="iconUrl != null" >
+        icon_url,
+      </if>
+      <if test="statu != null" >
+        statu,
+      </if>
+      <if test="source != null" >
+        source,
+      </if>
+      <if test="memberId != null" >
+        member_id,
+      </if>
+      <if test="createTime != null" >
+       	create_time,
+      </if>
+      <if test="checkup != null" >
+        checkup,
+      </if>
+      <if test="body != null" >
+        body,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null" >
+        #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="link != null" >
+        #{link,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="iconUrl != null" >
+        #{iconUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="statu != null" >
+        #{statu,jdbcType=INTEGER},
+      </if>
+      <if test="source != null" >
+        #{source,jdbcType=INTEGER},
+      </if>
+      <if test="memberId != null" >
+        #{memberId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="checkup != null" >
+        #{checkup,jdbcType=INTEGER},
+      </if>
+      <if test="body != null" >
+        #{body,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.aorun.ymgh.model.Message" >
+    update t_message
+    <set >
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null" >
+        time = #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="link != null" >
+        link = #{link,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="iconUrl != null" >
+        icon_url = #{iconUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="statu != null" >
+        statu = #{statu,jdbcType=INTEGER},
+      </if>
+      <if test="source != null" >
+        source = #{source,jdbcType=INTEGER},
+      </if>
+      <if test="memberId != null" >
+        member_id = #{memberId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="checkup != null" >
+        checkup = #{checkup,jdbcType=INTEGER},
+      </if>
+      <if test="body != null" >
+        body = #{body,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.aorun.ymgh.model.Message" >
+    update t_message
+    set title = #{title,jdbcType=VARCHAR},
+      time = #{time,jdbcType=TIMESTAMP},
+      link = #{link,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER},
+      icon_url = #{iconUrl,jdbcType=VARCHAR},
+      statu = #{statu,jdbcType=INTEGER},
+      source = #{source,jdbcType=INTEGER},
+      member_id = #{memberId,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      checkup = #{checkup,jdbcType=INTEGER},
+      body = #{body,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.aorun.ymgh.model.Message" >
+    update t_message
+    set title = #{title,jdbcType=VARCHAR},
+      time = #{time,jdbcType=TIMESTAMP},
+      link = #{link,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER},
+      icon_url = #{iconUrl,jdbcType=VARCHAR},
+      statu = #{statu,jdbcType=INTEGER},
+      source = #{source,jdbcType=INTEGER},
+      member_id = #{memberId,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      checkup = #{checkup,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
