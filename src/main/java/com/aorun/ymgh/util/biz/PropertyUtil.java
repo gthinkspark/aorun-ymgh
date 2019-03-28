@@ -1,4 +1,4 @@
-package com.aorun.ymgh.util;
+package com.aorun.ymgh.util.biz;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

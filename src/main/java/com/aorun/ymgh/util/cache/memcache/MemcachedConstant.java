@@ -1,6 +1,6 @@
 package com.aorun.ymgh.util.cache.memcache;
 
-import com.aorun.ymgh.util.PropertyUtil;
+import com.aorun.ymgh.util.biz.PropertyUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

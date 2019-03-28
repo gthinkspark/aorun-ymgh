@@ -3,11 +3,10 @@ package com.aorun.ymgh.controller;
 
 import com.aorun.ymgh.controller.login.UserDto;
 import com.aorun.ymgh.controller.login.WorkerMember;
-import com.aorun.ymgh.dto.WorkerLegalAidDto;
-import com.aorun.ymgh.model.WorkerLegalAid;
-import com.aorun.ymgh.service.WorkerLegelAidService;
+import com.aorun.ymgh.dto.WorkerAttorneyReplyAdvisoryDto;
+import com.aorun.ymgh.model.WorkerAttorneyReplyAdvisory;
+import com.aorun.ymgh.service.WorkerAttorneyReplyAdvisoryService;
 import com.aorun.ymgh.util.CheckObjectIsNull;
-import com.aorun.ymgh.util.DateFormat;
 import com.aorun.ymgh.util.PageConstant;
 import com.aorun.ymgh.util.biz.UnionUtil;
 import com.aorun.ymgh.util.cache.redis.RedisCache;
@@ -27,14 +26,14 @@ import java.util.List;
  */
 @RequestMapping("/worker")
 @RestController
-public class WorkerLegalAidRestController {
+public class WorkerAttorneyReplyAdvisoryRestController {
 
     @Autowired
-    private WorkerLegelAidService workerLegelAidService;
+    private WorkerAttorneyReplyAdvisoryService workerAttorneyReplyAdvisoryService;
 
 
         //1.列表接口----分页查询
-        @RequestMapping(value = "/workerLegelAidList", method = RequestMethod.GET)
+        @RequestMapping(value = "/workerAttorneyReplyAdvisoryList", method = RequestMethod.GET)
         public Object workerLiveClaimList(
             @RequestParam(name = "sid", required = true, defaultValue = "") String sid,
             @RequestParam(name="pageIndex", required = true, defaultValue = "1") Integer pageIndex,
@@ -58,34 +57,34 @@ public class WorkerLegalAidRestController {
             }
 
         Long workerId = workerMember.getId();
-        List<WorkerLegalAid>   workerLegalAidList = new ArrayList<WorkerLegalAid>();
-        List<WorkerLegalAidDto>   workerLegalAidDtoList = new ArrayList<WorkerLegalAidDto>();
-            workerLegalAidList = workerLegelAidService.getWorkerLegelAidListByWorkerId(workerId,pageIndex,pageSize);
-        for(WorkerLegalAid workerLegalAid:workerLegalAidList){
-            WorkerLegalAidDto workerLegalAidDto = new WorkerLegalAidDto();
-            BeanUtils.copyProperties(workerLegalAid,workerLegalAidDto);
-            workerLegalAidDto.setCreateTime(DateFormat.dateToString3(workerLegalAid.getCreateTime()));
-            workerLegalAidDtoList.add(workerLegalAidDto);
+        List<WorkerAttorneyReplyAdvisory>   workerAttorneyReplyAdvisoryList = new ArrayList<WorkerAttorneyReplyAdvisory>();
+        List<WorkerAttorneyReplyAdvisoryDto>   workerAttorneyReplyAdvisoryDtoList = new ArrayList<WorkerAttorneyReplyAdvisoryDto>();
+            workerAttorneyReplyAdvisoryList = workerAttorneyReplyAdvisoryService.getWorkerAttorneyReplyAdvisoryListByWorkerId(workerId,pageIndex,pageSize);
+        for(WorkerAttorneyReplyAdvisory workerAttorneyReplyAdvisory:workerAttorneyReplyAdvisoryList){
+            WorkerAttorneyReplyAdvisoryDto workerAttorneyReplyAdvisoryDto = new WorkerAttorneyReplyAdvisoryDto();
+            BeanUtils.copyProperties(workerAttorneyReplyAdvisory,workerAttorneyReplyAdvisoryDto);
+            //workerAttorneyReplyAdvisoryDto.setCreateTime(DateFormat.dateToString3(workerAttorneyReplyAdvisory.getCreateTime()));
+            workerAttorneyReplyAdvisoryDtoList.add(workerAttorneyReplyAdvisoryDto);
         }
-        return Jsonp_data.success(workerLegalAidDtoList);
+        return Jsonp_data.success(workerAttorneyReplyAdvisoryDtoList);
     }
 
     //3.详情接口
-    @RequestMapping(value = "/workerLegelAid/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/workerAttorneyReplyAdvisory/{id}", method = RequestMethod.GET)
     public Object findOneWorkerLiveClaim(@PathVariable("id") Long id,
      @RequestParam(name = "sid", required = true, defaultValue = "") String sid) {
 
-        WorkerLegalAid workerLegalAid = workerLegelAidService.findWorkerLegelAidById(id);
-        WorkerLegalAidDto workerLegalAidDto = new WorkerLegalAidDto();
-        BeanUtils.copyProperties(workerLegalAid,workerLegalAidDto);
-        workerLegalAidDto.setCreateTime(DateFormat.dateToString3(workerLegalAid.getCreateTime()));
-        return Jsonp_data.success(workerLegalAidDto);
+        WorkerAttorneyReplyAdvisory workerAttorneyReplyAdvisory = workerAttorneyReplyAdvisoryService.findWorkerAttorneyReplyAdvisoryById(id);
+        WorkerAttorneyReplyAdvisoryDto workerAttorneyReplyAdvisoryDto = new WorkerAttorneyReplyAdvisoryDto();
+        BeanUtils.copyProperties(workerAttorneyReplyAdvisory,workerAttorneyReplyAdvisoryDto);
+        //workerAttorneyReplyAdvisoryDto.setCreateTime(DateFormat.dateToString3(workerAttorneyReplyAdvisory.getCreateTime()));
+        return Jsonp_data.success(workerAttorneyReplyAdvisoryDto);
     }
 
     //2.新增接口
-    @RequestMapping(value = "/workerLegelAid", method = RequestMethod.POST)
+    @RequestMapping(value = "/workerAttorneyReplyAdvisory", method = RequestMethod.POST)
     public Object createWorkerLiveClaim(@RequestParam(name = "sid", required = true, defaultValue = "") String sid,
-                                          @RequestBody WorkerLegalAid workerLegalAid) {
+                                          @RequestBody WorkerAttorneyReplyAdvisory workerAttorneyReplyAdvisory) {
 
         UserDto user = null;
         WorkerMember workerMember = null;
@@ -103,36 +102,9 @@ public class WorkerLegalAidRestController {
         }
 
         Long workerId = workerMember.getId();
-        workerLegalAid.setWorkerId(workerId);
-        workerLegelAidService.saveWorkerLegelAid(workerLegalAid);
+        workerAttorneyReplyAdvisory.setWorkerId(workerId);
+        workerAttorneyReplyAdvisoryService.saveWorkerAttorneyReplyAdvisory(workerAttorneyReplyAdvisory);
         return Jsonp.success();
     }
-
-
-
-    //修改接口
-    @RequestMapping(value = "/workerLegelAid", method = RequestMethod.PUT)
-    public Object updateWorkerLiveClaim(@RequestParam(name = "sid", required = true, defaultValue = "") String sid,
-                                        @RequestBody WorkerLegalAid workerLegalAid) {
-
-        UserDto user = null;
-        WorkerMember workerMember = null;
-        if (!StringUtils.isEmpty(sid)) {
-            user = (UserDto) RedisCache.get(sid);
-            if (CheckObjectIsNull.isNull(user)) {
-                return Jsonp.noLoginError("请先登录或重新登录");
-            }
-            workerMember = RedisCache.getObj(UnionUtil.generateUnionSid(user),WorkerMember.class);
-            if (CheckObjectIsNull.isNull(workerMember)) {
-                return Jsonp.noAccreditError("用户未授权工会,请重新授权");
-            }
-        } else {
-            return Jsonp.noLoginError("用户SID不正确,请核对后重试");
-        }
-        workerLegalAid.setStatus(1);
-        workerLegelAidService.updateWorkerLegelAid(workerLegalAid);
-        return Jsonp.success();
-    }
-
 
 }

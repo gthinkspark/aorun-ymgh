@@ -9,7 +9,7 @@ import com.aorun.ymgh.service.WorkerMedicalClaimService;
 import com.aorun.ymgh.util.CheckObjectIsNull;
 import com.aorun.ymgh.util.DateFormat;
 import com.aorun.ymgh.util.PageConstant;
-import com.aorun.ymgh.util.UnionUtil;
+import com.aorun.ymgh.util.biz.UnionUtil;
 import com.aorun.ymgh.util.cache.redis.RedisCache;
 import com.aorun.ymgh.util.jsonp.Jsonp;
 import com.aorun.ymgh.util.jsonp.Jsonp_data;
@@ -105,6 +105,31 @@ public class WorkerMedicalClaimRestController {
         Long workerId = workerMember.getId();
         workerMedicalClaim.setWorkerId(workerId);
         workerMedicalClaimService.saveWorkerMedicalClaim(workerMedicalClaim);
+        return Jsonp.success();
+    }
+
+
+    //修改接口
+    @RequestMapping(value = "/workerMedicalClaim", method = RequestMethod.PUT)
+    public Object updateWorkerMedicalClaim(  @RequestParam(name = "sid", required = true, defaultValue = "") String sid,
+                                             @RequestBody WorkerMedicalClaim workerMedicalClaim) {
+
+        UserDto user = null;
+        WorkerMember workerMember = null;
+        if (!StringUtils.isEmpty(sid)) {
+            user = (UserDto) RedisCache.get(sid);
+            if (CheckObjectIsNull.isNull(user)) {
+                return Jsonp.noLoginError("请先登录或重新登录");
+            }
+            workerMember = RedisCache.getObj(UnionUtil.generateUnionSid(user),WorkerMember.class);
+            if (CheckObjectIsNull.isNull(workerMember)) {
+                return Jsonp.noAccreditError("用户未授权工会,请重新授权");
+            }
+        } else {
+            return Jsonp.noLoginError("用户SID不正确,请核对后重试");
+        }
+        workerMedicalClaim.setStatus(1);
+        workerMedicalClaimService.updateWorkerMedicalClaim(workerMedicalClaim);
         return Jsonp.success();
     }
 

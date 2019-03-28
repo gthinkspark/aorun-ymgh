@@ -1,4 +1,4 @@
-package com.aorun.ymgh.util;
+package com.aorun.ymgh.util.biz;
 
 
 import com.aorun.ymgh.controller.login.UserDto;
