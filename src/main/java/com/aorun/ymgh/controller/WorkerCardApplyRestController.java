@@ -2,10 +2,12 @@ package com.aorun.ymgh.controller;
 
 
 import com.aorun.ymgh.controller.login.UserDto;
-import com.aorun.ymgh.model.WorkerMember;
 import com.aorun.ymgh.dto.WorkerCardApplyDto;
 import com.aorun.ymgh.model.WorkerCardApply;
+import com.aorun.ymgh.model.WorkerCardWithBLOBs;
+import com.aorun.ymgh.model.WorkerMember;
 import com.aorun.ymgh.service.WorkerCardApplyService;
+import com.aorun.ymgh.service.WorkerCardService;
 import com.aorun.ymgh.util.CheckObjectIsNull;
 import com.aorun.ymgh.util.biz.ImagePropertiesConfig;
 import com.aorun.ymgh.util.biz.UnionUtil;
@@ -25,6 +27,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
@@ -38,6 +41,9 @@ public class WorkerCardApplyRestController {
 
     @Autowired
     private WorkerCardApplyService workerCardApplyService;
+
+    @Autowired
+    private WorkerCardService workerCardService;
 
 
     //1.申请办卡详情接口
@@ -213,6 +219,43 @@ public class WorkerCardApplyRestController {
              return Jsonp.success();
          }
 
+    }
+
+
+    //1.个人中心---普惠卡详情接口
+    @RequestMapping(value = "/workerCardCenterApply_detail", method = RequestMethod.GET)
+    public Object workerCardCenterApply_detail(@RequestParam(name = "sid", required = true, defaultValue = "") String sid) {
+        UserDto user = null;
+        WorkerMember workerMember = null;
+        if (!StringUtils.isEmpty(sid)) {
+            user = (UserDto) RedisCache.get(sid);
+            if (CheckObjectIsNull.isNull(user)) {
+                return Jsonp.noLoginError("请先登录或重新登录");
+            }
+            workerMember = RedisCache.getObj(UnionUtil.generateUnionSid(user),WorkerMember.class);
+            if (CheckObjectIsNull.isNull(workerMember)) {
+                return Jsonp.noAccreditError("用户未授权工会,请重新授权");
+            }
+        } else {
+            return Jsonp.noLoginError("用户SID不正确,请核对后重试");
+        }
+
+        Long workerId = workerMember.getId();
+        WorkerCardApply workerCardApply = workerCardApplyService.findWorkerCardApplyByWorkerIdAndCardId(workerId,1L);
+
+
+        WorkerCardWithBLOBs workerCard = workerCardService.findWorkerCardWithBLOBsById(1L);
+        HashMap<String,Object> datamap = new HashMap<String,Object>();
+        datamap.put("cardName",workerCard.getName());
+        datamap.put("bannerUrl",ImagePropertiesConfig.CARD_SERVER_PATH+workerCard.getBannerUrl());
+        datamap.put("simpleContent",workerCard.getSimpleContent());
+        datamap.put("cardDetailUrl",workerCard.getFunctionUrl());
+        datamap.put("applyConditionUrl",workerCard.getApplyConditionUrl());
+        datamap.put("serviceConditionUrl",workerCard.getServiceConditionUrl());
+        datamap.put("status",workerCardApply.getStatus());
+        datamap.put("failReason",workerCardApply.getFailReason());
+
+        return Jsonp_data.success(datamap);
     }
 
 

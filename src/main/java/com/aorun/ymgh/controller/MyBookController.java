@@ -1,19 +1,12 @@
 package com.aorun.ymgh.controller;
 
-import com.aorun.ymgh.controller.login.UserDto;
-import com.aorun.ymgh.controller.login.WorkerMember;
-import com.aorun.ymgh.model.Message;
-import com.aorun.ymgh.util.CheckObjectIsNull;
-import com.aorun.ymgh.util.PageConstant;
-import com.aorun.ymgh.util.biz.UnionUtil;
-import com.aorun.ymgh.util.cache.redis.RedisCache;
-import com.aorun.ymgh.util.jsonp.Jsonp;
 import com.aorun.ymgh.util.jsonp.Jsonp_data;
-import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**

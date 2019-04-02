@@ -1,19 +1,20 @@
 package com.aorun.ymgh.dao;
 
 import com.aorun.ymgh.model.WorkerCard;
+import com.aorun.ymgh.model.WorkerCardWithBLOBs;
 
 public interface WorkerCardMapper {
     int deleteByPrimaryKey(Long id);
 
-    int insert(WorkerCard record);
+    int insert(WorkerCardWithBLOBs record);
 
-    int insertSelective(WorkerCard record);
+    int insertSelective(WorkerCardWithBLOBs record);
 
-    WorkerCard selectByPrimaryKey(Long id);
+    WorkerCardWithBLOBs selectByPrimaryKey(Long id);
 
-    int updateByPrimaryKeySelective(WorkerCard record);
+    int updateByPrimaryKeySelective(WorkerCardWithBLOBs record);
 
-    int updateByPrimaryKeyWithBLOBs(WorkerCard record);
+    int updateByPrimaryKeyWithBLOBs(WorkerCardWithBLOBs record);
 
     int updateByPrimaryKey(WorkerCard record);
 }

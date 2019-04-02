@@ -1,4 +1,4 @@
-package com.aorun.ymgh.controller;
+package com.aorun.ymgh.controller.test;
 
 
 import com.aorun.ymgh.model.City;
