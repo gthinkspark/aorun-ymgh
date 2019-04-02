@@ -2,7 +2,7 @@ package com.aorun.ymgh.controller;
 
 
 import com.aorun.ymgh.controller.login.UserDto;
-import com.aorun.ymgh.controller.login.WorkerMember;
+import com.aorun.ymgh.model.WorkerMember;
 import com.aorun.ymgh.dto.WorkerAttorneyDto;
 import com.aorun.ymgh.model.WorkerAttorney;
 import com.aorun.ymgh.service.WorkerAttorneyService;
@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ *律师信息
  * Created by bysocket on 07/02/2017.
  */
 @RequestMapping("/worker")
@@ -106,5 +106,7 @@ public class WorkerAttorneyRestController {
         workerAttorneyService.saveWorkerAttorney(workerAttorney);
         return Jsonp.success();
     }
+
+
 
 }

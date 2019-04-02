@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 
 /**
- *
+ *  商家推荐
  * Created by bysocket on 07/02/2017.
  */
 @RequestMapping("/worker")

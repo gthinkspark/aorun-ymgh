@@ -2,8 +2,8 @@ package com.aorun.ymgh.controller;
 
 
 import com.aorun.ymgh.controller.login.UserDto;
-import com.aorun.ymgh.controller.login.WorkerMember;
 import com.aorun.ymgh.dto.WorkerSchoolClaimDto;
+import com.aorun.ymgh.model.WorkerMember;
 import com.aorun.ymgh.model.WorkerSchoolClaim;
 import com.aorun.ymgh.service.WorkerSchoolClaimService;
 import com.aorun.ymgh.util.CheckObjectIsNull;
@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ *助学救助
  * Created by bysocket on 07/02/2017.
  */
 @RequestMapping("/worker")
@@ -49,7 +49,7 @@ public class WorkerSchoolClaimRestController {
                 if (CheckObjectIsNull.isNull(user)) {
                     return Jsonp.noLoginError("请先登录或重新登录");
                 }
-                workerMember = RedisCache.getObj(UnionUtil.generateUnionSid(user),WorkerMember.class);
+                workerMember = RedisCache.getObj(UnionUtil.generateUnionSid(user), WorkerMember.class);
                 if (CheckObjectIsNull.isNull(workerMember)) {
                     return Jsonp.noAccreditError("用户未授权工会,请重新授权");
                 }

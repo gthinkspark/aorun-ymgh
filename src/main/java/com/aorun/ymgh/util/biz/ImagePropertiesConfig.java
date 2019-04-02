@@ -51,4 +51,30 @@ public class ImagePropertiesConfig {
 	public static final String COMPANY_RECOMMEND_SERVER_PATH = CDN_SERVER_ROOT_PATH +  File.separator + "worker"+  File.separator  + "card"+  File.separator ;
 
 
+
+	/** 申请理赔-图片 服务器存放位置 */
+	public static final String APPLY_CLAIM_PATH = FILE_PATH + File.separator + "worker" +  File.separator  + "applyclaim"+  File.separator ;
+	/** 申请理赔-图片--web服务路径 */
+	public static final String APPLY_CLAIM_SERVER_PATH = CDN_SERVER_ROOT_PATH +  File.separator + "worker"+  File.separator  + "applyclaim"+  File.separator ;
+
+
+
+	/** 申请理赔-图片 服务器存放位置 */
+	public static final String ADVISORY_PATH = FILE_PATH + File.separator + "worker" +  File.separator  + "advisory"+  File.separator ;
+	/** 申请理赔-图片--web服务路径 */
+	public static final String ADVISORY_SERVER_PATH = CDN_SERVER_ROOT_PATH +  File.separator + "worker"+  File.separator  + "advisory"+  File.separator ;
+
+
+
+
+
+	/** 工会会员头像-图片--web服务路径 */
+	public static final String WORKERMEMBER_SERVER_PATH = CDN_SERVER_ROOT_PATH +  File.separator + "worker"+  File.separator  + "workermember"+  File.separator ;
+
+
+	/** 律师头像-图片--web服务路径 */
+	public static final String WORKERATTORNEY_SERVER_PATH = CDN_SERVER_ROOT_PATH +  File.separator + "worker"+  File.separator  + "workerattorney"+  File.separator ;
+
+
+
 }

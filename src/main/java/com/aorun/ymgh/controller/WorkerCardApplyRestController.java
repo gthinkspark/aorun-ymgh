@@ -2,7 +2,7 @@ package com.aorun.ymgh.controller;
 
 
 import com.aorun.ymgh.controller.login.UserDto;
-import com.aorun.ymgh.controller.login.WorkerMember;
+import com.aorun.ymgh.model.WorkerMember;
 import com.aorun.ymgh.dto.WorkerCardApplyDto;
 import com.aorun.ymgh.model.WorkerCardApply;
 import com.aorun.ymgh.service.WorkerCardApplyService;
@@ -29,7 +29,7 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- *
+ *申请办卡
  * Created by bysocket on 07/02/2017.
  */
 @RequestMapping("/worker")
@@ -65,15 +65,15 @@ public class WorkerCardApplyRestController {
         BeanUtils.copyProperties(workerCardApply,workerCardApplyDto);
 
 
-//        StringBuffer idCardUrlsList = new StringBuffer("");
-//        String idCardUrls =  workerCardApply.getIdCardUrls();
-//        if(idCardUrls!=null&&!idCardUrls.equals("")){
-//            String _idCardUrls[] = idCardUrls.split(",");
-//            for(String idCardUrl:_idCardUrls){
-//                idCardUrlsList.append(ImagePropertiesConfig.APPLY_CARD_SERVER_PATH+idCardUrl).append(",");
-//            }
-//        }
-//        workerCardApplyDto.setIdCardUrls(idCardUrlsList.toString());
+        StringBuffer idCardUrlsList = new StringBuffer("");
+        String idCardUrls =  workerCardApply.getIdCardUrls();
+        if(idCardUrls!=null&&!idCardUrls.equals("")){
+            String _idCardUrls[] = idCardUrls.split(",");
+            for(String idCardUrl:_idCardUrls){
+                idCardUrlsList.append(ImagePropertiesConfig.APPLY_CARD_SERVER_PATH+idCardUrl).append(",");
+            }
+        }
+        workerCardApplyDto.setIdCardUrls(idCardUrlsList.toString());
         return Jsonp_data.success(workerCardApplyDto);
     }
 
@@ -201,7 +201,7 @@ public class WorkerCardApplyRestController {
                      String fileName  = uuid+suffixName;
                      Path path = Paths.get(ImagePropertiesConfig.APPLY_CARD_PATH + fileName);
                      Files.write(path, bytes);
-                     idCardUrls.append(ImagePropertiesConfig.APPLY_CARD_SERVER_PATH+fileName).append(",");
+                     idCardUrls.append(fileName).append(",");
                  }
                  workerCardApply.setIdCardUrls(idCardUrls.toString());
 

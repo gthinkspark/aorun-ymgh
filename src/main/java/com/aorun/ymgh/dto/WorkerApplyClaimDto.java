@@ -1,11 +1,7 @@
-package com.aorun.ymgh.model;
+package com.aorun.ymgh.dto;
 
-import java.util.Date;
-
-public class WorkerApplyClaim {
+public class WorkerApplyClaimDto {
     private Long id;
-
-    private Long workerId;
 
     private String name;
 
@@ -27,9 +23,9 @@ public class WorkerApplyClaim {
 
     private String hospitalName;
 
-    private Date beginTime;
+    private String beginTime;
 
-    private Date endTime;
+    private String endTime;
 
     private String explainUrl;
 
@@ -39,9 +35,8 @@ public class WorkerApplyClaim {
 
     private String failReason;
 
-    private Date createTime;
+    private String createTime;
 
-    private Date updateTime;
 
     public Long getId() {
         return id;
@@ -51,20 +46,12 @@ public class WorkerApplyClaim {
         this.id = id;
     }
 
-    public Long getWorkerId() {
-        return workerId;
-    }
-
-    public void setWorkerId(Long workerId) {
-        this.workerId = workerId;
-    }
-
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
-        this.name = name == null ? null : name.trim();
+        this.name = name;
     }
 
     public String getTelephone() {
@@ -72,7 +59,7 @@ public class WorkerApplyClaim {
     }
 
     public void setTelephone(String telephone) {
-        this.telephone = telephone == null ? null : telephone.trim();
+        this.telephone = telephone;
     }
 
     public String getIdCard() {
@@ -80,7 +67,7 @@ public class WorkerApplyClaim {
     }
 
     public void setIdCard(String idCard) {
-        this.idCard = idCard == null ? null : idCard.trim();
+        this.idCard = idCard;
     }
 
     public String getCompanyName() {
@@ -88,7 +75,7 @@ public class WorkerApplyClaim {
     }
 
     public void setCompanyName(String companyName) {
-        this.companyName = companyName == null ? null : companyName.trim();
+        this.companyName = companyName;
     }
 
     public String getPlanType() {
@@ -96,7 +83,7 @@ public class WorkerApplyClaim {
     }
 
     public void setPlanType(String planType) {
-        this.planType = planType == null ? null : planType.trim();
+        this.planType = planType;
     }
 
     public String getBankName() {
@@ -104,7 +91,7 @@ public class WorkerApplyClaim {
     }
 
     public void setBankName(String bankName) {
-        this.bankName = bankName == null ? null : bankName.trim();
+        this.bankName = bankName;
     }
 
     public String getCardNumber() {
@@ -112,7 +99,7 @@ public class WorkerApplyClaim {
     }
 
     public void setCardNumber(String cardNumber) {
-        this.cardNumber = cardNumber == null ? null : cardNumber.trim();
+        this.cardNumber = cardNumber;
     }
 
     public String getAgencyName() {
@@ -120,7 +107,7 @@ public class WorkerApplyClaim {
     }
 
     public void setAgencyName(String agencyName) {
-        this.agencyName = agencyName == null ? null : agencyName.trim();
+        this.agencyName = agencyName;
     }
 
     public String getUseTelephone() {
@@ -128,7 +115,7 @@ public class WorkerApplyClaim {
     }
 
     public void setUseTelephone(String useTelephone) {
-        this.useTelephone = useTelephone == null ? null : useTelephone.trim();
+        this.useTelephone = useTelephone;
     }
 
     public String getHospitalName() {
@@ -136,22 +123,22 @@ public class WorkerApplyClaim {
     }
 
     public void setHospitalName(String hospitalName) {
-        this.hospitalName = hospitalName == null ? null : hospitalName.trim();
+        this.hospitalName = hospitalName;
     }
 
-    public Date getBeginTime() {
+    public String getBeginTime() {
         return beginTime;
     }
 
-    public void setBeginTime(Date beginTime) {
+    public void setBeginTime(String beginTime) {
         this.beginTime = beginTime;
     }
 
-    public Date getEndTime() {
+    public String getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Date endTime) {
+    public void setEndTime(String endTime) {
         this.endTime = endTime;
     }
 
@@ -160,7 +147,7 @@ public class WorkerApplyClaim {
     }
 
     public void setExplainUrl(String explainUrl) {
-        this.explainUrl = explainUrl == null ? null : explainUrl.trim();
+        this.explainUrl = explainUrl;
     }
 
     public Integer getStatus() {
@@ -176,7 +163,7 @@ public class WorkerApplyClaim {
     }
 
     public void setExplainImgUrls(String explainImgUrls) {
-        this.explainImgUrls = explainImgUrls == null ? null : explainImgUrls.trim();
+        this.explainImgUrls = explainImgUrls;
     }
 
     public String getFailReason() {
@@ -184,22 +171,15 @@ public class WorkerApplyClaim {
     }
 
     public void setFailReason(String failReason) {
-        this.failReason = failReason == null ? null : failReason.trim();
+        this.failReason = failReason;
     }
 
-    public Date getCreateTime() {
+    public String getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Date createTime) {
+    public void setCreateTime(String createTime) {
         this.createTime = createTime;
     }
 
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
 }

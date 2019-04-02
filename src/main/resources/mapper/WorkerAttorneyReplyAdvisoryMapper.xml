@@ -29,7 +29,7 @@
       reply_time)
     values (#{id,jdbcType=BIGINT}, #{workerId,jdbcType=BIGINT}, #{attorneyId,jdbcType=BIGINT}, 
       #{advisoryId,jdbcType=BIGINT}, #{replyContent,jdbcType=VARCHAR}, #{replyType,jdbcType=INTEGER}, 
-      #{replyTime,jdbcType=TIMESTAMP})
+      now())
   </insert>
   <insert id="insertSelective" parameterType="com.aorun.ymgh.model.WorkerAttorneyReplyAdvisory">
     insert into t_worker_attorney_reply_advisory
@@ -114,4 +114,20 @@
       reply_time = #{replyTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}
   </update>
+
+
+  <select id="getWorkerAttorneyReplyAdvisoryListByWorkerId" resultMap="BaseResultMap" >
+  select
+  <include refid="Base_Column_List" />
+  from t_worker_attorney_reply_advisory
+  where worker_id = #{workerId}  and advisory_id = #{advisoryId}
+  <if test="requestTimePoint != null" >
+    <![CDATA[
+			and    reply_time > #{requestTimePoint}
+				]]>
+  </if>
+  order by reply_time desc
+</select>
+
+
 </mapper>
