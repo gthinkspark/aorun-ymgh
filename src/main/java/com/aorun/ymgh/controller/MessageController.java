@@ -103,7 +103,14 @@ public class MessageController {
         params.put("statu",MESSAGE_STATU_ISDEL_NO);
         params.put("start",0);
         params.put("limit",1);
+        /*系统通知*/
+        Map<String,Object> sysMessageMap = new HashMap<>();
         List<Message> sysMessageList = messageService.findByMap(params);
+        sysMessageMap.put("name","系统通知");
+        sysMessageMap.put("icon","http://mov.91catv.com/img/userfiles//images/news/defIcon/def.png");
+        sysMessageMap.put("sysMessageList",sysMessageList);
+        Map<String,Object> unionMessageMap = new HashMap<>();
+        Map<String,Object> calimMessageMap = new HashMap<>();
         List<Message> unionMessageList = new ArrayList<>();
         List<Message> claimMessageList = new ArrayList<>();
         if(null!=user){
@@ -113,10 +120,17 @@ public class MessageController {
             params.put("type",MESSAGE_TYPE_CLAIM);
             claimMessageList = messageService.findByMap(params);
         }
-
-        resultMap.put("sysMessageList",sysMessageList);
-        resultMap.put("unionMessageList",unionMessageList);
-        resultMap.put("claimMessageList",claimMessageList);
+        /*工会通知*/
+        unionMessageMap.put("unionMessageList",unionMessageList);
+        unionMessageMap.put("name","工会通知");
+        unionMessageMap.put("icon","http://mov.91catv.com/img/userfiles//images/news/defIcon/def.png");
+        /*理赔通知*/
+        calimMessageMap.put("claimMessageList",claimMessageList);
+        calimMessageMap.put("name","理赔通知");
+        calimMessageMap.put("icon","http://mov.91catv.com/img/userfiles//images/news/defIcon/def.png");
+        resultMap.put("sysMessage",sysMessageMap);
+        resultMap.put("unionMessage",unionMessageMap);
+        resultMap.put("claimMessage",calimMessageMap);
         return Jsonp_data.success(resultMap);
     }
 
