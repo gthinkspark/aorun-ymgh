@@ -1,10 +1,8 @@
 package com.aorun.ymgh.controller;
 
 import com.aorun.ymgh.controller.login.UserDto;
-import com.aorun.ymgh.controller.login.WorkerMember;
-import com.aorun.ymgh.dto.WorkerAttorneyDto;
 import com.aorun.ymgh.model.Message;
-import com.aorun.ymgh.model.WorkerAttorney;
+import com.aorun.ymgh.model.WorkerMember;
 import com.aorun.ymgh.service.MessageService;
 import com.aorun.ymgh.util.CheckObjectIsNull;
 import com.aorun.ymgh.util.PageConstant;
@@ -12,12 +10,10 @@ import com.aorun.ymgh.util.biz.UnionUtil;
 import com.aorun.ymgh.util.cache.redis.RedisCache;
 import com.aorun.ymgh.util.jsonp.Jsonp;
 import com.aorun.ymgh.util.jsonp.Jsonp_data;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

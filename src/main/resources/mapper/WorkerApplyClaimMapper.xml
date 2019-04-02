@@ -8,7 +8,7 @@
     <result column="telephone" jdbcType="VARCHAR" property="telephone" />
     <result column="id_card" jdbcType="VARCHAR" property="idCard" />
     <result column="company_name" jdbcType="VARCHAR" property="companyName" />
-    <result column="plan_type" jdbcType="INTEGER" property="planType" />
+    <result column="plan_type" jdbcType="VARCHAR" property="planType" />
     <result column="bank_name" jdbcType="VARCHAR" property="bankName" />
     <result column="card_number" jdbcType="VARCHAR" property="cardNumber" />
     <result column="agency_name" jdbcType="VARCHAR" property="agencyName" />
@@ -18,6 +18,7 @@
     <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
     <result column="explain_url" jdbcType="VARCHAR" property="explainUrl" />
     <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="explain_img_urls" jdbcType="VARCHAR" property="explainImgUrls" />
     <result column="fail_reason" jdbcType="VARCHAR" property="failReason" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
@@ -25,7 +26,7 @@
   <sql id="Base_Column_List">
     id, worker_id, name, telephone, id_card, company_name, plan_type, bank_name, card_number, 
     agency_name, use_telephone, hospital_name, begin_time, end_time, explain_url, status, 
-    fail_reason, create_time, update_time
+    explain_img_urls, fail_reason, create_time, update_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
@@ -43,15 +44,15 @@
       plan_type, bank_name, card_number, 
       agency_name, use_telephone, hospital_name, 
       begin_time, end_time, explain_url, 
-      status, fail_reason, create_time, 
-      update_time)
+      status, explain_img_urls, fail_reason, 
+      create_time, update_time)
     values (#{id,jdbcType=BIGINT}, #{workerId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, 
       #{telephone,jdbcType=VARCHAR}, #{idCard,jdbcType=VARCHAR}, #{companyName,jdbcType=VARCHAR}, 
-      #{planType,jdbcType=INTEGER}, #{bankName,jdbcType=VARCHAR}, #{cardNumber,jdbcType=VARCHAR}, 
+      #{planType,jdbcType=VARCHAR}, #{bankName,jdbcType=VARCHAR}, #{cardNumber,jdbcType=VARCHAR}, 
       #{agencyName,jdbcType=VARCHAR}, #{useTelephone,jdbcType=VARCHAR}, #{hospitalName,jdbcType=VARCHAR}, 
       #{beginTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, #{explainUrl,jdbcType=VARCHAR}, 
-      #{status,jdbcType=INTEGER}, #{failReason,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{updateTime,jdbcType=TIMESTAMP})
+      1, #{explainImgUrls,jdbcType=VARCHAR}, #{failReason,jdbcType=VARCHAR},
+      now(),now())
   </insert>
   <insert id="insertSelective" parameterType="com.aorun.ymgh.model.WorkerApplyClaim">
     insert into t_worker_apply_claim
@@ -104,6 +105,9 @@
       <if test="status != null">
         status,
       </if>
+      <if test="explainImgUrls != null">
+        explain_img_urls,
+      </if>
       <if test="failReason != null">
         fail_reason,
       </if>
@@ -134,7 +138,7 @@
         #{companyName,jdbcType=VARCHAR},
       </if>
       <if test="planType != null">
-        #{planType,jdbcType=INTEGER},
+        #{planType,jdbcType=VARCHAR},
       </if>
       <if test="bankName != null">
         #{bankName,jdbcType=VARCHAR},
@@ -162,6 +166,9 @@
       </if>
       <if test="status != null">
         #{status,jdbcType=INTEGER},
+      </if>
+      <if test="explainImgUrls != null">
+        #{explainImgUrls,jdbcType=VARCHAR},
       </if>
       <if test="failReason != null">
         #{failReason,jdbcType=VARCHAR},
@@ -193,7 +200,7 @@
         company_name = #{companyName,jdbcType=VARCHAR},
       </if>
       <if test="planType != null">
-        plan_type = #{planType,jdbcType=INTEGER},
+        plan_type = #{planType,jdbcType=VARCHAR},
       </if>
       <if test="bankName != null">
         bank_name = #{bankName,jdbcType=VARCHAR},
@@ -222,16 +229,14 @@
       <if test="status != null">
         status = #{status,jdbcType=INTEGER},
       </if>
+      <if test="explainImgUrls != null">
+        explain_img_urls = #{explainImgUrls,jdbcType=VARCHAR},
+      </if>
       <if test="failReason != null">
         fail_reason = #{failReason,jdbcType=VARCHAR},
       </if>
-      <if test="createTime != null">
-        create_time = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null">
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
-      </if>
     </set>
+    ,update_time = now()
     where id = #{id,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.aorun.ymgh.model.WorkerApplyClaim">
@@ -241,7 +246,7 @@
       telephone = #{telephone,jdbcType=VARCHAR},
       id_card = #{idCard,jdbcType=VARCHAR},
       company_name = #{companyName,jdbcType=VARCHAR},
-      plan_type = #{planType,jdbcType=INTEGER},
+      plan_type = #{planType,jdbcType=VARCHAR},
       bank_name = #{bankName,jdbcType=VARCHAR},
       card_number = #{cardNumber,jdbcType=VARCHAR},
       agency_name = #{agencyName,jdbcType=VARCHAR},
@@ -251,9 +256,21 @@
       end_time = #{endTime,jdbcType=TIMESTAMP},
       explain_url = #{explainUrl,jdbcType=VARCHAR},
       status = #{status,jdbcType=INTEGER},
+      explain_img_urls = #{explainImgUrls,jdbcType=VARCHAR},
       fail_reason = #{failReason,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}
   </update>
+
+  <select id="getWorkerApplyClaimListByWorkerId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_worker_apply_claim
+    where worker_id = #{workerId}
+    <if test="start!=null and limit!=null ">
+      limit #{start},#{limit}
+    </if>
+  </select>
+
 </mapper>

@@ -2,7 +2,7 @@ package com.aorun.ymgh.controller;
 
 
 import com.aorun.ymgh.controller.login.UserDto;
-import com.aorun.ymgh.controller.login.WorkerMember;
+import com.aorun.ymgh.model.WorkerMember;
 import com.aorun.ymgh.dto.WorkerTempClaimDto;
 import com.aorun.ymgh.model.WorkerTempClaim;
 import com.aorun.ymgh.service.WorkerTempClaimService;
@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ *临时救助
  * Created by bysocket on 07/02/2017.
  */
 @RequestMapping("/worker")

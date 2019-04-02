@@ -1,4 +1,4 @@
-package com.aorun.ymgh.controller.login;
+package com.aorun.ymgh.model;
 
 import java.util.Date;
 

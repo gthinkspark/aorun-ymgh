@@ -2,7 +2,7 @@ package com.aorun.ymgh.controller;
 
 
 import com.aorun.ymgh.controller.login.UserDto;
-import com.aorun.ymgh.controller.login.WorkerMember;
+import com.aorun.ymgh.model.WorkerMember;
 import com.aorun.ymgh.dto.WorkerMedicalClaimDto;
 import com.aorun.ymgh.model.WorkerMedicalClaim;
 import com.aorun.ymgh.service.WorkerMedicalClaimService;
@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ *医疗援助
  * Created by bysocket on 07/02/2017.
  */
 @RequestMapping("/worker")

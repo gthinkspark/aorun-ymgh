@@ -2,7 +2,7 @@ package com.aorun.ymgh.controller;
 
 
 import com.aorun.ymgh.controller.login.UserDto;
-import com.aorun.ymgh.controller.login.WorkerMember;
+import com.aorun.ymgh.model.WorkerMember;
 import com.aorun.ymgh.dto.WorkerCompanyRecommendDto;
 import com.aorun.ymgh.model.WorkerCard;
 import com.aorun.ymgh.model.WorkerCardApply;

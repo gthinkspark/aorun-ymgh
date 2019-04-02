@@ -44,14 +44,8 @@ public class WorkerAttorneyReplyAdvisoryServiceImpl implements WorkerAttorneyRep
     }
 
     @Override
-    public List<WorkerAttorneyReplyAdvisory> getWorkerAttorneyReplyAdvisoryListByWorkerId(Long workerId, Integer pageIndex, Integer pageSize) {
-        ///** 启始页-位置 */
-        Integer start = (pageIndex - 1) * pageSize;
-        /** 每页大小  */
-        Integer limit = pageSize;
-        //return workerAttorneyReplyAdvisoryMapper.getWorkerAttorneyReplyAdvisoryListByWorkerId(workerId,start,limit);
-        return null;
-
+    public List<WorkerAttorneyReplyAdvisory> getWorkerAttorneyReplyAdvisoryListByWorkerId(Long workerId,  Long advisoryId,String requestTimePoint) {
+        return workerAttorneyReplyAdvisoryMapper.getWorkerAttorneyReplyAdvisoryListByWorkerId(workerId,advisoryId,requestTimePoint);
     }
 
 }
