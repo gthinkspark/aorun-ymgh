@@ -11,6 +11,12 @@ public class WorkerCard {
 
     private String simpleContent;
 
+    private String functionUrl;
+
+    private String applyConditionUrl;
+
+    private String serviceConditionUrl;
+
     private Date beginTime;
 
     private Date endTime;
@@ -18,8 +24,6 @@ public class WorkerCard {
     private Date createTime;
 
     private Date updateTime;
-
-    private String detailContent;
 
     public Long getId() {
         return id;
@@ -53,6 +57,30 @@ public class WorkerCard {
         this.simpleContent = simpleContent == null ? null : simpleContent.trim();
     }
 
+    public String getFunctionUrl() {
+        return functionUrl;
+    }
+
+    public void setFunctionUrl(String functionUrl) {
+        this.functionUrl = functionUrl == null ? null : functionUrl.trim();
+    }
+
+    public String getApplyConditionUrl() {
+        return applyConditionUrl;
+    }
+
+    public void setApplyConditionUrl(String applyConditionUrl) {
+        this.applyConditionUrl = applyConditionUrl == null ? null : applyConditionUrl.trim();
+    }
+
+    public String getServiceConditionUrl() {
+        return serviceConditionUrl;
+    }
+
+    public void setServiceConditionUrl(String serviceConditionUrl) {
+        this.serviceConditionUrl = serviceConditionUrl == null ? null : serviceConditionUrl.trim();
+    }
+
     public Date getBeginTime() {
         return beginTime;
     }
@@ -83,13 +111,5 @@ public class WorkerCard {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
-    }
-
-    public String getDetailContent() {
-        return detailContent;
-    }
-
-    public void setDetailContent(String detailContent) {
-        this.detailContent = detailContent == null ? null : detailContent.trim();
     }
 }

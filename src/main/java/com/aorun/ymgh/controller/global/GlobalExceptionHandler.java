@@ -1,4 +1,4 @@
-package com.aorun.ymgh.controller;
+package com.aorun.ymgh.controller.global;
 
 import com.aorun.ymgh.util.jsonp.Jsonp;
 import org.springframework.web.bind.annotation.ControllerAdvice;

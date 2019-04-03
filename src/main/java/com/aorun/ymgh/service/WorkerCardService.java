@@ -1,7 +1,7 @@
 package com.aorun.ymgh.service;
 
 
-import com.aorun.ymgh.model.WorkerCard;
+import com.aorun.ymgh.model.WorkerCardWithBLOBs;
 
 /**
  * 工会卡表-业务逻辑接口类
@@ -15,23 +15,23 @@ public interface WorkerCardService {
      * @param id
      * @return
      */
-    WorkerCard findWorkerCardById(Long id);
+    WorkerCardWithBLOBs findWorkerCardWithBLOBsById(Long id);
 
     /**
      * 新增信息
      *
-     * @param workerCard
+     * @param workerCardWithBLOBs
      * @return
      */
-    int saveWorkerCard(WorkerCard workerCard);
+    int saveWorkerCardWithBLOBs(WorkerCardWithBLOBs workerCardWithBLOBs);
 
     /**
      * 更新信息
      *
-     * @param workerCard
+     * @param workerCardWithBLOBs
      * @return
      */
-    int updateWorkerCard(WorkerCard workerCard);
+    int updateWorkerCardWithBLOBs(WorkerCardWithBLOBs workerCardWithBLOBs);
 
     /**
      * 根据 ID,删除信息
@@ -39,9 +39,9 @@ public interface WorkerCardService {
      * @param id
      * @return
      */
-    int deleteWorkerCard(Long id);
+    int deleteWorkerCardWithBLOBs(Long id);
 
 
-    //List<WorkerCard> getWorkerCardListByWorkerId(Long workerId, Integer pageIndex, Integer pageSize);
+    //List<WorkerCardWithBLOBs> getWorkerCardWithBLOBsListByWorkerId(Long workerId, Integer pageIndex, Integer pageSize);
 
 }

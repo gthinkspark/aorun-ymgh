@@ -1,6 +1,7 @@
 package com.aorun.ymgh.controller;
 
 import com.aorun.ymgh.controller.login.UserDto;
+import com.aorun.ymgh.controller.login.WorkerMember;
 import com.aorun.ymgh.model.Message;
 import com.aorun.ymgh.util.CheckObjectIsNull;
 import com.aorun.ymgh.util.PageConstant;

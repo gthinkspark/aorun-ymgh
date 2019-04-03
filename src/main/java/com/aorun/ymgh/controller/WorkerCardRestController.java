@@ -2,15 +2,14 @@ package com.aorun.ymgh.controller;
 
 
 import com.aorun.ymgh.controller.login.UserDto;
-import com.aorun.ymgh.model.WorkerMember;
 import com.aorun.ymgh.dto.WorkerCompanyRecommendDto;
-import com.aorun.ymgh.model.WorkerCard;
-import com.aorun.ymgh.model.WorkerCardApply;
-import com.aorun.ymgh.model.WorkerCompanyRecommend;
+import com.aorun.ymgh.model.*;
 import com.aorun.ymgh.service.WorkerCardApplyService;
 import com.aorun.ymgh.service.WorkerCardService;
 import com.aorun.ymgh.service.WorkerCompanyRecommendService;
-import com.aorun.ymgh.util.*;
+import com.aorun.ymgh.util.CheckObjectIsNull;
+import com.aorun.ymgh.util.DateFormat;
+import com.aorun.ymgh.util.PageConstant;
 import com.aorun.ymgh.util.biz.ImagePropertiesConfig;
 import com.aorun.ymgh.util.biz.UnionUtil;
 import com.aorun.ymgh.util.cache.redis.RedisCache;
@@ -71,7 +70,7 @@ public class WorkerCardRestController {
             }
             Long workerId = workerMember.getId();
             //1.卡片详情
-            WorkerCard workerCard = workerCardService.findWorkerCardById(1L);
+            WorkerCardWithBLOBs workerCard = workerCardService.findWorkerCardWithBLOBsById(1L);
             HashMap<String,Object> datamap = new HashMap<String,Object>();
             datamap.put("cardName",workerCard.getName());
             datamap.put("bannerUrl", ImagePropertiesConfig.CARD_SERVER_PATH+workerCard.getBannerUrl());
@@ -105,16 +104,16 @@ public class WorkerCardRestController {
     //2.卡片详情接口
     @RequestMapping(value = "/workerCard", method = RequestMethod.GET)
     public Object findOneWorkerLiveClaim() {
-        WorkerCard workerCard = workerCardService.findWorkerCardById(1L);
+        WorkerCardWithBLOBs workerCard = workerCardService.findWorkerCardWithBLOBsById(1L);
         HashMap<String,Object> datamap = new HashMap<String,Object>();
         datamap.put("cardName",workerCard.getName());
         datamap.put("bannerUrl",ImagePropertiesConfig.CARD_SERVER_PATH+workerCard.getBannerUrl());
         datamap.put("simpleContent",workerCard.getSimpleContent());
-        //TODO:待完善连接：
-        datamap.put("cardDetailUrl","http://60.165.161.145:8085/shop/2/ybj.html");
-
+        //datamap.put("cardDetailUrl","http://60.165.161.145:8085/shop/2/ybj.html");
+        datamap.put("cardDetailUrl",workerCard.getFunctionUrl());
         return Jsonp_data.success(datamap);
     }
+
 
 
 
