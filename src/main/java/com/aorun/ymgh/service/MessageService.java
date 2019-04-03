@@ -21,4 +21,6 @@ public interface MessageService{
     public void update(Message message) throws DataAccessException;
 
     public Message findById(Long id) throws DataAccessException;
+
+    public int getTotalByMap(Map<String, Object> map);
 }
