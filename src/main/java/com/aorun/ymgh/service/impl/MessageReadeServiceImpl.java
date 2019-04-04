@@ -1,17 +1,14 @@
 package com.aorun.ymgh.service.impl;
 
-import java.beans.IntrospectionException;
-import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
 import com.aorun.ymgh.dao.MessageReadeMapper;
-import com.aorun.ymgh.model.Message;
 import com.aorun.ymgh.model.MessageReade;
+import com.aorun.ymgh.service.MessageReadeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -20,7 +17,7 @@ import org.springframework.stereotype.Service;
  * 类说明:
  */
 @Service("messageReadeService")
-public class MessageReadeServiceImpl {
+public class MessageReadeServiceImpl implements MessageReadeService {
 	@Autowired
 	private MessageReadeMapper messageReadeMapper;
 
