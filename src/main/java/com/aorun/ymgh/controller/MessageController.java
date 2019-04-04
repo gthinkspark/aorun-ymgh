@@ -4,11 +4,11 @@ import com.aorun.ymgh.controller.login.UserDto;
 import com.aorun.ymgh.dto.MessageDto;
 import com.aorun.ymgh.model.Message;
 import com.aorun.ymgh.model.MessageReade;
-import com.aorun.ymgh.model.WorkerMedicalClaim;
 import com.aorun.ymgh.model.WorkerMember;
 import com.aorun.ymgh.service.MessageReadeService;
 import com.aorun.ymgh.service.MessageService;
 import com.aorun.ymgh.util.CheckObjectIsNull;
+import com.aorun.ymgh.util.MessageUtil;
 import com.aorun.ymgh.util.PageConstant;
 import com.aorun.ymgh.util.biz.UnionUtil;
 import com.aorun.ymgh.util.cache.redis.RedisCache;
@@ -34,17 +34,7 @@ public class MessageController {
     @Autowired
     private MessageReadeService messageReadeService;
 
-    private final Integer MESSAGE_STATU_ISDEL_NO=1;
-    private final Integer MESSAGE_STATU_ISDEL_OK=0;
 
-    private final Integer MESSAGE_CHECK_OK=1;
-    private final Integer MESSAGE_CHECK_NO=0;
-
-    private final Integer MESSAGE_READE_OK=1;
-
-    private final Integer MESSAGE_TYPE_SYS=1;
-    private final Integer MESSAGE_TYPE_UNION=2;
-    private final Integer MESSAGE_TYPE_CLAIM=3;
 
     //1.列表接口----分页查询
     @RequestMapping(value = "/messageList/{type}", method = RequestMethod.GET)
@@ -70,34 +60,20 @@ public class MessageController {
         }
         Map<String,Object> resultMap = new HashMap<>();
         Map<String,Object> params = new HashMap<String,Object>();
-        params.put("checkup",MESSAGE_CHECK_OK);
-        params.put("statu",MESSAGE_STATU_ISDEL_NO);
+        params.put("checkup", MessageUtil.MESSAGE_CHECK_OK);
+        params.put("statu", MessageUtil.MESSAGE_STATU_ISDEL_NO);
         params.put("start",(pageIndex-1)*pageSize);
         params.put("limit",pageIndex*pageSize);
         params.put("type",type);
-        if(type!=MESSAGE_TYPE_SYS){
+        if(type!= MessageUtil.MESSAGE_TYPE_SYS){
             params.put("memberId",user.getMemberId());
         }
         List<Message> messageList = messageService.findByMap(params);
-        List<MessageDto> messageDtoList = MessageDto.transToDtoList(messageList);
+        List<MessageDto> messageDtoList = MessageUtil.setMessageReade(user, messageList,messageReadeService);
         //todo:将是否已读标记存入缓存
-        setMessageReade(user, messageDtoList);
         resultMap.put("messageList", messageDtoList);
         return Jsonp_data.success(resultMap);
     }
-
-    private void setMessageReade(UserDto user, List<MessageDto> messageDtoList) {
-        Map<String, Object> readMap = new HashMap<String, Object>();
-        readMap.put("memberId", user.getMemberId());
-        for (MessageDto messageDto : messageDtoList) {
-            readMap.put("messageId", messageDto.getMemberId());
-            List<MessageReade> messageReadeList = messageReadeService.findByMap(readMap);
-            if (null != messageReadeList && messageReadeList.size() > 0) {
-                messageDto.setIsReade(MESSAGE_READE_OK);
-            }
-        }
-    }
-
     //2.消息首页接口----分页查询
     @RequestMapping(value = "/messageHomeList", method = RequestMethod.GET)
     public Object messageHomeList(
@@ -119,9 +95,9 @@ public class MessageController {
         }
         Map<String,Object> resultMap = new HashMap<>();
         Map<String,Object> params = new HashMap<String,Object>();
-        params.put("checkup",MESSAGE_CHECK_OK);
-        params.put("type",MESSAGE_TYPE_SYS);
-        params.put("statu",MESSAGE_STATU_ISDEL_NO);
+        params.put("checkup", MessageUtil.MESSAGE_CHECK_OK);
+        params.put("type", MessageUtil.MESSAGE_TYPE_SYS);
+        params.put("statu", MessageUtil.MESSAGE_STATU_ISDEL_NO);
         params.put("start",0);
         params.put("limit",1);
         /*系统通知*/
@@ -129,8 +105,7 @@ public class MessageController {
         List<Message> sysMessageList = messageService.findByMap(params);
         sysMessageMap.put("name","系统通知");
         sysMessageMap.put("icon","http://mov.91catv.com/img/userfiles//images/news/defIcon/def.png");
-        List<MessageDto> sysMessageDtoList = MessageDto.transToDtoList(sysMessageList);
-        setMessageReade(user, sysMessageDtoList);
+        List<MessageDto> sysMessageDtoList =  MessageUtil.setMessageReade(user, sysMessageList,messageReadeService);
         sysMessageMap.put("sysMessageList",sysMessageDtoList);
         Map<String,Object> unionMessageMap = new HashMap<>();
         Map<String,Object> calimMessageMap = new HashMap<>();
@@ -138,20 +113,18 @@ public class MessageController {
         List<Message> claimMessageList = new ArrayList<Message>();
         if(null!=user){
             params.put("memberId",user.getMemberId());
-            params.put("type",MESSAGE_TYPE_UNION);
+            params.put("type", MessageUtil.MESSAGE_TYPE_UNION);
             unionMessageList = messageService.findByMap(params);
-            params.put("type",MESSAGE_TYPE_CLAIM);
+            params.put("type", MessageUtil.MESSAGE_TYPE_CLAIM);
             claimMessageList = messageService.findByMap(params);
         }
         /*工会通知*/
-        List<MessageDto> unionMessageDtoList = MessageDto.transToDtoList(unionMessageList);
-        setMessageReade(user, unionMessageDtoList);
+        List<MessageDto> unionMessageDtoList = MessageUtil.setMessageReade(user, unionMessageList,messageReadeService);
         unionMessageMap.put("unionMessageList",unionMessageDtoList);
         unionMessageMap.put("name","工会通知");
         unionMessageMap.put("icon","http://mov.91catv.com/img/userfiles//images/news/defIcon/def.png");
         /*理赔通知*/
-        List<MessageDto> calimMessageDtoList = MessageDto.transToDtoList(claimMessageList);
-        setMessageReade(user, calimMessageDtoList);
+        List<MessageDto> calimMessageDtoList = MessageUtil.setMessageReade(user, claimMessageList,messageReadeService);
         calimMessageMap.put("claimMessageList",calimMessageDtoList);
         calimMessageMap.put("name","理赔通知");
         calimMessageMap.put("icon","http://mov.91catv.com/img/userfiles//images/news/defIcon/def.png");
@@ -189,7 +162,7 @@ public class MessageController {
         messageReade.setSource(source);
         messageReade.setDeviceCode(deviceCode);
         messageReade.setCreateTime(new Date());
-        messageReade.setIsReade(MESSAGE_READE_OK);             //默认1是已读,此表只记录已读信息
+        messageReade.setIsReade(MessageUtil.MESSAGE_READE_OK);             //默认1是已读,此表只记录已读信息
         messageReadeService.add(messageReade);
         return Jsonp.success();
     }

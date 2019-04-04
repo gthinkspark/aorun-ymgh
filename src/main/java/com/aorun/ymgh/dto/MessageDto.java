@@ -17,7 +17,7 @@ public class MessageDto{
 	
     private String title;
 
-    private Date time;
+    private Long time;
 
     private String link;
 
@@ -33,7 +33,7 @@ public class MessageDto{
 		super();
 		this.id = id;
 		this.title = title;
-		this.time = time;
+		this.time = time.getTime();
 		this.link = link;
 		this.body = body;
 		this.iconUrl = iconUrl;
@@ -75,11 +75,11 @@ public class MessageDto{
 		this.title = title;
 	}
 
-	public Date getTime() {
+	public Long getTime() {
 		return time;
 	}
 
-	public void setTime(Date time) {
+	public void setTime(Long time) {
 		this.time = time;
 	}
 
@@ -126,7 +126,7 @@ public class MessageDto{
 	public int compareTo(MessageDto o) {
 		if(null==o)
 			return 1;
-		if(this.time.getTime()<o.time.getTime())
+		if(this.time<o.time)
 			return 1;
 		return 0;
 	}
