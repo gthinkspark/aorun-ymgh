@@ -31,6 +31,8 @@ public class WorkerAdvisory {
 
     private String isDeleted;
 
+    private Integer isReaded;
+
     private Date createTime;
 
     private Date updateTime;
@@ -161,5 +163,13 @@ public class WorkerAdvisory {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public Integer getIsReaded() {
+        return isReaded;
+    }
+
+    public void setIsReaded(Integer isReaded) {
+        this.isReaded = isReaded;
     }
 }

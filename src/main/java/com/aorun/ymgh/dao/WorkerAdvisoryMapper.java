@@ -10,8 +10,6 @@ public interface WorkerAdvisoryMapper {
 
     int insert(WorkerAdvisory record);
 
-    int insertSelective(WorkerAdvisory record);
-
     WorkerAdvisory selectByPrimaryKey(Long id);
 
     int updateByPrimaryKeySelective(WorkerAdvisory record);
@@ -21,12 +19,11 @@ public interface WorkerAdvisoryMapper {
     /**
      *
      * @param workerId
-     * @param advisoryBizType
      * @param start
      * @param limit
      * @return
      */
-    List<WorkerAdvisory> getWorkerAdvisoryListByWorkerId(@Param("workerId") Long workerId,@Param("advisoryBizType") Integer advisoryBizType, @Param("start") Integer start, @Param("limit")Integer limit);
+    List<WorkerAdvisory> getWorkerAdvisoryListByWorkerId(@Param("workerId") Long workerId,@Param("start") Integer start, @Param("limit")Integer limit);
 
     /**
      * 逻辑删除
@@ -34,5 +31,8 @@ public interface WorkerAdvisoryMapper {
      * @return
      */
     int deleteByPrimaryKey(Long id);
+
+
+    List<WorkerAdvisory> getUnReadWorkerAdvisoryList(@Param("workerId") Long workerId);
 
 }

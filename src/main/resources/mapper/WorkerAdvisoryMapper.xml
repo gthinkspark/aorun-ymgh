@@ -16,13 +16,14 @@
     <result column="status" jdbcType="INTEGER" property="status" />
     <result column="fail_reason" jdbcType="VARCHAR" property="failReason" />
     <result column="is_deleted" jdbcType="CHAR" property="isDeleted" />
+    <result column="is_readed" jdbcType="INTEGER" property="isReaded" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
   <sql id="Base_Column_List">
     id, worker_id, advisory_type, advisory_biz_type, advisory_name, telephone, company_name, 
     advisory_title, advisory_content, attorney_id, materials_urls, status, fail_reason, 
-    is_deleted, create_time, update_time
+    is_deleted, is_readed, create_time, update_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
@@ -39,117 +40,15 @@
       advisory_biz_type, advisory_name, telephone, 
       company_name, advisory_title, advisory_content, 
       attorney_id, materials_urls, status, 
-      fail_reason, is_deleted, create_time, 
+      fail_reason, is_deleted, is_readed, create_time,
       update_time)
     values (#{id,jdbcType=BIGINT}, #{workerId,jdbcType=BIGINT}, #{advisoryType,jdbcType=INTEGER}, 
       #{advisoryBizType,jdbcType=INTEGER}, #{advisoryName,jdbcType=VARCHAR}, #{telephone,jdbcType=VARCHAR}, 
       #{companyName,jdbcType=VARCHAR}, #{advisoryTitle,jdbcType=VARCHAR}, #{advisoryContent,jdbcType=VARCHAR}, 
       #{attorneyId,jdbcType=BIGINT}, #{materialsUrls,jdbcType=VARCHAR}, 1,
-      #{failReason,jdbcType=VARCHAR}, 'n', now(),now())
+      #{failReason,jdbcType=VARCHAR}, 'n', 2, now(),now())
   </insert>
-  <insert id="insertSelective" parameterType="com.aorun.ymgh.model.WorkerAdvisory">
-    insert into t_worker_advisory
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="workerId != null">
-        worker_id,
-      </if>
-      <if test="advisoryType != null">
-        advisory_type,
-      </if>
-      <if test="advisoryBizType != null">
-        advisory_biz_type,
-      </if>
-      <if test="advisoryName != null">
-        advisory_name,
-      </if>
-      <if test="telephone != null">
-        telephone,
-      </if>
-      <if test="companyName != null">
-        company_name,
-      </if>
-      <if test="advisoryTitle != null">
-        advisory_title,
-      </if>
-      <if test="advisoryContent != null">
-        advisory_content,
-      </if>
-      <if test="attorneyId != null">
-        attorney_id,
-      </if>
-      <if test="materialsUrls != null">
-        materials_urls,
-      </if>
-      <if test="status != null">
-        status,
-      </if>
-      <if test="failReason != null">
-        fail_reason,
-      </if>
-      <if test="isDeleted != null">
-        is_deleted,
-      </if>
-      <if test="createTime != null">
-        create_time,
-      </if>
-      <if test="updateTime != null">
-        update_time,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=BIGINT},
-      </if>
-      <if test="workerId != null">
-        #{workerId,jdbcType=BIGINT},
-      </if>
-      <if test="advisoryType != null">
-        #{advisoryType,jdbcType=INTEGER},
-      </if>
-      <if test="advisoryBizType != null">
-        #{advisoryBizType,jdbcType=INTEGER},
-      </if>
-      <if test="advisoryName != null">
-        #{advisoryName,jdbcType=VARCHAR},
-      </if>
-      <if test="telephone != null">
-        #{telephone,jdbcType=VARCHAR},
-      </if>
-      <if test="companyName != null">
-        #{companyName,jdbcType=VARCHAR},
-      </if>
-      <if test="advisoryTitle != null">
-        #{advisoryTitle,jdbcType=VARCHAR},
-      </if>
-      <if test="advisoryContent != null">
-        #{advisoryContent,jdbcType=VARCHAR},
-      </if>
-      <if test="attorneyId != null">
-        #{attorneyId,jdbcType=BIGINT},
-      </if>
-      <if test="materialsUrls != null">
-        #{materialsUrls,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null">
-        #{status,jdbcType=INTEGER},
-      </if>
-      <if test="failReason != null">
-        #{failReason,jdbcType=VARCHAR},
-      </if>
-      <if test="isDeleted != null">
-        #{isDeleted,jdbcType=CHAR},
-      </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null">
-        #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-    </trim>
-  </insert>
+
   <update id="updateByPrimaryKeySelective" parameterType="com.aorun.ymgh.model.WorkerAdvisory">
     update t_worker_advisory
     <set>
@@ -192,7 +91,9 @@
       <if test="isDeleted != null">
         is_deleted = #{isDeleted,jdbcType=CHAR},
       </if>
-
+      <if test="isReaded != null">
+        is_readed = #{isReaded,jdbcType=INTEGER},
+      </if>
     </set>
     ,update_time = now()
     where id = #{id,jdbcType=BIGINT}
@@ -212,8 +113,8 @@
       status = #{status,jdbcType=INTEGER},
       fail_reason = #{failReason,jdbcType=VARCHAR},
       is_deleted = #{isDeleted,jdbcType=CHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
+      is_readed = #{isReaded,jdbcType=INTEGER},
+      update_time = now()
     where id = #{id,jdbcType=BIGINT}
   </update>
 
@@ -222,7 +123,7 @@
     select
     <include refid="Base_Column_List" />
     from t_worker_advisory
-    where worker_id = #{workerId}  and advisory_biz_type = #{advisoryBizType}  and is_deleted = 'n'
+    where worker_id = #{workerId}   and is_deleted = 'n'
     <if test="start!=null and limit!=null ">
       limit #{start},#{limit}
     </if>
@@ -235,5 +136,13 @@
       is_deleted = 'y'
     where id = #{id,jdbcType=BIGINT}
   </update>
+
+
+  <select id="getUnReadWorkerAdvisoryList" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_worker_advisory
+    where worker_id = #{workerId}   and is_deleted = 'n' and  is_readed = 2
+  </select>
 
 </mapper>

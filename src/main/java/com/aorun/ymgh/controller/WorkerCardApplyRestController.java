@@ -134,7 +134,7 @@ public class WorkerCardApplyRestController {
                     String fileName  = uuid+suffixName;
                     Path path = Paths.get(ImagePropertiesConfig.APPLY_CARD_PATH + fileName);
                     Files.write(path, bytes);
-                    idCardUrls.append(ImagePropertiesConfig.APPLY_CARD_SERVER_PATH+fileName).append(",");
+                    idCardUrls.append(fileName).append(",");
                 }
                 workerCardApply.setIdCardUrls(idCardUrls.toString());
 

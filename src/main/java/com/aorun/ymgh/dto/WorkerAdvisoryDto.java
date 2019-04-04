@@ -21,6 +21,8 @@ public class WorkerAdvisoryDto {
 
     private Integer status;
 
+    private Integer isReaded;
+
     private String failReason;
 
     private String createTime;
@@ -121,4 +123,11 @@ public class WorkerAdvisoryDto {
         this.createTime = createTime;
     }
 
+    public Integer getIsReaded() {
+        return isReaded;
+    }
+
+    public void setIsReaded(Integer isReaded) {
+        this.isReaded = isReaded;
+    }
 }

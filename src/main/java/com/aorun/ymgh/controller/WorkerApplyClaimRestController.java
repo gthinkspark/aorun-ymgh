@@ -2,9 +2,9 @@ package com.aorun.ymgh.controller;
 
 
 import com.aorun.ymgh.controller.login.UserDto;
-import com.aorun.ymgh.model.WorkerMember;
 import com.aorun.ymgh.dto.WorkerApplyClaimDto;
 import com.aorun.ymgh.model.WorkerApplyClaim;
+import com.aorun.ymgh.model.WorkerMember;
 import com.aorun.ymgh.service.WorkerApplyClaimService;
 import com.aorun.ymgh.util.CheckObjectIsNull;
 import com.aorun.ymgh.util.DateFormat;
@@ -170,7 +170,12 @@ public class WorkerApplyClaimRestController {
             return Jsonp.noLoginError("用户SID不正确,请核对后重试");
         }
 
-        //TODO:判断验证码
+        //        //TODO:判断验证码
+//        /**获得DataCache里的验证码的值*/
+//			String randomSmsCode = (String) MemachedCache.get(smsCodeBindingKey);
+//			if (!smsCode.equals(randomSmsCode)) {
+//				return Jsonp.error("验证码输入有误!");
+//			}
 
         Long workerId = workerMember.getId();
         WorkerApplyClaim workerApplyClaim = new WorkerApplyClaim();
@@ -248,7 +253,14 @@ public class WorkerApplyClaimRestController {
             return Jsonp.noLoginError("用户SID不正确,请核对后重试");
         }
 
-        //TODO:判断验证码
+//        //TODO:判断验证码
+//        /**获得DataCache里的验证码的值*/
+//			String randomSmsCode = (String) MemachedCache.get(smsCodeBindingKey);
+//			if (!smsCode.equals(randomSmsCode)) {
+//				return Jsonp.error("验证码输入有误!");
+//			}
+
+
         WorkerApplyClaim workerApplyClaim = workerApplyClaimService.findWorkerApplyClaimById(id);
         if(workerApplyClaim!=null){
             if (explainImgFiles==null && explainImgFiles.size()<0) {

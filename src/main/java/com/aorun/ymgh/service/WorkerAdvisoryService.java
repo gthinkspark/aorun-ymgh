@@ -44,9 +44,10 @@ public interface WorkerAdvisoryService {
     int deleteWorkerAdvisory(Long id);
 
 
-    List<WorkerAdvisory> getWorkerAdvisoryListByWorkerId(Long workerId, Integer advisoryBizType, Integer pageIndex, Integer pageSize);
+    List<WorkerAdvisory> getWorkerAdvisoryListByWorkerId(Long workerId, Integer pageIndex, Integer pageSize);
 
 
+    List<WorkerAdvisory> getUnReadWorkerAdvisoryList(Long workerId);
 
 
 }

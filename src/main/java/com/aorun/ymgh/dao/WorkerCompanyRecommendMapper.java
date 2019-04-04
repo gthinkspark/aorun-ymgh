@@ -10,8 +10,6 @@ public interface WorkerCompanyRecommendMapper {
 
     int insert(WorkerCompanyRecommend record);
 
-    int insertSelective(WorkerCompanyRecommend record);
-
     WorkerCompanyRecommend selectByPrimaryKey(Long id);
 
     int updateByPrimaryKeySelective(WorkerCompanyRecommend record);

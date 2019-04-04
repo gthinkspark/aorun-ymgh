@@ -25,9 +25,7 @@ public class WorkerCompanyRecommendRestController {
 
     //1.活动详情接口
     @RequestMapping(value = "/workerCompanyRecommend/{id}", method = RequestMethod.GET)
-    public Object findOneWorkerLiveClaim(@PathVariable("id") Long id,
-     @RequestParam(name = "sid", required = true, defaultValue = "") String sid) {
-
+    public Object findOneWorkerLiveClaim(@PathVariable("id") Long id) {
         WorkerCompanyRecommend workerCompanyRecommend = workerCompanyRecommendService.findWorkerCompanyRecommendById(id);
 
         HashMap<String,Object> datamap = new HashMap<String,Object>();
@@ -36,8 +34,8 @@ public class WorkerCompanyRecommendRestController {
         datamap.put("bannerUrl", ImagePropertiesConfig.COMPANY_RECOMMEND_SERVER_PATH+workerCompanyRecommend.getBannerUrl());
         datamap.put("beginTime", DateFormat.dateTimeToDateString(workerCompanyRecommend.getBeginTime()));
         datamap.put("endTime",DateFormat.dateTimeToDateString(workerCompanyRecommend.getEndTime()));
-        //TODO:待完善连接：
-        datamap.put("recommendDetailUrl","http://60.165.161.145:8085/shop/2/ybj.html");
+        //datamap.put("recommendDetailUrl","http://60.165.161.145:8085/shop/2/ybj.html");
+        datamap.put("recommendDetailUrl",workerCompanyRecommend.getContentUrl());
         return Jsonp_data.success(datamap);
     }
 

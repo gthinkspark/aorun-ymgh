@@ -42,7 +42,6 @@ public class WorkerAdvisoryRestController {
     /**
      *
      * @param sid
-     * @param advisoryBizType   1-咨询，2-留言
      * @param pageIndex
      * @param pageSize
      * @return
@@ -51,7 +50,7 @@ public class WorkerAdvisoryRestController {
         @RequestMapping(value = "/workerAdvisoryList", method = RequestMethod.GET)
         public Object workerLiveClaimList(
             @RequestParam(name = "sid", required = true, defaultValue = "") String sid,
-            @RequestParam(name = "advisoryBizType", required = true, defaultValue = "") Integer advisoryBizType,
+           // @RequestParam(name = "advisoryBizType", required = true, defaultValue = "") Integer advisoryBizType,  // 1-咨询，2-留言
             @RequestParam(name="pageIndex", required = true, defaultValue = "1") Integer pageIndex,
             @RequestParam(name="pageSize", required = false, defaultValue = PageConstant.APP_PAGE_SIZE + "") Integer pageSize
             ) {
@@ -78,7 +77,7 @@ public class WorkerAdvisoryRestController {
         Long workerId = workerMember.getId();
         List<WorkerAdvisory>   workerAdvisoryList = new ArrayList<WorkerAdvisory>();
         List<WorkerAdvisoryDto>   workerAdvisoryDtoList = new ArrayList<WorkerAdvisoryDto>();
-            workerAdvisoryList = workerAdvisoryService.getWorkerAdvisoryListByWorkerId(workerId,advisoryBizType,pageIndex,pageSize);
+            workerAdvisoryList = workerAdvisoryService.getWorkerAdvisoryListByWorkerId(workerId,pageIndex,pageSize);
         for(WorkerAdvisory workerAdvisory:workerAdvisoryList){
             WorkerAdvisoryDto workerAdvisoryDto = new WorkerAdvisoryDto();
             BeanUtils.copyProperties(workerAdvisory,workerAdvisoryDto);
@@ -89,7 +88,7 @@ public class WorkerAdvisoryRestController {
             if(materialsUrls!=null&&!materialsUrls.equals("")){
                 String _MaterialsUrls[] = materialsUrls.split(",");
                 for(String materialsUrl:_MaterialsUrls){
-                    MaterialsUrls.append(ImagePropertiesConfig.APPLY_CARD_SERVER_PATH+materialsUrl).append(",");
+                    MaterialsUrls.append(ImagePropertiesConfig.ADVISORY_SERVER_PATH+materialsUrl).append(",");
                 }
             }
             workerAdvisoryDto.setMaterialsUrls(MaterialsUrls.toString());

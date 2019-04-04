@@ -23,6 +23,8 @@ public class WorkerCardApply {
 
     private Integer status;
 
+    private Integer isReaded;
+
     private String failReason;
 
     private Date createTime;
@@ -132,4 +134,13 @@ public class WorkerCardApply {
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
     }
+
+    public Integer getIsReaded() {
+        return isReaded;
+    }
+
+    public void setIsReaded(Integer isReaded) {
+        this.isReaded = isReaded;
+    }
+
 }

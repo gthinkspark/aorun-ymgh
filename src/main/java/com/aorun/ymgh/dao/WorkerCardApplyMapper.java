@@ -8,8 +8,6 @@ public interface WorkerCardApplyMapper {
 
     int insert(WorkerCardApply record);
 
-    int insertSelective(WorkerCardApply record);
-
     WorkerCardApply selectByPrimaryKey(Long id);
 
     int updateByPrimaryKeySelective(WorkerCardApply record);

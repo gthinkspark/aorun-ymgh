@@ -8,11 +8,14 @@
     <result column="address" jdbcType="VARCHAR" property="address" />
     <result column="begin_time" jdbcType="TIMESTAMP" property="beginTime" />
     <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+    <result column="content_url" jdbcType="VARCHAR" property="contentUrl" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, banner_url, company_name, address, begin_time, end_time, create_time, update_time
+    id, banner_url, company_name, address, begin_time, end_time, status, content, content_url, create_time, update_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
@@ -26,67 +29,14 @@
   </delete>
   <insert id="insert" parameterType="com.aorun.ymgh.model.WorkerCompanyRecommend">
     insert into t_worker_company_recommend (id, banner_url, company_name, 
-      address, begin_time, end_time, 
+      address, begin_time, end_time, status, content, content_url,
       create_time, update_time)
     values (#{id,jdbcType=BIGINT}, #{bannerUrl,jdbcType=VARCHAR}, #{companyName,jdbcType=VARCHAR}, 
-      #{address,jdbcType=VARCHAR}, #{beginTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, 
+      #{address,jdbcType=VARCHAR}, #{beginTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP},
+      1,#{content,jdbcType=LONGVARCHAR},#{contentUrl,jdbcType=VARCHAR},
       now(),now())
   </insert>
-  <insert id="insertSelective" parameterType="com.aorun.ymgh.model.WorkerCompanyRecommend">
-    insert into t_worker_company_recommend
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="bannerUrl != null">
-        banner_url,
-      </if>
-      <if test="companyName != null">
-        company_name,
-      </if>
-      <if test="address != null">
-        address,
-      </if>
-      <if test="beginTime != null">
-        begin_time,
-      </if>
-      <if test="endTime != null">
-        end_time,
-      </if>
-      <if test="createTime != null">
-        create_time,
-      </if>
-      <if test="updateTime != null">
-        update_time,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=BIGINT},
-      </if>
-      <if test="bannerUrl != null">
-        #{bannerUrl,jdbcType=VARCHAR},
-      </if>
-      <if test="companyName != null">
-        #{companyName,jdbcType=VARCHAR},
-      </if>
-      <if test="address != null">
-        #{address,jdbcType=VARCHAR},
-      </if>
-      <if test="beginTime != null">
-        #{beginTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="endTime != null">
-        #{endTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null">
-        #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-    </trim>
-  </insert>
+
   <update id="updateByPrimaryKeySelective" parameterType="com.aorun.ymgh.model.WorkerCompanyRecommend">
     update t_worker_company_recommend
     <set>
@@ -105,6 +55,17 @@
       <if test="endTime != null">
         end_time = #{endTime,jdbcType=TIMESTAMP},
       </if>
+
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="contentUrl != null">
+        content_url = #{contentUrl,jdbcType=VARCHAR},
+      </if>
+
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
@@ -121,6 +82,9 @@
       address = #{address,jdbcType=VARCHAR},
       begin_time = #{beginTime,jdbcType=TIMESTAMP},
       end_time = #{endTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=INTEGER},
+      content = #{content,jdbcType=LONGVARCHAR},
+      content_url = #{contentUrl,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}

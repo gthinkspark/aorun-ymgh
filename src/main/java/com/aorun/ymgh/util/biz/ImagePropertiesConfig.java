@@ -65,9 +65,6 @@ public class ImagePropertiesConfig {
 	public static final String ADVISORY_SERVER_PATH = CDN_SERVER_ROOT_PATH +  File.separator + "worker"+  File.separator  + "advisory"+  File.separator ;
 
 
-
-
-
 	/** 工会会员头像-图片--web服务路径 */
 	public static final String WORKERMEMBER_SERVER_PATH = CDN_SERVER_ROOT_PATH +  File.separator + "worker"+  File.separator  + "workermember"+  File.separator ;
 

@@ -15,6 +15,12 @@ public class WorkerCompanyRecommend {
 
     private Date endTime;
 
+    private String content;
+
+    private String contentUrl;
+
+    private Integer status;
+
     private Date createTime;
 
     private Date updateTime;
@@ -81,5 +87,29 @@ public class WorkerCompanyRecommend {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public String getContentUrl() {
+        return contentUrl;
+    }
+
+    public void setContentUrl(String contentUrl) {
+        this.contentUrl = contentUrl;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 }

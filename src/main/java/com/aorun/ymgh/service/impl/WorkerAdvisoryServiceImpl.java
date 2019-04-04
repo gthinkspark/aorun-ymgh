@@ -44,14 +44,18 @@ public class WorkerAdvisoryServiceImpl implements WorkerAdvisoryService {
     }
 
     @Override
-    public List<WorkerAdvisory> getWorkerAdvisoryListByWorkerId(Long workerId,  Integer advisoryBizType,Integer pageIndex, Integer pageSize) {
+    public List<WorkerAdvisory> getWorkerAdvisoryListByWorkerId(Long workerId, Integer pageIndex, Integer pageSize) {
         ///** 启始页-位置 */
         Integer start = (pageIndex - 1) * pageSize;
         /** 每页大小  */
         Integer limit = pageSize;
-        return workerAdvisoryMapper.getWorkerAdvisoryListByWorkerId(workerId,advisoryBizType,start,limit);
+        return workerAdvisoryMapper.getWorkerAdvisoryListByWorkerId(workerId,start,limit);
     }
 
+    @Override
+    public List<WorkerAdvisory> getUnReadWorkerAdvisoryList(Long workerId) {
+        return workerAdvisoryMapper.getUnReadWorkerAdvisoryList(workerId);
+    }
 
 
 }

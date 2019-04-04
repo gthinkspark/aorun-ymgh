@@ -12,13 +12,14 @@
     <result column="worker_name" jdbcType="VARCHAR" property="workerName" />
     <result column="id_card_urls" jdbcType="VARCHAR" property="idCardUrls" />
     <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="is_readed" jdbcType="INTEGER" property="isReaded" />
     <result column="fail_reason" jdbcType="VARCHAR" property="failReason" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
   <sql id="Base_Column_List">
     id, worker_id, worker_card_id, apply_name, telephone, company_name, id_card_number, 
-    worker_name, id_card_urls, status, fail_reason, create_time, update_time
+    worker_name, id_card_urls, status, is_readed, fail_reason, create_time, update_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
   select
@@ -34,98 +35,14 @@
     insert into t_worker_card_apply (id, worker_id, worker_card_id, 
       apply_name, telephone, company_name, 
       id_card_number, worker_name, id_card_urls, 
-      status, fail_reason, create_time, 
+      status, is_readed, fail_reason, create_time,
       update_time)
     values (#{id,jdbcType=BIGINT}, #{workerId,jdbcType=BIGINT}, #{workerCardId,jdbcType=BIGINT}, 
       #{applyName,jdbcType=VARCHAR}, #{telephone,jdbcType=VARCHAR}, #{companyName,jdbcType=VARCHAR}, 
       #{idCardNumber,jdbcType=VARCHAR}, #{workerName,jdbcType=VARCHAR}, #{idCardUrls,jdbcType=VARCHAR}, 
-      1, #{failReason,jdbcType=VARCHAR}, now(),now())
+      1, 2, #{failReason,jdbcType=VARCHAR}, now(),now())
   </insert>
-  <insert id="insertSelective" parameterType="com.aorun.ymgh.model.WorkerCardApply">
-    insert into t_worker_card_apply
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="workerId != null">
-        worker_id,
-      </if>
-      <if test="workerCardId != null">
-        worker_card_id,
-      </if>
-      <if test="applyName != null">
-        apply_name,
-      </if>
-      <if test="telephone != null">
-        telephone,
-      </if>
-      <if test="companyName != null">
-        company_name,
-      </if>
-      <if test="idCardNumber != null">
-        id_card_number,
-      </if>
-      <if test="workerName != null">
-        worker_name,
-      </if>
-      <if test="idCardUrls != null">
-        id_card_urls,
-      </if>
-      <if test="status != null">
-        status,
-      </if>
-      <if test="failReason != null">
-        fail_reason,
-      </if>
-      <if test="createTime != null">
-        create_time,
-      </if>
-      <if test="updateTime != null">
-        update_time,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=BIGINT},
-      </if>
-      <if test="workerId != null">
-        #{workerId,jdbcType=BIGINT},
-      </if>
-      <if test="workerCardId != null">
-        #{workerCardId,jdbcType=BIGINT},
-      </if>
-      <if test="applyName != null">
-        #{applyName,jdbcType=VARCHAR},
-      </if>
-      <if test="telephone != null">
-        #{telephone,jdbcType=VARCHAR},
-      </if>
-      <if test="companyName != null">
-        #{companyName,jdbcType=VARCHAR},
-      </if>
-      <if test="idCardNumber != null">
-        #{idCardNumber,jdbcType=VARCHAR},
-      </if>
-      <if test="workerName != null">
-        #{workerName,jdbcType=VARCHAR},
-      </if>
-      <if test="idCardUrls != null">
-        #{idCardUrls,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null">
-        #{status,jdbcType=INTEGER},
-      </if>
-      <if test="failReason != null">
-        #{failReason,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null">
-        #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-    </trim>
-  </insert>
+
   <update id="updateByPrimaryKeySelective" parameterType="com.aorun.ymgh.model.WorkerCardApply">
     update t_worker_card_apply
     <set>
@@ -159,13 +76,11 @@
       <if test="failReason != null">
         fail_reason = #{failReason,jdbcType=VARCHAR},
       </if>
-      <if test="createTime != null">
-        create_time = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null">
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      <if test="isReaded != null">
+        is_readed = #{isReaded,jdbcType=INTEGER},
       </if>
     </set>
+    ,update_time = now()
     where id = #{id,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.aorun.ymgh.model.WorkerCardApply">
@@ -179,9 +94,9 @@
       worker_name = #{workerName,jdbcType=VARCHAR},
       id_card_urls = #{idCardUrls,jdbcType=VARCHAR},
       status = #{status,jdbcType=INTEGER},
+      is_readed = #{isReaded,jdbcType=INTEGER},
       fail_reason = #{failReason,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
+      update_time = now()
     where id = #{id,jdbcType=BIGINT}
   </update>
 
