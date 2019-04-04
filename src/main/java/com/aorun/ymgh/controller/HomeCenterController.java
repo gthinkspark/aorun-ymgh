@@ -29,7 +29,7 @@ import java.util.Map;
  */
 @RequestMapping("/worker")
 @RestController
-public class CenterController {
+public class HomeCenterController {
     @Autowired
     private WorkerAdvisoryService workerAdvisoryService;
 

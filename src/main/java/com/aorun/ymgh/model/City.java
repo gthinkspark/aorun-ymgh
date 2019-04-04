@@ -1,15 +1,11 @@
 package com.aorun.ymgh.model;
 
-import java.io.Serializable;
-
 /**
  * 城市实体类
  *
  * Created by bysocket on 07/02/2017.
  */
-public class City implements Serializable {
-
-    private static final long serialVersionUID = -1L;
+public class City {
 
     /**
      * 城市编号
