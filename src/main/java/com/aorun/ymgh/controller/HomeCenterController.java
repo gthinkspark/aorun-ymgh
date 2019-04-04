@@ -76,6 +76,10 @@ public class HomeCenterController {
             datamap.put("advisoryRead",MESSAGE_IS_READED);
         }
 
+        //TODO:我的帮扶未读--状态判断
+        datamap.put("helpRead",MESSAGE_IS_READED);//我的帮扶
+
+
         return Jsonp_data.success(datamap);
     }
 
