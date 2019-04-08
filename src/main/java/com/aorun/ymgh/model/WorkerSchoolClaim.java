@@ -41,6 +41,17 @@ public class WorkerSchoolClaim {
 
     private Date updateTime;
 
+    private Integer isReaded;
+
+
+    public Integer getIsReaded() {
+        return isReaded;
+    }
+
+    public void setIsReaded(Integer isReaded) {
+        this.isReaded = isReaded;
+    }
+
     public Long getId() {
         return id;
     }

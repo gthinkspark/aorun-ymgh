@@ -21,11 +21,12 @@
     <result column="fail_reason" jdbcType="VARCHAR" property="failReason" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="is_readed" jdbcType="INTEGER" property="isReaded" />
   </resultMap>
   <sql id="Base_Column_List">
     id, worker_id, name, population, income, company_name, telephone, month_income, worker_number, 
     student_name, relation, exam_score, enroll_info, enroll_school, self_paying_case, 
-    status, fail_reason, create_time, update_time
+    status, fail_reason, create_time, update_time, is_readed
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
@@ -44,13 +45,13 @@
       student_name, relation, exam_score, 
       enroll_info, enroll_school, self_paying_case, 
       status, fail_reason, create_time, 
-      update_time)
+      update_time, is_readed)
     values (#{id,jdbcType=BIGINT}, #{workerId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, 
       #{population,jdbcType=INTEGER}, #{income,jdbcType=INTEGER}, #{companyName,jdbcType=VARCHAR}, 
       #{telephone,jdbcType=VARCHAR}, #{monthIncome,jdbcType=INTEGER}, #{workerNumber,jdbcType=INTEGER}, 
       #{studentName,jdbcType=VARCHAR}, #{relation,jdbcType=VARCHAR}, #{examScore,jdbcType=INTEGER}, 
       #{enrollInfo,jdbcType=VARCHAR}, #{enrollSchool,jdbcType=VARCHAR}, #{selfPayingCase,jdbcType=VARCHAR}, 
-      1, #{failReason,jdbcType=VARCHAR}, now(),now())
+      1, #{failReason,jdbcType=VARCHAR}, now(),now(), 2)
   </insert>
   <insert id="insertSelective" parameterType="com.aorun.ymgh.model.WorkerSchoolClaim">
     insert into t_worker_school_claim
@@ -224,6 +225,9 @@
       <if test="failReason != null">
         fail_reason = #{failReason,jdbcType=VARCHAR},
       </if>
+      <if test="isReaded != null">
+        is_readed = #{isReaded,jdbcType=INTEGER},
+      </if>
     </set>
     ,update_time = now()
     where id = #{id,jdbcType=BIGINT}
@@ -246,8 +250,8 @@
       self_paying_case = #{selfPayingCase,jdbcType=VARCHAR},
       status = #{status,jdbcType=INTEGER},
       fail_reason = #{failReason,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
+      is_readed = #{isReaded,jdbcType=INTEGER},
+      update_time = now()
     where id = #{id,jdbcType=BIGINT}
   </update>
 
