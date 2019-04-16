@@ -85,7 +85,7 @@ public class WorkerCardApplyRestController {
 
 
     //1.申请办卡-修改接口
-        @RequestMapping(value = "/workerCardApply", method = RequestMethod.PUT)
+        @RequestMapping(value = "/updateWorkerCardApply", method = RequestMethod.POST)
         public Object updateWorkerCardApply(@RequestParam(name = "sid", required = true, defaultValue = "") String sid,
                 @RequestParam(name = "id", required = true) Long id,
                 @RequestParam(name = "applyName", required = true, defaultValue = "") String applyName,
@@ -93,7 +93,8 @@ public class WorkerCardApplyRestController {
                 @RequestParam(name = "companyName", required = true, defaultValue = "") String companyName,
                 @RequestParam(name = "idCardNumber", required = true, defaultValue = "") String idCardNumber,
                 @RequestParam(name = "workerName", required = true, defaultValue = "") String workerName,
-                @RequestParam("idCardFiles") List<MultipartFile> idCardFiles) {
+                @RequestParam(name = "idCardUrls", required = false, defaultValue = "") String idCardUrls,
+                @RequestParam(name="idCardFiles", required = false) List<MultipartFile> idCardFiles) {
         UserDto user = null;
         WorkerMember workerMember = null;
         if (!StringUtils.isEmpty(sid)) {
@@ -113,37 +114,42 @@ public class WorkerCardApplyRestController {
         Long workerId = workerMember.getId();
         WorkerCardApply workerCardApply = workerCardApplyService.findWorkerCardApplyById(id);
         if(workerCardApply!=null){
-            //      workerCardApply.setWorkerId(workerId);
-////    workerCardApply.setWorkerCardId(1L);
+            //workerCardApply.setWorkerId(workerId);
+            //workerCardApply.setWorkerCardId(1L);
             workerCardApply.setApplyName(applyName);
             workerCardApply.setTelephone(telephone);
             workerCardApply.setCompanyName(companyName);
             workerCardApply.setIdCardNumber(idCardNumber);
             workerCardApply.setWorkerName(workerName);
 
-            if (idCardFiles==null && idCardFiles.size()<0) {
-                return Jsonp.error("文件不能为空!");
-            }
-            try {
-                StringBuffer idCardUrls = new StringBuffer("");
-                for(MultipartFile file:idCardFiles){
-                    // Get the file and save it somewhere
-                    byte[] bytes = file.getBytes();
-                    String uuid = UUID.randomUUID().toString();
-                    String suffixName = file.getOriginalFilename().substring(file.getOriginalFilename().indexOf("."));
-                    String fileName  = uuid+suffixName;
-                    Path path = Paths.get(ImagePropertiesConfig.APPLY_CARD_PATH + fileName);
-                    Files.write(path, bytes);
-                    idCardUrls.append(fileName).append(",");
+            StringBuffer myIdCardUrls = new StringBuffer("");
+
+            if(idCardUrls!=null && !idCardUrls.equals("")){
+                String[] idCardUrl = idCardUrls.split(",");
+                for (String _idCardUrl:idCardUrl){
+                    String subIdCardUrl = _idCardUrl.substring(_idCardUrl.lastIndexOf("/")+1);
+                    myIdCardUrls.append(subIdCardUrl).append(",");
                 }
-                workerCardApply.setIdCardUrls(idCardUrls.toString());
-
-            } catch (IOException e) {
-                e.printStackTrace();
             }
 
+            if(idCardFiles!=null&&idCardFiles.size()>0) {
+                try {
+                    for (MultipartFile file : idCardFiles) {
+                        // Get the file and save it somewhere
+                        byte[] bytes = file.getBytes();
+                        String uuid = UUID.randomUUID().toString();
+                        String suffixName = file.getOriginalFilename().substring(file.getOriginalFilename().indexOf("."));
+                        String fileName = uuid + suffixName;
+                        Path path = Paths.get(ImagePropertiesConfig.APPLY_CARD_PATH + fileName);
+                        Files.write(path, bytes);
+                        myIdCardUrls.append(fileName).append(",");
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
 
-
+            workerCardApply.setIdCardUrls(myIdCardUrls.toString());
             workerCardApplyService.updateWorkerCardApply(workerCardApply);
             return Jsonp.success();
         }else{
@@ -252,8 +258,14 @@ public class WorkerCardApplyRestController {
         datamap.put("cardDetailUrl",workerCard.getFunctionUrl());
         datamap.put("applyConditionUrl",workerCard.getApplyConditionUrl());
         datamap.put("serviceConditionUrl",workerCard.getServiceConditionUrl());
-        datamap.put("status",workerCardApply.getStatus());
-        datamap.put("failReason",workerCardApply.getFailReason());
+        if(workerCardApply!=null){
+            datamap.put("status",workerCardApply.getStatus());
+            datamap.put("failReason",workerCardApply.getFailReason());
+        }else{
+            datamap.put("status",0);// 0-未申请，1-审核中，2-审核失败，3-审核成功。
+            datamap.put("failReason","");
+        }
+
 
         return Jsonp_data.success(datamap);
     }

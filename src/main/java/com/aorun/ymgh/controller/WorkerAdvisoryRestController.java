@@ -184,7 +184,7 @@ public class WorkerAdvisoryRestController {
 
 
     //修改接口
-    @RequestMapping(value = "/workerAdvisory", method = RequestMethod.PUT)
+    @RequestMapping(value = "/updateWorkerAdvisory", method = RequestMethod.POST)
     public Object updateWorkerAdvisoryClaim(@RequestParam(name = "sid", required = true, defaultValue = "") String sid,
                                             @RequestParam(name = "id", required = true) Long id,
                                             @RequestParam(name = "advisoryType", required = true, defaultValue = "") Integer advisoryType,
@@ -194,7 +194,8 @@ public class WorkerAdvisoryRestController {
                                             @RequestParam(name = "companyName", required = true, defaultValue = "") String companyName,
                                             @RequestParam(name = "advisoryTitle", required = true, defaultValue = "") String advisoryTitle,
                                             @RequestParam(name = "advisoryContent", required = true, defaultValue = "") String advisoryContent,
-                                            @RequestParam("materialsFiles") List<MultipartFile> materialsFiles) {
+                                            @RequestParam(name = "materialsUrls", required = false, defaultValue = "") String materialsUrls,
+                                            @RequestParam(name="materialsFiles", required = false) List<MultipartFile> materialsFiles) {
 
         UserDto user = null;
         WorkerMember workerMember = null;
@@ -214,37 +215,41 @@ public class WorkerAdvisoryRestController {
 
         WorkerAdvisory workerAdvisory = workerAdvisoryService.findWorkerAdvisoryById(id);
         if(workerAdvisory!=null){
-//            Long workerId = workerMember.getId();
-//            workerAdvisory.setWorkerId(workerId);
-//            workerAdvisory.setAdvisoryType(advisoryType);
-//            workerAdvisory.setAdvisoryBizType(advisoryBizType);
             workerAdvisory.setAdvisoryName(advisoryName);
             workerAdvisory.setTelephone(telephone);
             workerAdvisory.setCompanyName(companyName);
             workerAdvisory.setAdvisoryTitle(advisoryTitle);
             workerAdvisory.setAdvisoryContent(advisoryContent);
 
-            if (materialsFiles==null && materialsFiles.size()<0) {
-                return Jsonp.error("文件不能为空!");
-            }
-            try {
-                StringBuffer materialsUrls = new StringBuffer("");
-                for(MultipartFile file:materialsFiles){
-                    // Get the file and save it somewhere
-                    byte[] bytes = file.getBytes();
-                    String uuid = UUID.randomUUID().toString();
-                    String suffixName = file.getOriginalFilename().substring(file.getOriginalFilename().indexOf("."));
-                    String fileName  = uuid+suffixName;
-                    Path path = Paths.get(ImagePropertiesConfig.ADVISORY_PATH + fileName);
-                    Files.write(path, bytes);
-                    materialsUrls.append(fileName).append(",");
+            StringBuffer mymaterialsUrls = new StringBuffer("");
+
+            if(materialsUrls!=null &&!materialsUrls.equals("")){
+                String[] materialsUrl = materialsUrls.split(",");
+                for (String _materialsUrl:materialsUrl){
+                    String subMaterialsUrl = _materialsUrl.substring(_materialsUrl.lastIndexOf("/")+1);
+                    mymaterialsUrls.append(subMaterialsUrl).append(",");
                 }
-                workerAdvisory.setMaterialsUrls(materialsUrls.toString());
-
-            } catch (IOException e) {
-                e.printStackTrace();
             }
 
+
+            if(materialsFiles!=null&&materialsFiles.size()>0){
+                try {
+                    for(MultipartFile file:materialsFiles){
+                        // Get the file and save it somewhere
+                        byte[] bytes = file.getBytes();
+                        String uuid = UUID.randomUUID().toString();
+                        String suffixName = file.getOriginalFilename().substring(file.getOriginalFilename().indexOf("."));
+                        String fileName  = uuid+suffixName;
+                        Path path = Paths.get(ImagePropertiesConfig.ADVISORY_PATH + fileName);
+                        Files.write(path, bytes);
+                        mymaterialsUrls.append(fileName).append(",");
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            workerAdvisory.setMaterialsUrls(mymaterialsUrls.toString());
             workerAdvisory.setStatus(1);
             workerAdvisoryService.updateWorkerAdvisory(workerAdvisory);
             return Jsonp.success();
@@ -269,7 +274,7 @@ public class WorkerAdvisoryRestController {
         if(materialsUrls!=null&&!materialsUrls.equals("")){
             String _MaterialsUrls[] = materialsUrls.split(",");
             for(String materialsUrl:_MaterialsUrls){
-                MaterialsUrls.append(ImagePropertiesConfig.APPLY_CARD_SERVER_PATH+materialsUrl).append(",");
+                MaterialsUrls.append(ImagePropertiesConfig.ADVISORY_SERVER_PATH+materialsUrl).append(",");
             }
         }
         workerAdvisoryDto.setMaterialsUrls(MaterialsUrls.toString());
@@ -279,7 +284,7 @@ public class WorkerAdvisoryRestController {
     }
 
     //删除接口
-    @RequestMapping(value = "/workerAdvisory/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/deleteWorkerAdvisory/{id}", method = RequestMethod.GET)
     public Object deleteWorkerAdvisory(@PathVariable("id") Long id) {
         int flag = workerAdvisoryService.deleteWorkerAdvisory(id);
         if(flag>0){

@@ -120,8 +120,9 @@
   select
   <include refid="Base_Column_List" />
   from t_worker_attorney_reply_advisory
-    where worker_id = #{workerId}  and advisory_id = #{advisoryId} and  reply_type = 1
+    where worker_id = #{workerId}  and advisory_id = #{advisoryId}
   <if test="requestTimePoint != null" >
+    and  reply_type = 1
     <![CDATA[
 			and    reply_time > #{requestTimePoint}
 				]]>

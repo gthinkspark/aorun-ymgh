@@ -218,7 +218,7 @@ public class WorkerApplyClaimRestController {
 
 
     // 修改接口
-    @RequestMapping(value = "/workerApplyClaim", method = RequestMethod.PUT)
+    @RequestMapping(value = "/updateWorkerApplyClaim", method = RequestMethod.POST)
     public Object updateWorkerLiveClaim(@RequestParam(name = "sid", required = true, defaultValue = "") String sid,
                                         @RequestParam(value="id")Long id,
                                         @RequestParam(value="smsCode",defaultValue="")String smsCode,
@@ -235,7 +235,8 @@ public class WorkerApplyClaimRestController {
                                         @RequestParam(name = "hospitalName", required = true, defaultValue = "") String hospitalName,
                                         @RequestParam(name = "beginTime", required = true, defaultValue = "") String beginTime,
                                         @RequestParam(name = "endTime", required = true, defaultValue = "") String endTime,
-                                        @RequestParam("explainImgFiles") List<MultipartFile> explainImgFiles
+                                        @RequestParam(name = "explainImgUrls", required = false, defaultValue = "") String explainImgUrls,
+                                        @RequestParam(name = "explainImgFiles", required = false) List<MultipartFile> explainImgFiles
     ) {
 
         UserDto user = null;
@@ -263,26 +264,35 @@ public class WorkerApplyClaimRestController {
 
         WorkerApplyClaim workerApplyClaim = workerApplyClaimService.findWorkerApplyClaimById(id);
         if(workerApplyClaim!=null){
-            if (explainImgFiles==null && explainImgFiles.size()<0) {
-                return Jsonp.error("文件不能为空!");
-            }
-            try {
-                StringBuffer explainImgUrls = new StringBuffer("");
-                for(MultipartFile file:explainImgFiles){
-                    // Get the file and save it somewhere
-                    byte[] bytes = file.getBytes();
-                    String uuid = UUID.randomUUID().toString();
-                    String suffixName = file.getOriginalFilename().substring(file.getOriginalFilename().indexOf("."));
-                    String fileName  = uuid+suffixName;
-                    Path path = Paths.get(ImagePropertiesConfig.APPLY_CLAIM_PATH + fileName);
-                    Files.write(path, bytes);
-                    explainImgUrls.append(fileName).append(",");
+
+            StringBuffer myexplainImgUrls = new StringBuffer("");
+
+            if(explainImgUrls!=null&&!explainImgUrls.equals("")){
+                String[] explainImgUrl = explainImgUrls.split(",");
+                for (String _explainImgUrl:explainImgUrl){
+                    String subExplainImgUrl = _explainImgUrl.substring(_explainImgUrl.lastIndexOf("/")+1);
+                    myexplainImgUrls.append(subExplainImgUrl).append(",");
                 }
-                workerApplyClaim.setExplainImgUrls(explainImgUrls.toString());
-            } catch (IOException e) {
-                e.printStackTrace();
             }
 
+            if(explainImgFiles!=null&&explainImgFiles.size()>0) {
+                try {
+                    for (MultipartFile file : explainImgFiles) {
+                        // Get the file and save it somewhere
+                        byte[] bytes = file.getBytes();
+                        String uuid = UUID.randomUUID().toString();
+                        String suffixName = file.getOriginalFilename().substring(file.getOriginalFilename().indexOf("."));
+                        String fileName = uuid + suffixName;
+                        Path path = Paths.get(ImagePropertiesConfig.APPLY_CLAIM_PATH + fileName);
+                        Files.write(path, bytes);
+                        myexplainImgUrls.append(fileName).append(",");
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            workerApplyClaim.setExplainImgUrls(myexplainImgUrls.toString());
             workerApplyClaim.setUseTelephone(useTelephone);
             workerApplyClaim.setName(name);
             workerApplyClaim.setTelephone(telephone);

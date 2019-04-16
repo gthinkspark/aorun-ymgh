@@ -177,9 +177,11 @@
     <include refid="Base_Column_List" />
     from t_worker_live_claim
     where worker_id = #{workerId}
+    order by create_time desc
     <if test="start!=null and limit!=null ">
       limit #{start},#{limit}
     </if>
+
   </select>
 
 

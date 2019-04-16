@@ -64,9 +64,9 @@ public class HomeCenterController {
         WorkerCardApply workerCardApply = workerCardApplyService.findWorkerCardApplyByWorkerIdAndCardId(workerId,1L);
         Map<String,Object> datamap = new HashMap<>();
         if(workerCardApply!=null&&workerCardApply.getIsReaded()==1){//我的福利
-            datamap.put("cardRead",MESSAGE_IS_READED);
+            datamap.put("cardRead",MESSAGE_IS_READED);//1-已读
         }else {
-            datamap.put("cardRead",MESSAGE_UN_READE);
+            datamap.put("cardRead",MESSAGE_UN_READE);//2-未读
         }
 
         List<WorkerAdvisory> workerAdvisoryList =  workerAdvisoryService.getUnReadWorkerAdvisoryList(workerId);

@@ -106,6 +106,7 @@
     <include refid="Base_Column_List" />
     from t_worker_card_apply
     where worker_id = #{workerId}  and  worker_card_id = #{workerCardId}
+    order by create_time desc
   </select>
 
 </mapper>

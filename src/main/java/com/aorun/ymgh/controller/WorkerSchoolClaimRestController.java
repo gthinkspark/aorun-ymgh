@@ -110,7 +110,7 @@ public class WorkerSchoolClaimRestController {
 
 
     //修改接口
-    @RequestMapping(value = "/workerSchoolClaim", method = RequestMethod.PUT)
+    @RequestMapping(value = "/updateWorkerSchoolClaim", method = RequestMethod.POST)
     public Object updateWorkerSchoolClaim(  @RequestParam(name = "sid", required = true, defaultValue = "") String sid,
                                             @RequestBody WorkerSchoolClaim workerSchoolClaim) {
 

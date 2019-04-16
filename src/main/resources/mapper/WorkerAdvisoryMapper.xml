@@ -143,6 +143,7 @@
     <include refid="Base_Column_List" />
     from t_worker_advisory
     where worker_id = #{workerId}   and is_deleted = 'n' and  is_readed = 2
+    order by create_time desc
   </select>
 
 </mapper>
