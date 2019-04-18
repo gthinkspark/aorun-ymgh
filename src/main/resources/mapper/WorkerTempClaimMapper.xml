@@ -14,10 +14,11 @@
     <result column="fail_reason" jdbcType="VARCHAR" property="failReason" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="is_readed" jdbcType="INTEGER" property="isReaded" />
   </resultMap>
   <sql id="Base_Column_List">
     id, worker_id, name, population, income, company_name, telephone, main_reason, status, 
-    fail_reason, create_time, update_time
+    fail_reason, create_time, update_time, is_readed
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
@@ -33,12 +34,12 @@
     insert into t_worker_temp_claim (id, worker_id, name, 
       population, income, company_name, 
       telephone, main_reason, status, 
-      fail_reason, create_time, update_time
+      fail_reason, create_time, update_time, is_readed
       )
     values (#{id,jdbcType=BIGINT}, #{workerId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, 
       #{population,jdbcType=INTEGER}, #{income,jdbcType=INTEGER}, #{companyName,jdbcType=VARCHAR}, 
       #{telephone,jdbcType=VARCHAR}, #{mainReason,jdbcType=VARCHAR}, 1,
-      #{failReason,jdbcType=VARCHAR}, now(),now()
+      #{failReason,jdbcType=VARCHAR}, now(),now(), 2
       )
   </insert>
   <insert id="insertSelective" parameterType="com.aorun.ymgh.model.WorkerTempClaim">
@@ -150,6 +151,9 @@
       <if test="failReason != null">
         fail_reason = #{failReason,jdbcType=VARCHAR},
       </if>
+      <if test="isReaded != null">
+        is_readed = #{isReaded,jdbcType=INTEGER},
+      </if>
     </set>
     ,update_time = now()
     where id = #{id,jdbcType=BIGINT}
@@ -165,8 +169,8 @@
       main_reason = #{mainReason,jdbcType=VARCHAR},
       status = #{status,jdbcType=INTEGER},
       fail_reason = #{failReason,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
+      is_readed = #{isReaded,jdbcType=INTEGER},
+      update_time = now()
     where id = #{id,jdbcType=BIGINT}
   </update>
 

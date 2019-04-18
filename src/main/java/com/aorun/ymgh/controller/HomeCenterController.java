@@ -1,17 +1,12 @@
 package com.aorun.ymgh.controller;
 
 import com.aorun.ymgh.controller.login.UserDto;
-import com.aorun.ymgh.dto.MessageDto;
-import com.aorun.ymgh.model.Message;
 import com.aorun.ymgh.model.WorkerAdvisory;
 import com.aorun.ymgh.model.WorkerCardApply;
 import com.aorun.ymgh.model.WorkerMember;
-import com.aorun.ymgh.service.MessageReadeService;
-import com.aorun.ymgh.service.MessageService;
 import com.aorun.ymgh.service.WorkerAdvisoryService;
 import com.aorun.ymgh.service.WorkerCardApplyService;
 import com.aorun.ymgh.util.CheckObjectIsNull;
-import com.aorun.ymgh.util.MessageUtil;
 import com.aorun.ymgh.util.biz.UnionUtil;
 import com.aorun.ymgh.util.cache.redis.RedisCache;
 import com.aorun.ymgh.util.jsonp.Jsonp;
@@ -23,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,12 +35,6 @@ public class HomeCenterController {
 
     @Autowired
     private WorkerCardApplyService workerCardApplyService;
-
-    @Autowired
-    private MessageService messageService;
-
-    @Autowired
-    private MessageReadeService messageReadeService;
 
     private final Integer MESSAGE_IS_READED=1;
     private final Integer MESSAGE_UN_READE=2;
@@ -87,40 +75,6 @@ public class HomeCenterController {
         }else{
             datamap.put("advisoryRead",MESSAGE_IS_READED);
         }
-
-        //我的消息  系统通知
-        Map<String,Object> params = new HashMap<String,Object>();
-        params.put("checkup", MessageUtil.MESSAGE_CHECK_OK);
-        params.put("type", MessageUtil.MESSAGE_TYPE_SYS);
-        params.put("statu", MessageUtil.MESSAGE_STATU_ISDEL_NO);
-        params.put("start",0);
-        params.put("limit",1);
-        List<Message> sysMessageList = messageService.findByMap(params);
-        List<MessageDto> sysMessageDtoList = MessageUtil.setMessageReade(user, sysMessageList, messageReadeService);
-        if(sysMessageDtoList.size()>0&&sysMessageDtoList.get(0).getIsReade()==MessageUtil.MESSAGE_READE_OK){
-            datamap.put("cailmMessageRead",MESSAGE_IS_READED);
-        }else {
-            datamap.put("cailmMessageRead",MESSAGE_UN_READE);
-        }
-        //工会通知
-        params.put("type", MessageUtil.MESSAGE_TYPE_UNION);
-        List<Message> unionMessageList = messageService.findByMap(params);
-        List<MessageDto> unionMessageDtoList = MessageUtil.setMessageReade(user, unionMessageList, messageReadeService);
-        if(unionMessageDtoList.size()>0&&unionMessageDtoList.get(0).getIsReade()==MessageUtil.MESSAGE_READE_OK){
-            datamap.put("cailmMessageRead",MESSAGE_IS_READED);
-        }else {
-            datamap.put("cailmMessageRead",MESSAGE_UN_READE);
-        }
-        //理赔通知
-        params.put("type", MessageUtil.MESSAGE_TYPE_CLAIM);
-        List<Message> cailmMessageList = messageService.findByMap(params);
-        List<MessageDto> cailmMessageDtoList = MessageUtil.setMessageReade(user, cailmMessageList, messageReadeService);
-        if(cailmMessageDtoList.size()>0&&cailmMessageDtoList.get(0).getIsReade()==MessageUtil.MESSAGE_READE_OK){
-            datamap.put("cailmMessageRead",MESSAGE_IS_READED);
-        }else {
-            datamap.put("cailmMessageRead",MESSAGE_UN_READE);
-        }
-
 
         return Jsonp_data.success(datamap);
     }

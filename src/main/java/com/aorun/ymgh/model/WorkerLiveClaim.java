@@ -27,6 +27,17 @@ public class WorkerLiveClaim {
 
     private String companyName;
 
+    private Integer isReaded;
+
+
+    public Integer getIsReaded() {
+        return isReaded;
+    }
+
+    public void setIsReaded(Integer isReaded) {
+        this.isReaded = isReaded;
+    }
+
     public Long getId() {
         return id;
     }
