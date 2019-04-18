@@ -158,7 +158,7 @@ public class MessageController {
         }
         MessageReade messageReade = new MessageReade();
         messageReade.setMemberId(user.getMemberId());
-        messageReade.setMemberId(messageId);
+        messageReade.setMessageId(messageId);
         messageReade.setSource(source);
         messageReade.setDeviceCode(deviceCode);
         messageReade.setCreateTime(new Date());
