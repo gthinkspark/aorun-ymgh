@@ -39,7 +39,7 @@ public class MessageUtil {
         Map<String, Object> readMap = new HashMap<String, Object>();
         readMap.put("memberId", user.getMemberId());
         for (MessageDto messageDto : messageDtoList) {
-            readMap.put("messageId", messageDto.getMemberId());
+            readMap.put("messageId", messageDto.getId());
             List<MessageReade> messageReadeList = messageReadeService.findByMap(readMap);
             if (null != messageReadeList && messageReadeList.size() > 0) {
                 messageDto.setIsReade(MessageUtil.MESSAGE_READE_OK);

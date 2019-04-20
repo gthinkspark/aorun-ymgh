@@ -65,6 +65,8 @@ public class MessageController {
         params.put("start",(pageIndex-1)*pageSize);
         params.put("limit",pageIndex*pageSize);
         params.put("type",type);
+        params.put("sort","create_time");
+        params.put("dir","desc");
         if(type!= MessageUtil.MESSAGE_TYPE_SYS){
             params.put("memberId",user.getMemberId());
         }
@@ -100,6 +102,8 @@ public class MessageController {
         params.put("statu", MessageUtil.MESSAGE_STATU_ISDEL_NO);
         params.put("start",0);
         params.put("limit",1);
+        params.put("sort","create_time");
+        params.put("dir","desc");
         /*系统通知*/
         Map<String,Object> sysMessageMap = new HashMap<>();
         List<Message> sysMessageList = messageService.findByMap(params);
