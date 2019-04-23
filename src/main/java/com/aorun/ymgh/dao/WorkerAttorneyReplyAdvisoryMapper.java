@@ -18,6 +18,6 @@ public interface WorkerAttorneyReplyAdvisoryMapper {
 
     int updateByPrimaryKey(WorkerAttorneyReplyAdvisory record);
 
-    List<WorkerAttorneyReplyAdvisory> getWorkerAttorneyReplyAdvisoryListByWorkerId(@Param("workerId")Long workerId,@Param("advisoryId") Long advisoryId, @Param("requestTimePoint")String requestTimePoint);
+    List<WorkerAttorneyReplyAdvisory> getWorkerAttorneyReplyAdvisoryListByWorkerId(@Param("workerId")Long workerId,@Param("advisoryId") Long advisoryId, @Param("requestTimePoint")String requestTimePoint,@Param("isfirstPoint") String isfirstPoint);
 
 }

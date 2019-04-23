@@ -258,9 +258,10 @@ public class WorkerCardApplyRestController {
         datamap.put("cardDetailUrl",workerCard.getFunctionUrl());
         datamap.put("applyConditionUrl",workerCard.getApplyConditionUrl());
         datamap.put("serviceConditionUrl",workerCard.getServiceConditionUrl());
-        if(workerCardApply!=null){
+
             datamap.put("status",workerCardApply.getStatus());
             datamap.put("failReason",workerCardApply.getFailReason());
+        if(workerCardApply!=null){
         }else{
             datamap.put("status",0);// 0-未申请，1-审核中，2-审核失败，3-审核成功。
             datamap.put("failReason","");

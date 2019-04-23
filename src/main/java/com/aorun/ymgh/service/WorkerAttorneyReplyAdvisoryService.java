@@ -44,6 +44,6 @@ public interface WorkerAttorneyReplyAdvisoryService {
     int deleteWorkerAttorneyReplyAdvisory(Long id);
 
 
-    List<WorkerAttorneyReplyAdvisory> getWorkerAttorneyReplyAdvisoryListByWorkerId(Long workerId,  Long advisoryId,String requestTimePoint);
+    List<WorkerAttorneyReplyAdvisory> getWorkerAttorneyReplyAdvisoryListByWorkerId(Long workerId,  Long advisoryId,String requestTimePoint,String isfirstPoint);
 
 }
