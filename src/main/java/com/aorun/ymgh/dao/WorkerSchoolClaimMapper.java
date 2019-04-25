@@ -20,4 +20,8 @@ public interface WorkerSchoolClaimMapper {
 
     List<WorkerSchoolClaim> getWorkerSchoolClaimListByWorkerId(@Param("workerId") Long workerId, @Param("start") Integer start, @Param("limit")Integer limit);
 
+    void updateIsReadedStatus(Long id);
+
+    List<WorkerSchoolClaim> getUnReadList(@Param("workerId") Long workerId);
+
 }

@@ -2,22 +2,13 @@ package com.aorun.ymgh.controller;
 
 import com.aorun.ymgh.controller.login.UserDto;
 import com.aorun.ymgh.dto.MessageDto;
-import com.aorun.ymgh.model.Message;
-import com.aorun.ymgh.model.WorkerAdvisory;
-import com.aorun.ymgh.model.WorkerCardApply;
-import com.aorun.ymgh.model.WorkerMember;
-import com.aorun.ymgh.service.MessageReadeService;
-import com.aorun.ymgh.service.MessageService;
-import com.aorun.ymgh.service.WorkerAdvisoryService;
-import com.aorun.ymgh.service.WorkerCardApplyService;
-import com.aorun.ymgh.util.CheckObjectIsNull;
+import com.aorun.ymgh.model.*;
+import com.aorun.ymgh.service.*;
 import com.aorun.ymgh.util.MessageUtil;
-import com.aorun.ymgh.util.biz.UnionUtil;
+import com.aorun.ymgh.util.biz.WorkerMemberUtil;
 import com.aorun.ymgh.util.cache.redis.RedisCache;
-import com.aorun.ymgh.util.jsonp.Jsonp;
 import com.aorun.ymgh.util.jsonp.Jsonp_data;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -37,6 +28,7 @@ import java.util.Map;
 public class HomeCenterController {
     @Autowired
     private WorkerAdvisoryService workerAdvisoryService;
+
     @Autowired
     private MessageService messageService;
     @Autowired
@@ -44,6 +36,19 @@ public class HomeCenterController {
 
     @Autowired
     private WorkerCardApplyService workerCardApplyService;
+
+    @Autowired
+    private WorkerLiveClaimService workerLiveClaimService;
+
+    @Autowired
+    private WorkerMedicalClaimService workerMedicalClaimService;
+
+    @Autowired
+    private WorkerSchoolClaimService workerSchoolClaimService;
+
+    @Autowired
+    private WorkerTempClaimService workerTempClaimService;
+
 
     private final Integer MESSAGE_IS_READED=1;
     private final Integer MESSAGE_UN_READE=2;
@@ -54,28 +59,14 @@ public class HomeCenterController {
     public Object homeCenterList(
             @RequestParam(name = "sid", required = true, defaultValue = "") String sid
     ) {
-
-        UserDto user = null;
-        WorkerMember workerMember = null;
-        if (!StringUtils.isEmpty(sid)) {
-            user = (UserDto) RedisCache.get(sid);
-            if (CheckObjectIsNull.isNull(user)) {
-                return Jsonp.noLoginError("请先登录或重新登录");
-            }
-            workerMember = RedisCache.getObj(UnionUtil.generateUnionSid(user),WorkerMember.class);
-            if (CheckObjectIsNull.isNull(workerMember)) {
-                return Jsonp.noAccreditError("用户未授权工会,请重新授权");
-            }
-        } else {
-            return Jsonp.noLoginError("用户SID不正确,请核对后重试");
-        }
-        Long workerId = workerMember.getId();
+        Long workerId = WorkerMemberUtil.getWorkerId(sid);
+        UserDto  user = (UserDto) RedisCache.get(sid);
         WorkerCardApply workerCardApply = workerCardApplyService.findWorkerCardApplyByWorkerIdAndCardId(workerId,1L);
         Map<String,Object> datamap = new HashMap<>();
-        if(workerCardApply!=null&&workerCardApply.getIsReaded()==1){//我的福利
-            datamap.put("cardRead",MESSAGE_IS_READED);//1-已读
-        }else {
+        if(workerCardApply!=null&&workerCardApply.getIsReaded()==2){//我的福利
             datamap.put("cardRead",MESSAGE_UN_READE);//2-未读
+        }else {
+            datamap.put("cardRead",MESSAGE_IS_READED);//1-已读
         }
 
         List<WorkerAdvisory> workerAdvisoryList =  workerAdvisoryService.getUnReadWorkerAdvisoryList(workerId);
@@ -85,11 +76,31 @@ public class HomeCenterController {
             datamap.put("advisoryRead",MESSAGE_IS_READED);
         }
 
-        //TODO:我的帮扶未读--状态判断
-        datamap.put("helpRead",MESSAGE_IS_READED);//我的帮扶
+        //我的帮扶
+        datamap.put("helpRead",MESSAGE_IS_READED);//我的帮扶 下面有4个模块
+
+        List<WorkerLiveClaim> workerLiveClaimList = workerLiveClaimService.getUnReadList(workerId);
+        if(workerLiveClaimList!=null && workerLiveClaimList.size()>0){//生活救助
+            datamap.put("helpRead",MESSAGE_UN_READE);
+        }
+
+        List<WorkerMedicalClaim> workerMedicalClaimList = workerMedicalClaimService.getUnReadList(workerId);
+        if(workerMedicalClaimList!=null && workerMedicalClaimList.size()>0){//理疗救助
+            datamap.put("helpRead",MESSAGE_UN_READE);
+        }
+
+        List<WorkerSchoolClaim> workerSchoolClaimList = workerSchoolClaimService.getUnReadList(workerId);
+        if(workerSchoolClaimList!=null && workerSchoolClaimList.size()>0){//生活救助
+            datamap.put("helpRead",MESSAGE_UN_READE);
+        }
+
+        List<WorkerTempClaim> workerTempClaimList = workerTempClaimService.getUnReadList(workerId);
+        if(workerTempClaimList!=null && workerTempClaimList.size()>0){//临时救助
+            datamap.put("helpRead",MESSAGE_UN_READE);
+        }
 
 
-       //消息
+        //消息
         datamap.put("sysMessageRead",MESSAGE_IS_READED);
         datamap.put("unionMessageRead",MESSAGE_IS_READED);
         datamap.put("claimMessageRead",MESSAGE_IS_READED);

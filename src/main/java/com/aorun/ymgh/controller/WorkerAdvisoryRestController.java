@@ -11,6 +11,7 @@ import com.aorun.ymgh.util.DateFriendlyShow;
 import com.aorun.ymgh.util.PageConstant;
 import com.aorun.ymgh.util.biz.ImagePropertiesConfig;
 import com.aorun.ymgh.util.biz.UnionUtil;
+import com.aorun.ymgh.util.biz.WorkerMemberUtil;
 import com.aorun.ymgh.util.cache.redis.RedisCache;
 import com.aorun.ymgh.util.jsonp.Jsonp;
 import com.aorun.ymgh.util.jsonp.Jsonp_data;
@@ -81,7 +82,6 @@ public class WorkerAdvisoryRestController {
         for(WorkerAdvisory workerAdvisory:workerAdvisoryList){
             WorkerAdvisoryDto workerAdvisoryDto = new WorkerAdvisoryDto();
             BeanUtils.copyProperties(workerAdvisory,workerAdvisoryDto);
-            BeanUtils.copyProperties(workerAdvisory,workerAdvisoryDto);
 
             StringBuffer MaterialsUrls = new StringBuffer("");
             String materialsUrls =  workerAdvisory.getMaterialsUrls();
@@ -95,7 +95,6 @@ public class WorkerAdvisoryRestController {
             workerAdvisoryDto.setCreateTime(DateFriendlyShow.showTimeText(workerAdvisory.getCreateTime()));
             workerAdvisoryDtoList.add(workerAdvisoryDto);
         }
-
 
         return Jsonp_data.success(workerAdvisoryDtoList);
     }
@@ -130,23 +129,7 @@ public class WorkerAdvisoryRestController {
             @RequestParam(name = "advisoryTitle", required = true, defaultValue = "") String advisoryTitle,
             @RequestParam(name = "advisoryContent", required = true, defaultValue = "") String advisoryContent,
             @RequestParam("materialsFiles") List<MultipartFile> materialsFiles) {
-        UserDto user = null;
-        WorkerMember workerMember = null;
-        if (!StringUtils.isEmpty(sid)) {
-            user = (UserDto) RedisCache.get(sid);
-            if (CheckObjectIsNull.isNull(user)) {
-                return Jsonp.noLoginError("请先登录或重新登录");
-            }
-            workerMember = RedisCache.getObj(UnionUtil.generateUnionSid(user),WorkerMember.class);
-            if (CheckObjectIsNull.isNull(workerMember)) {
-                return Jsonp.noAccreditError("用户未授权工会,请重新授权");
-            }
-        } else {
-            return Jsonp.noLoginError("用户SID不正确,请核对后重试");
-        }
-
-
-        Long workerId = workerMember.getId();
+        Long workerId = WorkerMemberUtil.getWorkerId(sid);
         WorkerAdvisory workerAdvisory = new WorkerAdvisory();
         workerAdvisory.setWorkerId(workerId);
         workerAdvisory.setAdvisoryType(advisoryType);
@@ -196,23 +179,6 @@ public class WorkerAdvisoryRestController {
                                             @RequestParam(name = "advisoryContent", required = true, defaultValue = "") String advisoryContent,
                                             @RequestParam(name = "materialsUrls", required = false, defaultValue = "") String materialsUrls,
                                             @RequestParam(name="materialsFiles", required = false) List<MultipartFile> materialsFiles) {
-
-        UserDto user = null;
-        WorkerMember workerMember = null;
-        if (!StringUtils.isEmpty(sid)) {
-            user = (UserDto) RedisCache.get(sid);
-            if (CheckObjectIsNull.isNull(user)) {
-                return Jsonp.noLoginError("请先登录或重新登录");
-            }
-            workerMember = RedisCache.getObj(UnionUtil.generateUnionSid(user),WorkerMember.class);
-            if (CheckObjectIsNull.isNull(workerMember)) {
-                return Jsonp.noAccreditError("用户未授权工会,请重新授权");
-            }
-        } else {
-            return Jsonp.noLoginError("用户SID不正确,请核对后重试");
-        }
-
-
         WorkerAdvisory workerAdvisory = workerAdvisoryService.findWorkerAdvisoryById(id);
         if(workerAdvisory!=null){
             workerAdvisory.setAdvisoryName(advisoryName);
@@ -262,7 +228,9 @@ public class WorkerAdvisoryRestController {
 
     //详情接口
     @RequestMapping(value = "/workerAdvisory/{id}", method = RequestMethod.GET)
-    public Object findOneWorkerAdvisory(@PathVariable("id") Long id) {
+    public Object findOneWorkerAdvisory(@PathVariable("id") Long id,
+                                        @RequestParam(name = "sid", required = true, defaultValue = "") String sid
+                                        ) {
 
         WorkerAdvisory workerAdvisory = workerAdvisoryService.findWorkerAdvisoryById(id);
         WorkerAdvisoryDto workerAdvisoryDto = new WorkerAdvisoryDto();
@@ -285,13 +253,25 @@ public class WorkerAdvisoryRestController {
 
     //删除接口
     @RequestMapping(value = "/deleteWorkerAdvisory/{id}", method = RequestMethod.GET)
-    public Object deleteWorkerAdvisory(@PathVariable("id") Long id) {
+    public Object deleteWorkerAdvisory(@PathVariable("id") Long id,
+                                       @RequestParam(name = "sid", required = true, defaultValue = "") String sid
+                                       ) {
         int flag = workerAdvisoryService.deleteWorkerAdvisory(id);
         if(flag>0){
             return Jsonp.success();
         }else{
             return Jsonp.bussiness_tips_code("删除失败");
         }
+    }
+
+    //已读接口
+    @RequestMapping(value = "/workerAdvisoryRead/{id}", method = RequestMethod.GET)
+    public Object workerAdvisoryRead(@PathVariable("id") Long id,
+                                     @RequestParam(name = "sid", required = true, defaultValue = "") String sid
+
+    ) {
+        workerAdvisoryService.updateIsReadedStatus(id);
+        return Jsonp.success();
     }
 
 }

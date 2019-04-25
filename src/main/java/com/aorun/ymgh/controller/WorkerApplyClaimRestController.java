@@ -1,22 +1,18 @@
 package com.aorun.ymgh.controller;
 
 
-import com.aorun.ymgh.controller.login.UserDto;
 import com.aorun.ymgh.dto.WorkerApplyClaimDto;
 import com.aorun.ymgh.model.WorkerApplyClaim;
-import com.aorun.ymgh.model.WorkerMember;
 import com.aorun.ymgh.service.WorkerApplyClaimService;
-import com.aorun.ymgh.util.CheckObjectIsNull;
 import com.aorun.ymgh.util.DateFormat;
 import com.aorun.ymgh.util.PageConstant;
 import com.aorun.ymgh.util.biz.ImagePropertiesConfig;
-import com.aorun.ymgh.util.biz.UnionUtil;
-import com.aorun.ymgh.util.cache.redis.RedisCache;
+import com.aorun.ymgh.util.biz.WorkerMemberUtil;
+import com.aorun.ymgh.util.cache.memcache.MemachedCache;
 import com.aorun.ymgh.util.jsonp.Jsonp;
 import com.aorun.ymgh.util.jsonp.Jsonp_data;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -39,34 +35,6 @@ public class WorkerApplyClaimRestController {
 
 
 
-    /***
-     * 申请理赔--请求短信验证码
-     * @param phone   手机号
-     * @param sourceCode  来源
-     * @param macAddr  mac地址
-     * @return
-     */
-    @RequestMapping(value = "/getRegisterSmsCode", method = RequestMethod.GET)
-    public Object getRegisterSmsCode( @RequestParam(value="phone")String phone,
-                                      @RequestParam(value="sourceCode",defaultValue="")String sourceCode,
-                                      @RequestParam(value="macAddr",defaultValue="")String macAddr) {
-
-        try {
-            //1.验证自己的手机号能不能注册
-            //2.验证短信是否发送超过次数
-            //3.发送短信
-            //4.返回客户端信息
-//            String randomNum = AppCacheConstant.APP_SERVER_PRE + RandomNumUtil.getCharacterAndNumber(AppConstant.UNIQUE_CODE);
-//            String smsCode = RandomNumUtil.getRandom(RandomNumUtil.NUM, RandomNumUtil.REGISTER_USER_LENGTH);
-            String randomNum = UUID.randomUUID().toString();
-            return  Jsonp_data.success(randomNum);
-
-        } catch (Exception e) {
-            return Jsonp.error();
-        }
-    }
-
-
         //1.列表接口----分页查询
         @RequestMapping(value = "/workerApplyClaimList", method = RequestMethod.GET)
         public Object workerLiveClaimList(
@@ -74,24 +42,7 @@ public class WorkerApplyClaimRestController {
             @RequestParam(name="pageIndex", required = true, defaultValue = "1") Integer pageIndex,
             @RequestParam(name="pageSize", required = false, defaultValue = PageConstant.APP_PAGE_SIZE + "") Integer pageSize
             ) {
-
-
-            UserDto user = null;
-            WorkerMember workerMember = null;
-            if (!StringUtils.isEmpty(sid)) {
-                user = (UserDto) RedisCache.get(sid);
-                if (CheckObjectIsNull.isNull(user)) {
-                    return Jsonp.noLoginError("请先登录或重新登录");
-                }
-                workerMember = RedisCache.getObj(UnionUtil.generateUnionSid(user),WorkerMember.class);
-                if (CheckObjectIsNull.isNull(workerMember)) {
-                    return Jsonp.noAccreditError("用户未授权工会,请重新授权");
-                }
-            } else {
-                return Jsonp.noLoginError("用户SID不正确,请核对后重试");
-            }
-
-        Long workerId = workerMember.getId();
+        Long workerId = WorkerMemberUtil.getWorkerId(sid);
         List<WorkerApplyClaim>   workerApplyClaimList = new ArrayList<WorkerApplyClaim>();
             List<Map<String,Object>> datamapList = new ArrayList<Map<String,Object>>();
             workerApplyClaimList = workerApplyClaimService.getWorkerApplyClaimListByWorkerId(workerId,pageIndex,pageSize);
@@ -112,7 +63,9 @@ public class WorkerApplyClaimRestController {
 
     //3.详情接口
     @RequestMapping(value = "/workerApplyClaim/{id}", method = RequestMethod.GET)
-    public Object findOneWorkerLiveClaim(@PathVariable("id") Long id) {
+    public Object findOneWorkerLiveClaim(@PathVariable("id") Long id,
+                                         @RequestParam(name = "sid", required = true, defaultValue = "") String sid
+                                         ) {
 
         WorkerApplyClaim workerApplyClaim = workerApplyClaimService.findWorkerApplyClaimById(id);
         WorkerApplyClaimDto workerApplyClaimDto = new WorkerApplyClaimDto();
@@ -155,29 +108,14 @@ public class WorkerApplyClaimRestController {
                                         @RequestParam("explainImgFiles") List<MultipartFile> explainImgFiles
                                           ) {
 
-        UserDto user = null;
-        WorkerMember workerMember = null;
-        if (!StringUtils.isEmpty(sid)) {
-            user = (UserDto) RedisCache.get(sid);
-            if (CheckObjectIsNull.isNull(user)) {
-                return Jsonp.noLoginError("请先登录或重新登录");
-            }
-            workerMember = RedisCache.getObj(UnionUtil.generateUnionSid(user),WorkerMember.class);
-            if (CheckObjectIsNull.isNull(workerMember)) {
-                return Jsonp.noAccreditError("用户未授权工会,请重新授权");
-            }
-        } else {
-            return Jsonp.noLoginError("用户SID不正确,请核对后重试");
-        }
+        Long workerId = WorkerMemberUtil.getWorkerId(sid);
 
-        //        //TODO:判断验证码
-//        /**获得DataCache里的验证码的值*/
-//			String randomSmsCode = (String) MemachedCache.get(smsCodeBindingKey);
-//			if (!smsCode.equals(randomSmsCode)) {
-//				return Jsonp.error("验证码输入有误!");
-//			}
 
-        Long workerId = workerMember.getId();
+             /**获得DataCache里的验证码的值*/
+			String randomSmsCode = (String) MemachedCache.get(smsCodeBindingKey);
+			if (!smsCode.equals(randomSmsCode)) {
+				return Jsonp.error("验证码输入有误!");
+			}
         WorkerApplyClaim workerApplyClaim = new WorkerApplyClaim();
         workerApplyClaim.setWorkerId(workerId);
         if (explainImgFiles==null && explainImgFiles.size()<0) {
@@ -239,27 +177,13 @@ public class WorkerApplyClaimRestController {
                                         @RequestParam(name = "explainImgFiles", required = false) List<MultipartFile> explainImgFiles
     ) {
 
-        UserDto user = null;
-        WorkerMember workerMember = null;
-        if (!StringUtils.isEmpty(sid)) {
-            user = (UserDto) RedisCache.get(sid);
-            if (CheckObjectIsNull.isNull(user)) {
-                return Jsonp.noLoginError("请先登录或重新登录");
-            }
-            workerMember = RedisCache.getObj(UnionUtil.generateUnionSid(user),WorkerMember.class);
-            if (CheckObjectIsNull.isNull(workerMember)) {
-                return Jsonp.noAccreditError("用户未授权工会,请重新授权");
-            }
-        } else {
-            return Jsonp.noLoginError("用户SID不正确,请核对后重试");
-        }
 
-//        //TODO:判断验证码
-//        /**获得DataCache里的验证码的值*/
-//			String randomSmsCode = (String) MemachedCache.get(smsCodeBindingKey);
-//			if (!smsCode.equals(randomSmsCode)) {
-//				return Jsonp.error("验证码输入有误!");
-//			}
+
+        /**获得DataCache里的验证码的值*/
+        String randomSmsCode = (String) MemachedCache.get(smsCodeBindingKey);
+        if (!smsCode.equals(randomSmsCode)) {
+            return Jsonp.error("验证码输入有误!");
+        }
 
 
         WorkerApplyClaim workerApplyClaim = workerApplyClaimService.findWorkerApplyClaimById(id);

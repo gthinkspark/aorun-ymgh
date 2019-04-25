@@ -46,4 +46,8 @@ public interface WorkerTempClaimService {
 
     List<WorkerTempClaim> getWorkerTempClaimListByWorkerId(Long workerId, Integer pageIndex, Integer pageSize);
 
+    void updateIsReadedStatus(Long id);
+
+    List<WorkerTempClaim> getUnReadList(Long workerId);
+
 }

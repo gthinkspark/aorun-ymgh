@@ -46,7 +46,7 @@
       #{advisoryBizType,jdbcType=INTEGER}, #{advisoryName,jdbcType=VARCHAR}, #{telephone,jdbcType=VARCHAR}, 
       #{companyName,jdbcType=VARCHAR}, #{advisoryTitle,jdbcType=VARCHAR}, #{advisoryContent,jdbcType=VARCHAR}, 
       #{attorneyId,jdbcType=BIGINT}, #{materialsUrls,jdbcType=VARCHAR}, 1,
-      #{failReason,jdbcType=VARCHAR}, 'n', 2, now(),now())
+      #{failReason,jdbcType=VARCHAR}, 'n', 1, now(),now())
   </insert>
 
   <update id="updateByPrimaryKeySelective" parameterType="com.aorun.ymgh.model.WorkerAdvisory">
@@ -124,9 +124,12 @@
     <include refid="Base_Column_List" />
     from t_worker_advisory
     where worker_id = #{workerId}   and is_deleted = 'n'
+    order by create_time desc
     <if test="start!=null and limit!=null ">
       limit #{start},#{limit}
     </if>
+
+
   </select>
 
 
@@ -145,5 +148,15 @@
     where worker_id = #{workerId}   and is_deleted = 'n' and  is_readed = 2
     order by create_time desc
   </select>
+
+
+  <update id="updateIsReadedStatus" parameterType="java.lang.Long">
+    update t_worker_advisory
+    set
+      is_readed = 1,
+      update_time = now()
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
 
 </mapper>

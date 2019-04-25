@@ -1,23 +1,20 @@
 package com.aorun.ymgh.controller;
 
 
-import com.aorun.ymgh.controller.login.UserDto;
 import com.aorun.ymgh.dto.WorkerCompanyRecommendDto;
-import com.aorun.ymgh.model.*;
+import com.aorun.ymgh.model.WorkerCardApply;
+import com.aorun.ymgh.model.WorkerCardWithBLOBs;
+import com.aorun.ymgh.model.WorkerCompanyRecommend;
 import com.aorun.ymgh.service.WorkerCardApplyService;
 import com.aorun.ymgh.service.WorkerCardService;
 import com.aorun.ymgh.service.WorkerCompanyRecommendService;
-import com.aorun.ymgh.util.CheckObjectIsNull;
 import com.aorun.ymgh.util.DateFormat;
 import com.aorun.ymgh.util.PageConstant;
 import com.aorun.ymgh.util.biz.ImagePropertiesConfig;
-import com.aorun.ymgh.util.biz.UnionUtil;
-import com.aorun.ymgh.util.cache.redis.RedisCache;
-import com.aorun.ymgh.util.jsonp.Jsonp;
+import com.aorun.ymgh.util.biz.WorkerMemberUtil;
 import com.aorun.ymgh.util.jsonp.Jsonp_data;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -54,21 +51,8 @@ public class WorkerCardRestController {
             @RequestParam(name="pageSize", required = false, defaultValue = PageConstant.APP_PAGE_SIZE + "") Integer pageSize
             ) {
 
-            UserDto user = null;
-            WorkerMember workerMember = null;
-            if (!StringUtils.isEmpty(sid)) {
-                user = (UserDto) RedisCache.get(sid);
-                if (CheckObjectIsNull.isNull(user)) {
-                    return Jsonp.noLoginError("请先登录或重新登录");
-                }
-                workerMember = RedisCache.getObj(UnionUtil.generateUnionSid(user),WorkerMember.class);
-                if (CheckObjectIsNull.isNull(workerMember)) {
-                    return Jsonp.noAccreditError("用户未授权工会,请重新授权");
-                }
-            } else {
-                return Jsonp.noLoginError("用户SID不正确,请核对后重试");
-            }
-            Long workerId = workerMember.getId();
+
+            Long workerId = WorkerMemberUtil.getWorkerId(sid);
             //1.卡片详情
             WorkerCardWithBLOBs workerCard = workerCardService.findWorkerCardWithBLOBsById(1L);
             HashMap<String,Object> datamap = new HashMap<String,Object>();
@@ -103,7 +87,7 @@ public class WorkerCardRestController {
 
     //2.卡片详情接口
     @RequestMapping(value = "/workerCard", method = RequestMethod.GET)
-    public Object findOneWorkerLiveClaim() {
+    public Object findOneWorkerLiveClaim(@RequestParam(name = "sid", required = true, defaultValue = "") String sid) {
         WorkerCardWithBLOBs workerCard = workerCardService.findWorkerCardWithBLOBsById(1L);
         HashMap<String,Object> datamap = new HashMap<String,Object>();
         datamap.put("cardName",workerCard.getName());

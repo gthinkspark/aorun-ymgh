@@ -4,18 +4,14 @@ import com.aorun.ymgh.controller.login.UserDto;
 import com.aorun.ymgh.dto.MessageDto;
 import com.aorun.ymgh.model.Message;
 import com.aorun.ymgh.model.MessageReade;
-import com.aorun.ymgh.model.WorkerMember;
 import com.aorun.ymgh.service.MessageReadeService;
 import com.aorun.ymgh.service.MessageService;
-import com.aorun.ymgh.util.CheckObjectIsNull;
 import com.aorun.ymgh.util.MessageUtil;
 import com.aorun.ymgh.util.PageConstant;
-import com.aorun.ymgh.util.biz.UnionUtil;
 import com.aorun.ymgh.util.cache.redis.RedisCache;
 import com.aorun.ymgh.util.jsonp.Jsonp;
 import com.aorun.ymgh.util.jsonp.Jsonp_data;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
@@ -44,20 +40,7 @@ public class MessageController {
             @RequestParam(name="pageIndex", required = false, defaultValue = "1") Integer pageIndex,
             @RequestParam(name="pageSize", required = false, defaultValue = PageConstant.APP_PAGE_SIZE + "") Integer pageSize
     ) {
-        UserDto user = null;
-        WorkerMember workerMember = null;
-        if (!StringUtils.isEmpty(sid)) {
-            user = (UserDto) RedisCache.get(sid);
-            if (CheckObjectIsNull.isNull(user)) {
-                return Jsonp.noLoginError("请先登录或重新登录");
-            }
-            workerMember = RedisCache.getObj(UnionUtil.generateUnionSid(user), WorkerMember.class);
-            if (CheckObjectIsNull.isNull(workerMember)) {
-                return Jsonp.noAccreditError("用户未授权工会,请重新授权");
-            }
-        } else {
-            return Jsonp.noLoginError("用户SID不正确,请核对后重试");
-        }
+        UserDto  user = (UserDto) RedisCache.get(sid);
         Map<String,Object> resultMap = new HashMap<>();
         Map<String,Object> params = new HashMap<String,Object>();
         params.put("checkup", MessageUtil.MESSAGE_CHECK_OK);
@@ -81,20 +64,8 @@ public class MessageController {
     public Object messageHomeList(
             @RequestParam(name = "sid", required = true, defaultValue = "") String sid
     ) {
-        UserDto user = null;
-        WorkerMember workerMember = null;
-        if (!StringUtils.isEmpty(sid)) {
-            user = (UserDto) RedisCache.get(sid);
-            if (CheckObjectIsNull.isNull(user)) {
-                return Jsonp.noLoginError("请先登录或重新登录");
-            }
-            workerMember = RedisCache.getObj(UnionUtil.generateUnionSid(user), WorkerMember.class);
-            if (CheckObjectIsNull.isNull(workerMember)) {
-                return Jsonp.noAccreditError("用户未授权工会,请重新授权");
-            }
-        } else {
-            return Jsonp.noLoginError("用户SID不正确,请核对后重试");
-        }
+
+        UserDto  user = (UserDto) RedisCache.get(sid);
         Map<String,Object> resultMap = new HashMap<>();
         Map<String,Object> params = new HashMap<String,Object>();
         params.put("checkup", MessageUtil.MESSAGE_CHECK_OK);
@@ -146,20 +117,8 @@ public class MessageController {
                                  @RequestParam(name = "source", required = true, defaultValue = "") Integer source,
                                  @RequestParam(name = "deviceCode", required = true, defaultValue = "") String deviceCode) {
 
-        UserDto user = null;
-        WorkerMember workerMember = null;
-        if (!StringUtils.isEmpty(sid)) {
-            user = (UserDto) RedisCache.get(sid);
-            if (CheckObjectIsNull.isNull(user)) {
-                return Jsonp.noLoginError("请先登录或重新登录");
-            }
-            workerMember = RedisCache.getObj(UnionUtil.generateUnionSid(user),WorkerMember.class);
-            if (CheckObjectIsNull.isNull(workerMember)) {
-                return Jsonp.noAccreditError("用户未授权工会,请重新授权");
-            }
-        } else {
-            return Jsonp.noLoginError("用户SID不正确,请核对后重试");
-        }
+        UserDto  user = (UserDto) RedisCache.get(sid);
+
         MessageReade messageReade = new MessageReade();
         messageReade.setMemberId(user.getMemberId());
         messageReade.setMessageId(messageId);

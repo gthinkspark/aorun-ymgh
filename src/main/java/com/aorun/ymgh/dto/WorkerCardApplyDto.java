@@ -23,6 +23,8 @@ public class WorkerCardApplyDto {
 
     private String failReason;
 
+    private Integer isReaded;
+
     public Long getId() {
         return id;
     }
@@ -109,5 +111,13 @@ public class WorkerCardApplyDto {
 
     public void setFailReason(String failReason) {
         this.failReason = failReason;
+    }
+
+    public Integer getIsReaded() {
+        return isReaded;
+    }
+
+    public void setIsReaded(Integer isReaded) {
+        this.isReaded = isReaded;
     }
 }

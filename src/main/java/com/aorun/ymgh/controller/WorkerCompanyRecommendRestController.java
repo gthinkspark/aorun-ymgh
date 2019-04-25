@@ -25,7 +25,9 @@ public class WorkerCompanyRecommendRestController {
 
     //1.活动详情接口
     @RequestMapping(value = "/workerCompanyRecommend/{id}", method = RequestMethod.GET)
-    public Object findOneWorkerLiveClaim(@PathVariable("id") Long id) {
+    public Object findOneWorkerLiveClaim(@PathVariable("id") Long id,
+    @RequestParam(name = "sid", required = true, defaultValue = "") String sid
+                                         ) {
         WorkerCompanyRecommend workerCompanyRecommend = workerCompanyRecommendService.findWorkerCompanyRecommendById(id);
 
         HashMap<String,Object> datamap = new HashMap<String,Object>();

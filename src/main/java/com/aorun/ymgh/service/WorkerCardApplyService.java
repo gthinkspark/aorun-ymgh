@@ -55,5 +55,5 @@ public interface WorkerCardApplyService {
      */
     WorkerCardApply findWorkerCardApplyByWorkerIdAndCardId(Long workerId,Long workerCardId);
 
-
+    void updateIsReadedStatus(Long id);
 }

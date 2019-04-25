@@ -24,6 +24,15 @@ public class WorkerMedicalClaimDto {
 
     private String createTime;
 
+    private Integer isReaded;
+
+    public Integer getIsReaded() {
+        return isReaded;
+    }
+
+    public void setIsReaded(Integer isReaded) {
+        this.isReaded = isReaded;
+    }
 
 
     public Long getId() {

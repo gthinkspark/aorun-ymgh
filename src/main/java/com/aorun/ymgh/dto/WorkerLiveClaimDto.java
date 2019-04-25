@@ -21,7 +21,15 @@ public class WorkerLiveClaimDto {
 
     private String createTime;
 
+    private Integer isReaded;
 
+    public Integer getIsReaded() {
+        return isReaded;
+    }
+
+    public void setIsReaded(Integer isReaded) {
+        this.isReaded = isReaded;
+    }
 
     public Long getId() {
         return id;
@@ -102,5 +110,7 @@ public class WorkerLiveClaimDto {
     public void setCompanyName(String companyName) {
         this.companyName = companyName;
     }
+
+
 
 }

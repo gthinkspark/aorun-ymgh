@@ -19,4 +19,8 @@ public interface WorkerMedicalClaimMapper {
     int updateByPrimaryKey(WorkerMedicalClaim record);
 
     List<WorkerMedicalClaim> getWorkerMedicalClaimListByWorkerId(@Param("workerId") Long workerId, @Param("start") Integer start, @Param("limit")Integer limit);
+
+    void updateIsReadedStatus(Long id);
+
+    List<WorkerMedicalClaim> getUnReadList(@Param("workerId") Long workerId);
 }

@@ -57,5 +57,8 @@ public class WorkerAdvisoryServiceImpl implements WorkerAdvisoryService {
         return workerAdvisoryMapper.getUnReadWorkerAdvisoryList(workerId);
     }
 
-
+    @Override
+    public void updateIsReadedStatus(Long id) {
+        workerAdvisoryMapper.updateIsReadedStatus(id);
+    }
 }
