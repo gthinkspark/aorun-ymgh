@@ -120,12 +120,17 @@
   select
   <include refid="Base_Column_List" />
   from t_worker_attorney_reply_advisory
-    where worker_id = #{workerId}  and advisory_id = #{advisoryId} and  reply_type = 1
-  <if test="requestTimePoint != null" >
-    <![CDATA[
+    where worker_id = #{workerId}  and advisory_id = #{advisoryId}
+
+    <if test="isfirstPoint  == 'n'.toString()" >
+      and  reply_type = 1
+        <if test="requestTimePoint != ''" >
+           <![CDATA[
 			and    reply_time > #{requestTimePoint}
 				]]>
-  </if>
+       </if>
+    </if>
+
   order by reply_time desc
 </select>
 

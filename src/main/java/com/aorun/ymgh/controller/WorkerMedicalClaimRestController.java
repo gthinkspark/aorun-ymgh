@@ -110,7 +110,7 @@ public class WorkerMedicalClaimRestController {
 
 
     //修改接口
-    @RequestMapping(value = "/workerMedicalClaim", method = RequestMethod.PUT)
+    @RequestMapping(value = "/updateWorkerMedicalClaim", method = RequestMethod.POST)
     public Object updateWorkerMedicalClaim(  @RequestParam(name = "sid", required = true, defaultValue = "") String sid,
                                              @RequestBody WorkerMedicalClaim workerMedicalClaim) {
 

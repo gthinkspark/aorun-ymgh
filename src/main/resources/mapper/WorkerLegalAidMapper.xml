@@ -4,8 +4,8 @@
   <resultMap id="BaseResultMap" type="com.aorun.ymgh.model.WorkerLegalAid">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="worker_id" jdbcType="BIGINT" property="workerId" />
-    <result column="name" jdbcType="BIGINT" property="name" />
-    <result column="company_name" jdbcType="BIGINT" property="companyName" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="company_name" jdbcType="VARCHAR" property="companyName" />
     <result column="telephone" jdbcType="VARCHAR" property="telephone" />
     <result column="case_reason" jdbcType="VARCHAR" property="caseReason" />
     <result column="reply_items" jdbcType="VARCHAR" property="replyItems" />
@@ -33,8 +33,8 @@
       company_name, telephone, case_reason, 
       reply_items, status, fail_reason, 
       create_time, update_time)
-    values (#{id,jdbcType=BIGINT}, #{workerId,jdbcType=BIGINT}, #{name,jdbcType=BIGINT}, 
-      #{companyName,jdbcType=BIGINT}, #{telephone,jdbcType=VARCHAR}, #{caseReason,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=BIGINT}, #{workerId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR},
+      #{companyName,jdbcType=VARCHAR}, #{telephone,jdbcType=VARCHAR}, #{caseReason,jdbcType=VARCHAR},
       #{replyItems,jdbcType=VARCHAR}, 1, #{failReason,jdbcType=VARCHAR},
       now(), now())
   </insert>
@@ -83,10 +83,10 @@
         #{workerId,jdbcType=BIGINT},
       </if>
       <if test="name != null">
-        #{name,jdbcType=BIGINT},
+        #{name,jdbcType=VARCHAR},
       </if>
       <if test="companyName != null">
-        #{companyName,jdbcType=BIGINT},
+        #{companyName,jdbcType=VARCHAR},
       </if>
       <if test="telephone != null">
         #{telephone,jdbcType=VARCHAR},
@@ -118,10 +118,10 @@
         worker_id = #{workerId,jdbcType=BIGINT},
       </if>
       <if test="name != null">
-        name = #{name,jdbcType=BIGINT},
+        name = #{name,jdbcType=VARCHAR},
       </if>
       <if test="companyName != null">
-        company_name = #{companyName,jdbcType=BIGINT},
+        company_name = #{companyName,jdbcType=VARCHAR},
       </if>
       <if test="telephone != null">
         telephone = #{telephone,jdbcType=VARCHAR},
@@ -145,8 +145,8 @@
   <update id="updateByPrimaryKey" parameterType="com.aorun.ymgh.model.WorkerLegalAid">
     update t_worker_legal_aid
     set worker_id = #{workerId,jdbcType=BIGINT},
-      name = #{name,jdbcType=BIGINT},
-      company_name = #{companyName,jdbcType=BIGINT},
+      name = #{name,jdbcType=VARCHAR},
+      company_name = #{companyName,jdbcType=VARCHAR},
       telephone = #{telephone,jdbcType=VARCHAR},
       case_reason = #{caseReason,jdbcType=VARCHAR},
       reply_items = #{replyItems,jdbcType=VARCHAR},
@@ -162,9 +162,11 @@
     <include refid="Base_Column_List" />
     from t_worker_legal_aid
     where worker_id = #{workerId}
+    order by create_time desc
     <if test="start!=null and limit!=null ">
       limit #{start},#{limit}
     </if>
+
   </select>
 
 

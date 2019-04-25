@@ -3,10 +3,10 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>springboot</groupId>
-    <artifactId>springboot-mybatis-redis</artifactId>
+    <groupId>com.aorun.ymgh</groupId>
+    <artifactId>aorun-ymgh</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>springboot-mybatis-redis</name>
+    <name>aorun-ymgh</name>
 
     <!-- Spring Boot 启动父依赖 -->
     <parent>

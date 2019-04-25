@@ -109,7 +109,7 @@ public class WorkerLiveClaimRestController {
     }
 
     //修改接口
-    @RequestMapping(value = "/workerLiveClaim", method = RequestMethod.PUT)
+    @RequestMapping(value = "/updateWorkerLiveClaim", method = RequestMethod.POST)
     public Object updateWorkerLiveClaim(  @RequestParam(name = "sid", required = true, defaultValue = "") String sid,
                                           @RequestBody WorkerLiveClaim workerLiveClaim) {
 

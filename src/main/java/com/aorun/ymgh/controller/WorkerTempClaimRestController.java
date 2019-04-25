@@ -110,7 +110,7 @@ public class WorkerTempClaimRestController {
 
 
     //修改接口
-    @RequestMapping(value = "/workerTempClaim", method = RequestMethod.PUT)
+    @RequestMapping(value = "/updateWorkerTempClaim", method = RequestMethod.POST)
     public Object updateWorkerTempClaim(  @RequestParam(name = "sid", required = true, defaultValue = "") String sid,
                                           @RequestBody WorkerTempClaim workerTempClaim) {
 

@@ -5,9 +5,9 @@ public class WorkerLegalAidDto {
 
     private Long workerId;
 
-    private Long name;
+    private String name;
 
-    private Long companyName;
+    private String companyName;
 
     private String telephone;
 
@@ -37,19 +37,19 @@ public class WorkerLegalAidDto {
         this.workerId = workerId;
     }
 
-    public Long getName() {
+    public String getName() {
         return name;
     }
 
-    public void setName(Long name) {
+    public void setName(String name) {
         this.name = name;
     }
 
-    public Long getCompanyName() {
+    public String getCompanyName() {
         return companyName;
     }
 
-    public void setCompanyName(Long companyName) {
+    public void setCompanyName(String companyName) {
         this.companyName = companyName;
     }
 

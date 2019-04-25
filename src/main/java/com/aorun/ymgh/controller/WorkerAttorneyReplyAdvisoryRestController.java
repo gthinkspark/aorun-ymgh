@@ -18,6 +18,8 @@ import com.aorun.ymgh.util.biz.UnionUtil;
 import com.aorun.ymgh.util.cache.redis.RedisCache;
 import com.aorun.ymgh.util.jsonp.Jsonp;
 import com.aorun.ymgh.util.jsonp.Jsonp_data;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,6 +39,7 @@ import java.util.List;
 @RestController
 public class WorkerAttorneyReplyAdvisoryRestController {
 
+    private static final Log LOGGER = LogFactory.getLog(WorkerAttorneyReplyAdvisoryRestController.class);
     @Autowired
     private WorkerAttorneyReplyAdvisoryService workerAttorneyReplyAdvisoryService;
 
@@ -55,6 +58,7 @@ public class WorkerAttorneyReplyAdvisoryRestController {
      * @param sid
      * @param advisoryId      咨询ID
      * @param requestTimePoint  当前请求时间点
+     * @param isfirstPoint     第一次请求为y,第二次之后请求为n,
      * * @return
      */
     //1.维权&留言---咨询列表接口
@@ -62,7 +66,8 @@ public class WorkerAttorneyReplyAdvisoryRestController {
         public Object workerAttorneyReplyAdvisoryList(
             @RequestParam(name = "sid", required = true, defaultValue = "") String sid,
             @RequestParam(value="advisoryId")Long advisoryId,
-            @RequestParam(value="requestTimePoint")String requestTimePoint
+            @RequestParam(value="requestTimePoint", required = true, defaultValue = "")String requestTimePoint,
+            @RequestParam(value="isfirstPoint", required = true, defaultValue = "")String isfirstPoint
             ) {
 
 
@@ -84,32 +89,40 @@ public class WorkerAttorneyReplyAdvisoryRestController {
             Long workerId = workerMember.getId();
 
 
-            List<WorkerAttorneyReplyAdvisory>    workerAttorneyReplyAdvisoryList = workerAttorneyReplyAdvisoryService.getWorkerAttorneyReplyAdvisoryListByWorkerId(workerId,advisoryId,requestTimePoint);
 
             HashMap<String,Object> dataMap = new HashMap<String,Object>();
-            if(workerAttorneyReplyAdvisoryList!=null&&workerAttorneyReplyAdvisoryList.size()>0)
-            {
-                requestTimePoint = DateFormat.dateToString(workerAttorneyReplyAdvisoryList.get(0).getReplyTime());
-            }
+           // try{
+                List<WorkerAttorneyReplyAdvisory>    workerAttorneyReplyAdvisoryList = workerAttorneyReplyAdvisoryService.getWorkerAttorneyReplyAdvisoryListByWorkerId(workerId,advisoryId,requestTimePoint,isfirstPoint);
 
-            List<HashMap<String,Object>> dataMapList = new ArrayList<>();
-            for (WorkerAttorneyReplyAdvisory workerAttorneyReplyAdvisory:workerAttorneyReplyAdvisoryList){
-                HashMap<String,Object> myDataMap = new HashMap<String,Object>();
-                myDataMap.put("replyType",workerAttorneyReplyAdvisory.getReplyType());//
-                myDataMap.put("replyContent",workerAttorneyReplyAdvisory.getReplyContent());
-                Long attorneyId = workerAttorneyReplyAdvisory.getAttorneyId();//律师ID
-                Long myworkerId = workerAttorneyReplyAdvisory.getWorkerId();// 工会用户ID
-                WorkerMember myworkerMember = workerMemberService.findWorkerMemberById(myworkerId);
-                myDataMap.put("workerMemberImgPath", ImagePropertiesConfig.WORKERMEMBER_SERVER_PATH +myworkerMember.getImgPath()); //用户头像
-                WorkerAttorney workerAttorney = workerAttorneyService.findWorkerAttorneyById(attorneyId);
-                myDataMap.put("attorneyImgPath",ImagePropertiesConfig.WORKERATTORNEY_SERVER_PATH +workerAttorney.getImgPath()); //律师头像，
-                myDataMap.put("nickName",workerAttorney.getNickName());// 律师昵称
-                myDataMap.put("replyTime", DateFriendlyShow.showTimeText(workerAttorneyReplyAdvisory.getReplyTime()));
-                dataMapList.add(myDataMap);
+                if(workerAttorneyReplyAdvisoryList!=null&&workerAttorneyReplyAdvisoryList.size()>0)
+                {
+                    requestTimePoint = DateFormat.dateToString(workerAttorneyReplyAdvisoryList.get(0).getReplyTime());
+                }
 
-            }
-            dataMap.put("requestTimePoint",requestTimePoint);
-            dataMap.put("workerAttorneyReplyAdvisoryList",dataMapList);
+                List<HashMap<String,Object>> dataMapList = new ArrayList<>();
+                for (WorkerAttorneyReplyAdvisory workerAttorneyReplyAdvisory:workerAttorneyReplyAdvisoryList){
+                    HashMap<String,Object> myDataMap = new HashMap<String,Object>();
+                    myDataMap.put("replyType",workerAttorneyReplyAdvisory.getReplyType());//
+                    myDataMap.put("replyContent",workerAttorneyReplyAdvisory.getReplyContent());
+                    Long attorneyId = workerAttorneyReplyAdvisory.getAttorneyId();//律师ID
+                    Long myworkerId = workerAttorneyReplyAdvisory.getWorkerId();// 工会用户ID
+                    WorkerMember myworkerMember = workerMemberService.findWorkerMemberById(myworkerId);
+                    myDataMap.put("workerMemberImgPath", ImagePropertiesConfig.WORKERMEMBER_SERVER_PATH +myworkerMember.getImgPath()); //用户头像
+                    WorkerAttorney workerAttorney = workerAttorneyService.findWorkerAttorneyById(attorneyId);
+                    myDataMap.put("attorneyImgPath",ImagePropertiesConfig.WORKERATTORNEY_SERVER_PATH +workerAttorney.getImgPath()); //律师头像，
+                    myDataMap.put("nickName",workerAttorney.getNickName());// 律师昵称
+                    myDataMap.put("replyTime", DateFriendlyShow.showTimeText(workerAttorneyReplyAdvisory.getReplyTime()));
+                    dataMapList.add(myDataMap);
+
+                }
+                dataMap.put("requestTimePoint",requestTimePoint);
+                dataMap.put("workerAttorneyReplyAdvisoryList",dataMapList);
+
+//            }catch (Exception ex){
+//                if(LOGGER.isDebugEnabled()){
+//                    LOGGER.error(".维权&留言---咨询列表接口--异常" + ex);
+//                }
+//            }
 
         return Jsonp_data.success(dataMap);
     }
@@ -145,7 +158,7 @@ public class WorkerAttorneyReplyAdvisoryRestController {
             WorkerAttorneyReplyAdvisory workerAttorneyReplyAdvisory = new WorkerAttorneyReplyAdvisory();
             workerAttorneyReplyAdvisory.setWorkerId(workerId);
             workerAttorneyReplyAdvisory.setAdvisoryId(Long.valueOf(advisoryId));
-            workerAttorneyReplyAdvisory.setAttorneyId(workerAdvisory.getId());
+            workerAttorneyReplyAdvisory.setAttorneyId(workerAdvisory.getAttorneyId());
             workerAttorneyReplyAdvisory.setReplyContent(replyContent);
             workerAttorneyReplyAdvisory.setReplyType(2);//1-律师回复，2-咨询人回复
             workerAttorneyReplyAdvisoryService.saveWorkerAttorneyReplyAdvisory(workerAttorneyReplyAdvisory);

@@ -111,8 +111,8 @@ public class WorkerLegalAidRestController {
 
 
     //修改接口
-    @RequestMapping(value = "/workerLegelAid", method = RequestMethod.PUT)
-    public Object updateWorkerLiveClaim(@RequestParam(name = "sid", required = true, defaultValue = "") String sid,
+    @RequestMapping(value = "/updateWorkerLegelAid", method = RequestMethod.POST)
+    public Object updateWorkerLegelAid(@RequestParam(name = "sid", required = true, defaultValue = "") String sid,
                                         @RequestBody WorkerLegalAid workerLegalAid) {
 
         UserDto user = null;

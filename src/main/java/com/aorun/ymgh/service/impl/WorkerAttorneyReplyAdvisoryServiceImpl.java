@@ -44,8 +44,7 @@ public class WorkerAttorneyReplyAdvisoryServiceImpl implements WorkerAttorneyRep
     }
 
     @Override
-    public List<WorkerAttorneyReplyAdvisory> getWorkerAttorneyReplyAdvisoryListByWorkerId(Long workerId,  Long advisoryId,String requestTimePoint) {
-        return workerAttorneyReplyAdvisoryMapper.getWorkerAttorneyReplyAdvisoryListByWorkerId(workerId,advisoryId,requestTimePoint);
+    public List<WorkerAttorneyReplyAdvisory> getWorkerAttorneyReplyAdvisoryListByWorkerId(Long workerId, Long advisoryId, String requestTimePoint, String isfirstPoint) {
+        return workerAttorneyReplyAdvisoryMapper.getWorkerAttorneyReplyAdvisoryListByWorkerId(workerId,advisoryId,requestTimePoint,isfirstPoint);
     }
-
 }
