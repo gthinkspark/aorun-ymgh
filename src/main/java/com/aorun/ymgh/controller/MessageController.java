@@ -67,7 +67,7 @@ public class MessageController {
         params.put("type",type);
         params.put("sort","create_time");
         params.put("dir","desc");
-        if(type!= MessageUtil.MESSAGE_TYPE_SYS){
+        if(type== MessageUtil.MESSAGE_TYPE_CLAIM){
             params.put("memberId",user.getMemberId());
         }
         List<Message> messageList = messageService.findByMap(params);
@@ -117,12 +117,12 @@ public class MessageController {
         List<Message> claimMessageList = new ArrayList<Message>();
         if(null!=user){
             params.put("memberId",user.getMemberId());
-            params.put("type", MessageUtil.MESSAGE_TYPE_UNION);
-            unionMessageList = messageService.findByMap(params);
             params.put("type", MessageUtil.MESSAGE_TYPE_CLAIM);
             claimMessageList = messageService.findByMap(params);
         }
         /*工会通知*/
+        params.put("type", MessageUtil.MESSAGE_TYPE_UNION);
+        unionMessageList = messageService.findByMap(params);
         List<MessageDto> unionMessageDtoList = MessageUtil.setMessageReade(user, unionMessageList,messageReadeService);
         unionMessageMap.put("unionMessageList",unionMessageDtoList);
         unionMessageMap.put("name","工会通知");
