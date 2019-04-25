@@ -126,6 +126,7 @@ public class HomeCenterController {
             datamap.put("unionMessageRead",MESSAGE_UN_READE);
         }
         //理赔通知
+        params.put("memberId",user.getMemberId());
         params.put("type", MessageUtil.MESSAGE_TYPE_CLAIM);
         List<Message> cailmMessageList = messageService.findByMap(params);
         List<MessageDto> cailmMessageDtoList = MessageUtil.setMessageReade(user, cailmMessageList, messageReadeService);
