@@ -1,21 +1,16 @@
 package com.aorun.ymgh.controller;
 
 
-import com.aorun.ymgh.controller.login.UserDto;
-import com.aorun.ymgh.model.WorkerMember;
 import com.aorun.ymgh.dto.WorkerLegalAidDto;
 import com.aorun.ymgh.model.WorkerLegalAid;
 import com.aorun.ymgh.service.WorkerLegelAidService;
-import com.aorun.ymgh.util.CheckObjectIsNull;
 import com.aorun.ymgh.util.DateFormat;
 import com.aorun.ymgh.util.PageConstant;
-import com.aorun.ymgh.util.biz.UnionUtil;
-import com.aorun.ymgh.util.cache.redis.RedisCache;
+import com.aorun.ymgh.util.biz.WorkerMemberUtil;
 import com.aorun.ymgh.util.jsonp.Jsonp;
 import com.aorun.ymgh.util.jsonp.Jsonp_data;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -42,22 +37,7 @@ public class WorkerLegalAidRestController {
             ) {
 
 
-            UserDto user = null;
-            WorkerMember workerMember = null;
-            if (!StringUtils.isEmpty(sid)) {
-                user = (UserDto) RedisCache.get(sid);
-                if (CheckObjectIsNull.isNull(user)) {
-                    return Jsonp.noLoginError("请先登录或重新登录");
-                }
-                workerMember = RedisCache.getObj(UnionUtil.generateUnionSid(user),WorkerMember.class);
-                if (CheckObjectIsNull.isNull(workerMember)) {
-                    return Jsonp.noAccreditError("用户未授权工会,请重新授权");
-                }
-            } else {
-                return Jsonp.noLoginError("用户SID不正确,请核对后重试");
-            }
-
-        Long workerId = workerMember.getId();
+            Long workerId = WorkerMemberUtil.getWorkerId(sid);
         List<WorkerLegalAid>   workerLegalAidList = new ArrayList<WorkerLegalAid>();
         List<WorkerLegalAidDto>   workerLegalAidDtoList = new ArrayList<WorkerLegalAidDto>();
             workerLegalAidList = workerLegelAidService.getWorkerLegelAidListByWorkerId(workerId,pageIndex,pageSize);
@@ -87,22 +67,7 @@ public class WorkerLegalAidRestController {
     public Object createWorkerLiveClaim(@RequestParam(name = "sid", required = true, defaultValue = "") String sid,
                                           @RequestBody WorkerLegalAid workerLegalAid) {
 
-        UserDto user = null;
-        WorkerMember workerMember = null;
-        if (!StringUtils.isEmpty(sid)) {
-            user = (UserDto) RedisCache.get(sid);
-            if (CheckObjectIsNull.isNull(user)) {
-                return Jsonp.noLoginError("请先登录或重新登录");
-            }
-            workerMember = RedisCache.getObj(UnionUtil.generateUnionSid(user),WorkerMember.class);
-            if (CheckObjectIsNull.isNull(workerMember)) {
-                return Jsonp.noAccreditError("用户未授权工会,请重新授权");
-            }
-        } else {
-            return Jsonp.noLoginError("用户SID不正确,请核对后重试");
-        }
-
-        Long workerId = workerMember.getId();
+        Long workerId = WorkerMemberUtil.getWorkerId(sid);
         workerLegalAid.setWorkerId(workerId);
         workerLegelAidService.saveWorkerLegelAid(workerLegalAid);
         return Jsonp.success();
@@ -114,21 +79,6 @@ public class WorkerLegalAidRestController {
     @RequestMapping(value = "/updateWorkerLegelAid", method = RequestMethod.POST)
     public Object updateWorkerLegelAid(@RequestParam(name = "sid", required = true, defaultValue = "") String sid,
                                         @RequestBody WorkerLegalAid workerLegalAid) {
-
-        UserDto user = null;
-        WorkerMember workerMember = null;
-        if (!StringUtils.isEmpty(sid)) {
-            user = (UserDto) RedisCache.get(sid);
-            if (CheckObjectIsNull.isNull(user)) {
-                return Jsonp.noLoginError("请先登录或重新登录");
-            }
-            workerMember = RedisCache.getObj(UnionUtil.generateUnionSid(user),WorkerMember.class);
-            if (CheckObjectIsNull.isNull(workerMember)) {
-                return Jsonp.noAccreditError("用户未授权工会,请重新授权");
-            }
-        } else {
-            return Jsonp.noLoginError("用户SID不正确,请核对后重试");
-        }
         workerLegalAid.setStatus(1);
         workerLegelAidService.updateWorkerLegelAid(workerLegalAid);
         return Jsonp.success();

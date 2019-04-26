@@ -53,5 +53,14 @@ public class WorkerMedicalClaimServiceImpl implements WorkerMedicalClaimService 
         return workerMedicalClaimMapper.getWorkerMedicalClaimListByWorkerId(workerId,start,limit);
     }
 
+    @Override
+    public void updateIsReadedStatus(Long id) {
+        workerMedicalClaimMapper.updateIsReadedStatus(id);
+    }
+
+    @Override
+    public List<WorkerMedicalClaim> getUnReadList(Long workerId) {
+        return workerMedicalClaimMapper.getUnReadList(workerId);
+    }
 
 }

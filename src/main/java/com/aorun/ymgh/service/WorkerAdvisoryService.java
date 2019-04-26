@@ -49,5 +49,7 @@ public interface WorkerAdvisoryService {
 
     List<WorkerAdvisory> getUnReadWorkerAdvisoryList(Long workerId);
 
+    void updateIsReadedStatus(Long id);
+
 
 }

@@ -46,4 +46,8 @@ public interface WorkerMedicalClaimService {
 
     List<WorkerMedicalClaim> getWorkerMedicalClaimListByWorkerId(Long workerId, Integer pageIndex, Integer pageSize);
 
+    void updateIsReadedStatus(Long id);
+
+    List<WorkerMedicalClaim> getUnReadList(Long workerId);
+
 }

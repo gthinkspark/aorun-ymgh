@@ -35,4 +35,6 @@ public interface WorkerAdvisoryMapper {
 
     List<WorkerAdvisory> getUnReadWorkerAdvisoryList(@Param("workerId") Long workerId);
 
+    void updateIsReadedStatus(Long id);
+
 }

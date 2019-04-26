@@ -51,7 +51,7 @@
       #{telephone,jdbcType=VARCHAR}, #{monthIncome,jdbcType=INTEGER}, #{workerNumber,jdbcType=INTEGER}, 
       #{studentName,jdbcType=VARCHAR}, #{relation,jdbcType=VARCHAR}, #{examScore,jdbcType=INTEGER}, 
       #{enrollInfo,jdbcType=VARCHAR}, #{enrollSchool,jdbcType=VARCHAR}, #{selfPayingCase,jdbcType=VARCHAR}, 
-      1, #{failReason,jdbcType=VARCHAR}, now(),now(), 2)
+      1, #{failReason,jdbcType=VARCHAR}, now(),now(), 1)
   </insert>
   <insert id="insertSelective" parameterType="com.aorun.ymgh.model.WorkerSchoolClaim">
     insert into t_worker_school_claim
@@ -265,6 +265,23 @@
       limit #{start},#{limit}
     </if>
 
+  </select>
+
+
+  <update id="updateIsReadedStatus" parameterType="java.lang.Long">
+    update t_worker_school_claim
+    set
+      is_readed = 1,
+      update_time = now()
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <select id="getUnReadList" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_worker_school_claim
+    where worker_id = #{workerId}    and  is_readed = 2
+    order by create_time desc
   </select>
 
 </mapper>

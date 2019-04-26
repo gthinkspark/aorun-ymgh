@@ -38,7 +38,7 @@
     values (#{id,jdbcType=BIGINT}, #{workerId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, 
       #{population,jdbcType=INTEGER}, #{income,jdbcType=INTEGER}, #{companyName,jdbcType=VARCHAR}, #{telephone,jdbcType=VARCHAR},
       #{mainReason,jdbcType=VARCHAR}, 1, #{failReason,jdbcType=VARCHAR},
-      now(), now(), 2)
+      now(), now(), 1)
   </insert>
   <insert id="insertSelective" parameterType="com.aorun.ymgh.model.WorkerLiveClaim">
     insert into t_worker_live_claim
@@ -185,6 +185,21 @@
   </select>
 
 
+  <update id="updateIsReadedStatus" parameterType="java.lang.Long">
+    update t_worker_live_claim
+    set
+      is_readed = 1,
+      update_time = now()
+    where id = #{id,jdbcType=BIGINT}
+  </update>
 
+
+  <select id="getUnReadList" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_worker_live_claim
+    where worker_id = #{workerId}    and  is_readed = 2
+    order by create_time desc
+  </select>
 
 </mapper>

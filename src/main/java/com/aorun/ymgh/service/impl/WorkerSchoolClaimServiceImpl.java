@@ -53,6 +53,14 @@ public class WorkerSchoolClaimServiceImpl implements WorkerSchoolClaimService {
     }
 
 
+    @Override
+    public void updateIsReadedStatus(Long id) {
+        workerSchoolClaimMapper.updateIsReadedStatus(id);
+    }
 
+    @Override
+    public List<WorkerSchoolClaim> getUnReadList(Long workerId) {
+        return workerSchoolClaimMapper.getUnReadList(workerId);
+    }
 
 }

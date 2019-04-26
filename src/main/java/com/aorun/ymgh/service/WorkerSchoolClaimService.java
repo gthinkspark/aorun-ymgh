@@ -46,4 +46,8 @@ public interface WorkerSchoolClaimService {
 
     List<WorkerSchoolClaim> getWorkerSchoolClaimListByWorkerId(Long workerId, Integer pageIndex, Integer pageSize);
 
+    void updateIsReadedStatus(Long id);
+
+    List<WorkerSchoolClaim> getUnReadList(Long workerId);
+
 }

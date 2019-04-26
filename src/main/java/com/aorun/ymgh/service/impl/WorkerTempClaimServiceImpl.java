@@ -53,6 +53,14 @@ public class WorkerTempClaimServiceImpl implements WorkerTempClaimService {
     }
 
 
+    @Override
+    public void updateIsReadedStatus(Long id) {
+        workerTempClaimMapper.updateIsReadedStatus(id);
+    }
 
+    @Override
+    public List<WorkerTempClaim> getUnReadList(Long workerId) {
+        return workerTempClaimMapper.getUnReadList(workerId);
+    }
 
 }

@@ -40,7 +40,7 @@
     values (#{id,jdbcType=BIGINT}, #{workerId,jdbcType=BIGINT}, #{workerCardId,jdbcType=BIGINT}, 
       #{applyName,jdbcType=VARCHAR}, #{telephone,jdbcType=VARCHAR}, #{companyName,jdbcType=VARCHAR}, 
       #{idCardNumber,jdbcType=VARCHAR}, #{workerName,jdbcType=VARCHAR}, #{idCardUrls,jdbcType=VARCHAR}, 
-      1, 2, #{failReason,jdbcType=VARCHAR}, now(),now())
+      1, 1, #{failReason,jdbcType=VARCHAR}, now(),now())
   </insert>
 
   <update id="updateByPrimaryKeySelective" parameterType="com.aorun.ymgh.model.WorkerCardApply">
@@ -108,5 +108,14 @@
     where worker_id = #{workerId}  and  worker_card_id = #{workerCardId}
     order by create_time desc
   </select>
+
+  <update id="updateIsReadedStatus" parameterType="java.lang.Long">
+    update t_worker_card_apply
+    set
+      is_readed = 1,
+      update_time = now()
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
 
 </mapper>

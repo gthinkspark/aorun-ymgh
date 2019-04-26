@@ -1,7 +1,6 @@
 package com.aorun.ymgh.controller;
 
 
-import com.aorun.ymgh.controller.login.UserDto;
 import com.aorun.ymgh.model.WorkerAdvisory;
 import com.aorun.ymgh.model.WorkerAttorney;
 import com.aorun.ymgh.model.WorkerAttorneyReplyAdvisory;
@@ -10,18 +9,15 @@ import com.aorun.ymgh.service.WorkerAdvisoryService;
 import com.aorun.ymgh.service.WorkerAttorneyReplyAdvisoryService;
 import com.aorun.ymgh.service.WorkerAttorneyService;
 import com.aorun.ymgh.service.WorkerMemberService;
-import com.aorun.ymgh.util.CheckObjectIsNull;
 import com.aorun.ymgh.util.DateFormat;
 import com.aorun.ymgh.util.DateFriendlyShow;
 import com.aorun.ymgh.util.biz.ImagePropertiesConfig;
-import com.aorun.ymgh.util.biz.UnionUtil;
-import com.aorun.ymgh.util.cache.redis.RedisCache;
+import com.aorun.ymgh.util.biz.WorkerMemberUtil;
 import com.aorun.ymgh.util.jsonp.Jsonp;
 import com.aorun.ymgh.util.jsonp.Jsonp_data;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -70,25 +66,7 @@ public class WorkerAttorneyReplyAdvisoryRestController {
             @RequestParam(value="isfirstPoint", required = true, defaultValue = "")String isfirstPoint
             ) {
 
-
-            UserDto user = null;
-            WorkerMember workerMember = null;
-            if (!StringUtils.isEmpty(sid)) {
-                user = (UserDto) RedisCache.get(sid);
-                if (CheckObjectIsNull.isNull(user)) {
-                    return Jsonp.noLoginError("请先登录或重新登录");
-                }
-                workerMember = RedisCache.getObj(UnionUtil.generateUnionSid(user),WorkerMember.class);
-                if (CheckObjectIsNull.isNull(workerMember)) {
-                    return Jsonp.noAccreditError("用户未授权工会,请重新授权");
-                }
-            } else {
-                return Jsonp.noLoginError("用户SID不正确,请核对后重试");
-            }
-
-            Long workerId = workerMember.getId();
-
-
+            Long workerId = WorkerMemberUtil.getWorkerId(sid);
 
             HashMap<String,Object> dataMap = new HashMap<String,Object>();
            // try{
@@ -137,22 +115,7 @@ public class WorkerAttorneyReplyAdvisoryRestController {
                                         @RequestParam(value="replyContent", required = true, defaultValue = "")String replyContent
                                         ) {
 
-        UserDto user = null;
-        WorkerMember workerMember = null;
-        if (!StringUtils.isEmpty(sid)) {
-            user = (UserDto) RedisCache.get(sid);
-            if (CheckObjectIsNull.isNull(user)) {
-                return Jsonp.noLoginError("请先登录或重新登录");
-            }
-            workerMember = RedisCache.getObj(UnionUtil.generateUnionSid(user),WorkerMember.class);
-            if (CheckObjectIsNull.isNull(workerMember)) {
-                return Jsonp.noAccreditError("用户未授权工会,请重新授权");
-            }
-        } else {
-            return Jsonp.noLoginError("用户SID不正确,请核对后重试");
-        }
-
-        Long workerId = workerMember.getId();
+        Long workerId = WorkerMemberUtil.getWorkerId(sid);
         WorkerAdvisory workerAdvisory = workerAdvisoryService.findWorkerAdvisoryById(advisoryId);
         if(workerAdvisory!=null){
             WorkerAttorneyReplyAdvisory workerAttorneyReplyAdvisory = new WorkerAttorneyReplyAdvisory();

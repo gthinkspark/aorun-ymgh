@@ -46,4 +46,10 @@ public interface WorkerLiveClaimService {
 
     List<WorkerLiveClaim> getWorkerLiveClaimListByWorkerId(Long workerId,Integer pageIndex,Integer pageSize);
 
+
+    void updateIsReadedStatus(Long id);
+
+    List<WorkerLiveClaim> getUnReadList(Long workerId);
+
+
 }

@@ -58,4 +58,9 @@ public class WorkerCardApplyServiceImpl implements WorkerCardApplyService {
         return workerCardApplyMapper.findWorkerCardApplyByWorkerIdAndCardId(workerId,workerCardId);
     }
 
+
+    @Override
+    public void updateIsReadedStatus(Long id) {
+        workerCardApplyMapper.updateIsReadedStatus(id);
+    }
 }
