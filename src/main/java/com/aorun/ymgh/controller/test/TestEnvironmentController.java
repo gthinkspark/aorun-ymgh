@@ -4,6 +4,7 @@ package com.aorun.ymgh.controller.test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -20,5 +21,16 @@ public class TestEnvironmentController {
      public String testProfile(){
         return env.getProperty("profile");
     }
+
+
+    @RequestMapping("/zero")
+    @ResponseBody
+    public String zero() {
+        System.err.println("Controller测试");
+        String info = "除0异常";
+        int a = 1 / 0;
+        return info;
+    }
+
 
 }

@@ -77,6 +77,7 @@ public class WorkerCardRestController {
             for(WorkerCompanyRecommend workerCompanyRecommend:workerCompanyRecommendList){
                 WorkerCompanyRecommendDto workerCompanyRecommendDto = new WorkerCompanyRecommendDto();
                 BeanUtils.copyProperties(workerCompanyRecommend,workerCompanyRecommendDto);
+                workerCompanyRecommendDto.setBannerUrl(ImagePropertiesConfig.CARD_SERVER_PATH+workerCompanyRecommend.getBannerUrl());
                 workerCompanyRecommendDto.setBeginTime(DateFormat.dateTimeToDateString(workerCompanyRecommend.getBeginTime()));
                 workerCompanyRecommendDto.setEndTime(DateFormat.dateTimeToDateString(workerCompanyRecommend.getEndTime()));
                 workerCompanyRecommendDtoList.add(workerCompanyRecommendDto);
