@@ -23,6 +23,12 @@ public class TestEnvironmentController {
     }
 
 
+    @RequestMapping("/testProfile2")
+    public String testProfile2(){
+        return "testProfile2";
+    }
+
+
     @RequestMapping("/zero")
     @ResponseBody
     public String zero() {

@@ -131,7 +131,7 @@
        </if>
     </if>
 
-  order by reply_time desc
+  order by reply_time asc
 </select>
 
 

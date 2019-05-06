@@ -21,12 +21,12 @@ public class SessionInterceptor implements HandlerInterceptor
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object o) throws Exception {
         System.out.println("uri="+request.getRequestURI());
         //登录不做拦截
-        if(request.getRequestURI().equals("/worker/checkUserLogin"))
+        if(request.getRequestURI().indexOf("/worker/checkUserLogin")>-1)
         {
             return true;
         }
         String sid = request.getParameter("sid");
-
+        System.out.println("sid=="+sid);
         int status = 0;
         UserDto user = null;
         WorkerMember workerMember = null;
@@ -50,7 +50,8 @@ public class SessionInterceptor implements HandlerInterceptor
 
         if(status!=0)
         {
-            response.sendRedirect("/worker/checkUserLogin?status="+status);
+            System.out.println("request.getContextPath()=="+request.getContextPath());
+            response.sendRedirect( "https://appymclient.91catv.com:8089/ymgh_service/worker/checkUserLogin?status="+status);
             return false;
         }
         return true;

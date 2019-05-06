@@ -7,6 +7,7 @@
     <artifactId>aorun-ymgh</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>aorun-ymgh</name>
+    <packaging>war</packaging>
 
     <!-- Spring Boot 启动父依赖 -->
     <parent>
@@ -62,11 +63,7 @@
         </dependency>
 
 
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-devtools</artifactId>
-            <optional>true</optional>
-        </dependency>
+
 
 
         <!-- memcached -->
@@ -95,6 +92,25 @@
             <artifactId>lombok</artifactId>
             <version>1.16.8</version>
         </dependency>
+
+        <!-- 调试热部署的支持 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+
+
+
+        <!-- 打包时排除tomcat. begin -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <!-- 打包时排除tomcat. end -->
+
     </dependencies>
 
 

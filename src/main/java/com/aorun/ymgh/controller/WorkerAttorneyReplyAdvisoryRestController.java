@@ -74,7 +74,7 @@ public class WorkerAttorneyReplyAdvisoryRestController {
 
                 if(workerAttorneyReplyAdvisoryList!=null&&workerAttorneyReplyAdvisoryList.size()>0)
                 {
-                    requestTimePoint = DateFormat.dateToString(workerAttorneyReplyAdvisoryList.get(0).getReplyTime());
+                    requestTimePoint = DateFormat.dateToString(workerAttorneyReplyAdvisoryList.get(workerAttorneyReplyAdvisoryList.size()-1).getReplyTime());
                 }
 
                 List<HashMap<String,Object>> dataMapList = new ArrayList<>();
@@ -89,6 +89,7 @@ public class WorkerAttorneyReplyAdvisoryRestController {
                     WorkerAttorney workerAttorney = workerAttorneyService.findWorkerAttorneyById(attorneyId);
                     myDataMap.put("attorneyImgPath",ImagePropertiesConfig.WORKERATTORNEY_SERVER_PATH +workerAttorney.getImgPath()); //律师头像，
                     myDataMap.put("nickName",workerAttorney.getNickName());// 律师昵称
+                    myDataMap.put("replyTime", DateFriendlyShow.showTimeText(workerAttorneyReplyAdvisory.getReplyTime()));
                     myDataMap.put("replyTime", DateFriendlyShow.showTimeText(workerAttorneyReplyAdvisory.getReplyTime()));
                     dataMapList.add(myDataMap);
 
