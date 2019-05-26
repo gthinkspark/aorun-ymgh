@@ -79,7 +79,7 @@ public class MessageController {
         Map<String,Object> sysMessageMap = new HashMap<>();
         List<Message> sysMessageList = messageService.findByMap(params);
         sysMessageMap.put("name","系统通知");
-        sysMessageMap.put("icon","http://mov.91catv.com/img/userfiles/union/images/message/sys_message.png");
+        sysMessageMap.put("icon","http://mov.91catv.com/img/userfiles/images/message/sys_message.png");
         List<MessageDto> sysMessageDtoList =  MessageUtil.setMessageReade(user, sysMessageList,messageReadeService);
         sysMessageMap.put("sysMessageList",sysMessageDtoList);
         Map<String,Object> unionMessageMap = new HashMap<>();
@@ -97,12 +97,12 @@ public class MessageController {
         List<MessageDto> unionMessageDtoList = MessageUtil.setMessageReade(user, unionMessageList,messageReadeService);
         unionMessageMap.put("unionMessageList",unionMessageDtoList);
         unionMessageMap.put("name","工会通知");
-        unionMessageMap.put("icon","http://mov.91catv.com/img/userfiles/union/images/message/union_message.png");
+        unionMessageMap.put("icon","http://mov.91catv.com/img/userfiles/images/message/union_message.png");
         /*理赔通知*/
         List<MessageDto> calimMessageDtoList = MessageUtil.setMessageReade(user, claimMessageList,messageReadeService);
         calimMessageMap.put("claimMessageList",calimMessageDtoList);
         calimMessageMap.put("name","理赔通知");
-        calimMessageMap.put("icon","http://mov.91catv.com/img/userfiles/union/images/message/calim_message.png");
+        calimMessageMap.put("icon","http://mov.91catv.com/img/userfiles/images/message/calim_message.png");
         resultMap.put("sysMessage",sysMessageMap);
         resultMap.put("unionMessage",unionMessageMap);
         resultMap.put("claimMessage",calimMessageMap);
