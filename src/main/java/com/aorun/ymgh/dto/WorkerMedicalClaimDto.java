@@ -56,7 +56,6 @@ public class WorkerMedicalClaimDto {
     }
 
 
-
     public Integer getStatus() {
         return status;
     }

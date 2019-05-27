@@ -7,8 +7,10 @@
     <artifactId>aorun-ymgh</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>aorun-ymgh</name>
+    <!--
     <packaging>war</packaging>
-
+    -->
+    <packaging>jar</packaging>
     <!-- Spring Boot 启动父依赖 -->
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -63,9 +65,6 @@
         </dependency>
 
 
-
-
-
         <!-- memcached -->
         <dependency>
             <groupId>com.whalin</groupId>
@@ -101,15 +100,22 @@
         </dependency>
 
 
-
-
-        <!-- 打包时排除tomcat. begin -->
+        <!-- 打包时排除tomcat. begin
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-tomcat</artifactId>
             <scope>provided</scope>
         </dependency>
+        -->
         <!-- 打包时排除tomcat. end -->
+
+
+        <!-- RabbitMQ  begin -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-amqp</artifactId>
+        </dependency>
+
 
     </dependencies>
 

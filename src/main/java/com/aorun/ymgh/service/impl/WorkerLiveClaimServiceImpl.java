@@ -45,13 +45,13 @@ public class WorkerLiveClaimServiceImpl implements WorkerLiveClaimService {
     }
 
     @Override
-    public List<WorkerLiveClaim> getWorkerLiveClaimListByWorkerId(Long workerId,Integer pageIndex,Integer pageSize) {
+    public List<WorkerLiveClaim> getWorkerLiveClaimListByWorkerId(Long workerId, Integer pageIndex, Integer pageSize) {
 
         ///** 启始页-位置 */
         Integer start = (pageIndex - 1) * pageSize;
         /** 每页大小  */
         Integer limit = pageSize;
-        return workerLiveClaimMapper.getWorkerLiveClaimListByWorkerId(workerId,start,limit);
+        return workerLiveClaimMapper.getWorkerLiveClaimListByWorkerId(workerId, start, limit);
     }
 
     @Override

@@ -15,18 +15,16 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Created by 20160216 on 2018/2/8.
  */
-public class SessionInterceptor implements HandlerInterceptor
-{
+public class SessionInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object o) throws Exception {
-        System.out.println("uri="+request.getRequestURI());
+        System.out.println("uri=" + request.getRequestURI());
         //登录不做拦截
-        if(request.getRequestURI().indexOf("/worker/checkUserLogin")>-1)
-        {
+        if (request.getRequestURI().indexOf("/worker/checkUserLogin") > -1) {
             return true;
         }
         String sid = request.getParameter("sid");
-        System.out.println("sid=="+sid);
+        System.out.println("sid==" + sid);
         int status = 0;
         UserDto user = null;
         WorkerMember workerMember = null;
@@ -35,8 +33,8 @@ public class SessionInterceptor implements HandlerInterceptor
             if (CheckObjectIsNull.isNull(user)) {
                 //return Jsonp.noLoginError("请先登录或重新登录");
                 status = 1;
-            }else{
-                workerMember = RedisCache.getObj(UnionUtil.generateUnionSid(user),WorkerMember.class);
+            } else {
+                workerMember = RedisCache.getObj(UnionUtil.generateUnionSid(user), WorkerMember.class);
                 if (CheckObjectIsNull.isNull(workerMember)) {
                     //return Jsonp.noAccreditError("用户未授权工会,请重新授权");
                     status = 2;
@@ -48,10 +46,9 @@ public class SessionInterceptor implements HandlerInterceptor
             status = 3;
         }
 
-        if(status!=0)
-        {
-            System.out.println("request.getContextPath()=="+request.getContextPath());
-            response.sendRedirect( "https://appymclient.91catv.com:8089/ymgh_service/worker/checkUserLogin?status="+status);
+        if (status != 0) {
+            System.out.println("request.getContextPath()==" + request.getContextPath());
+            response.sendRedirect("https://appymclient.91catv.com:8089/ymgh_service/worker/checkUserLogin?status=" + status);
             return false;
         }
         return true;

@@ -1,222 +1,222 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.aorun.ymgh.dao.WorkerCardMapper">
-  <resultMap id="BaseResultMap" type="com.aorun.ymgh.model.WorkerCard">
-    <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="banner_url" jdbcType="VARCHAR" property="bannerUrl" />
-    <result column="simple_content" jdbcType="VARCHAR" property="simpleContent" />
-    <result column="function_url" jdbcType="VARCHAR" property="functionUrl" />
-    <result column="apply_condition_url" jdbcType="VARCHAR" property="applyConditionUrl" />
-    <result column="service_condition_url" jdbcType="VARCHAR" property="serviceConditionUrl" />
-    <result column="begin_time" jdbcType="TIMESTAMP" property="beginTime" />
-    <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
-  </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.aorun.ymgh.model.WorkerCardWithBLOBs">
-    <result column="function_content" jdbcType="LONGVARCHAR" property="functionContent" />
-    <result column="apply_condition_content" jdbcType="LONGVARCHAR" property="applyConditionContent" />
-    <result column="service_condition_content" jdbcType="LONGVARCHAR" property="serviceConditionContent" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    id, name, banner_url, simple_content, function_url, apply_condition_url, service_condition_url, 
-    begin_time, end_time, create_time, update_time
-  </sql>
-  <sql id="Blob_Column_List">
-    function_content, apply_condition_content, service_condition_content
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
-    select 
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from t_worker_card
-    where id = #{id,jdbcType=BIGINT}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from t_worker_card
-    where id = #{id,jdbcType=BIGINT}
-  </delete>
-  <insert id="insert" parameterType="com.aorun.ymgh.model.WorkerCardWithBLOBs">
-    insert into t_worker_card (id, name, banner_url, 
-      simple_content, function_url, apply_condition_url, 
-      service_condition_url, begin_time, end_time, 
-      create_time, update_time, function_content, 
-      apply_condition_content, service_condition_content
-      )
-    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{bannerUrl,jdbcType=VARCHAR}, 
-      #{simpleContent,jdbcType=VARCHAR}, #{functionUrl,jdbcType=VARCHAR}, #{applyConditionUrl,jdbcType=VARCHAR}, 
-      #{serviceConditionUrl,jdbcType=VARCHAR}, #{beginTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{functionContent,jdbcType=LONGVARCHAR}, 
-      #{applyConditionContent,jdbcType=LONGVARCHAR}, #{serviceConditionContent,jdbcType=LONGVARCHAR}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="com.aorun.ymgh.model.WorkerCardWithBLOBs">
-    insert into t_worker_card
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="name != null">
-        name,
-      </if>
-      <if test="bannerUrl != null">
-        banner_url,
-      </if>
-      <if test="simpleContent != null">
-        simple_content,
-      </if>
-      <if test="functionUrl != null">
-        function_url,
-      </if>
-      <if test="applyConditionUrl != null">
-        apply_condition_url,
-      </if>
-      <if test="serviceConditionUrl != null">
-        service_condition_url,
-      </if>
-      <if test="beginTime != null">
-        begin_time,
-      </if>
-      <if test="endTime != null">
-        end_time,
-      </if>
-      <if test="createTime != null">
-        create_time,
-      </if>
-      <if test="updateTime != null">
-        update_time,
-      </if>
-      <if test="functionContent != null">
-        function_content,
-      </if>
-      <if test="applyConditionContent != null">
-        apply_condition_content,
-      </if>
-      <if test="serviceConditionContent != null">
-        service_condition_content,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=BIGINT},
-      </if>
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="bannerUrl != null">
-        #{bannerUrl,jdbcType=VARCHAR},
-      </if>
-      <if test="simpleContent != null">
-        #{simpleContent,jdbcType=VARCHAR},
-      </if>
-      <if test="functionUrl != null">
-        #{functionUrl,jdbcType=VARCHAR},
-      </if>
-      <if test="applyConditionUrl != null">
-        #{applyConditionUrl,jdbcType=VARCHAR},
-      </if>
-      <if test="serviceConditionUrl != null">
-        #{serviceConditionUrl,jdbcType=VARCHAR},
-      </if>
-      <if test="beginTime != null">
-        #{beginTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="endTime != null">
-        #{endTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null">
-        #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="functionContent != null">
-        #{functionContent,jdbcType=LONGVARCHAR},
-      </if>
-      <if test="applyConditionContent != null">
-        #{applyConditionContent,jdbcType=LONGVARCHAR},
-      </if>
-      <if test="serviceConditionContent != null">
-        #{serviceConditionContent,jdbcType=LONGVARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.aorun.ymgh.model.WorkerCardWithBLOBs">
-    update t_worker_card
-    <set>
-      <if test="name != null">
-        name = #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="bannerUrl != null">
+    <resultMap id="BaseResultMap" type="com.aorun.ymgh.model.WorkerCard">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="banner_url" jdbcType="VARCHAR" property="bannerUrl"/>
+        <result column="simple_content" jdbcType="VARCHAR" property="simpleContent"/>
+        <result column="function_url" jdbcType="VARCHAR" property="functionUrl"/>
+        <result column="apply_condition_url" jdbcType="VARCHAR" property="applyConditionUrl"/>
+        <result column="service_condition_url" jdbcType="VARCHAR" property="serviceConditionUrl"/>
+        <result column="begin_time" jdbcType="TIMESTAMP" property="beginTime"/>
+        <result column="end_time" jdbcType="TIMESTAMP" property="endTime"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+    <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.aorun.ymgh.model.WorkerCardWithBLOBs">
+        <result column="function_content" jdbcType="LONGVARCHAR" property="functionContent"/>
+        <result column="apply_condition_content" jdbcType="LONGVARCHAR" property="applyConditionContent"/>
+        <result column="service_condition_content" jdbcType="LONGVARCHAR" property="serviceConditionContent"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, name, banner_url, simple_content, function_url, apply_condition_url, service_condition_url,
+        begin_time, end_time, create_time, update_time
+    </sql>
+    <sql id="Blob_Column_List">
+        function_content, apply_condition_content, service_condition_content
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from t_worker_card
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from t_worker_card
+        where id = #{id,jdbcType=BIGINT}
+    </delete>
+    <insert id="insert" parameterType="com.aorun.ymgh.model.WorkerCardWithBLOBs">
+        insert into t_worker_card (id, name, banner_url,
+        simple_content, function_url, apply_condition_url,
+        service_condition_url, begin_time, end_time,
+        create_time, update_time, function_content,
+        apply_condition_content, service_condition_content
+        )
+        values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{bannerUrl,jdbcType=VARCHAR},
+        #{simpleContent,jdbcType=VARCHAR}, #{functionUrl,jdbcType=VARCHAR}, #{applyConditionUrl,jdbcType=VARCHAR},
+        #{serviceConditionUrl,jdbcType=VARCHAR}, #{beginTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP},
+        #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{functionContent,jdbcType=LONGVARCHAR},
+        #{applyConditionContent,jdbcType=LONGVARCHAR}, #{serviceConditionContent,jdbcType=LONGVARCHAR}
+        )
+    </insert>
+    <insert id="insertSelective" parameterType="com.aorun.ymgh.model.WorkerCardWithBLOBs">
+        insert into t_worker_card
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="bannerUrl != null">
+                banner_url,
+            </if>
+            <if test="simpleContent != null">
+                simple_content,
+            </if>
+            <if test="functionUrl != null">
+                function_url,
+            </if>
+            <if test="applyConditionUrl != null">
+                apply_condition_url,
+            </if>
+            <if test="serviceConditionUrl != null">
+                service_condition_url,
+            </if>
+            <if test="beginTime != null">
+                begin_time,
+            </if>
+            <if test="endTime != null">
+                end_time,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+            <if test="functionContent != null">
+                function_content,
+            </if>
+            <if test="applyConditionContent != null">
+                apply_condition_content,
+            </if>
+            <if test="serviceConditionContent != null">
+                service_condition_content,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="bannerUrl != null">
+                #{bannerUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="simpleContent != null">
+                #{simpleContent,jdbcType=VARCHAR},
+            </if>
+            <if test="functionUrl != null">
+                #{functionUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="applyConditionUrl != null">
+                #{applyConditionUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="serviceConditionUrl != null">
+                #{serviceConditionUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="beginTime != null">
+                #{beginTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="endTime != null">
+                #{endTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="functionContent != null">
+                #{functionContent,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="applyConditionContent != null">
+                #{applyConditionContent,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="serviceConditionContent != null">
+                #{serviceConditionContent,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.aorun.ymgh.model.WorkerCardWithBLOBs">
+        update t_worker_card
+        <set>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="bannerUrl != null">
+                banner_url = #{bannerUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="simpleContent != null">
+                simple_content = #{simpleContent,jdbcType=VARCHAR},
+            </if>
+            <if test="functionUrl != null">
+                function_url = #{functionUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="applyConditionUrl != null">
+                apply_condition_url = #{applyConditionUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="serviceConditionUrl != null">
+                service_condition_url = #{serviceConditionUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="beginTime != null">
+                begin_time = #{beginTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="endTime != null">
+                end_time = #{endTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="functionContent != null">
+                function_content = #{functionContent,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="applyConditionContent != null">
+                apply_condition_content = #{applyConditionContent,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="serviceConditionContent != null">
+                service_condition_content = #{serviceConditionContent,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.aorun.ymgh.model.WorkerCardWithBLOBs">
+        update t_worker_card
+        set name = #{name,jdbcType=VARCHAR},
         banner_url = #{bannerUrl,jdbcType=VARCHAR},
-      </if>
-      <if test="simpleContent != null">
         simple_content = #{simpleContent,jdbcType=VARCHAR},
-      </if>
-      <if test="functionUrl != null">
         function_url = #{functionUrl,jdbcType=VARCHAR},
-      </if>
-      <if test="applyConditionUrl != null">
         apply_condition_url = #{applyConditionUrl,jdbcType=VARCHAR},
-      </if>
-      <if test="serviceConditionUrl != null">
         service_condition_url = #{serviceConditionUrl,jdbcType=VARCHAR},
-      </if>
-      <if test="beginTime != null">
         begin_time = #{beginTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="endTime != null">
         end_time = #{endTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null">
         update_time = #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="functionContent != null">
         function_content = #{functionContent,jdbcType=LONGVARCHAR},
-      </if>
-      <if test="applyConditionContent != null">
         apply_condition_content = #{applyConditionContent,jdbcType=LONGVARCHAR},
-      </if>
-      <if test="serviceConditionContent != null">
-        service_condition_content = #{serviceConditionContent,jdbcType=LONGVARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=BIGINT}
-  </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.aorun.ymgh.model.WorkerCardWithBLOBs">
-    update t_worker_card
-    set name = #{name,jdbcType=VARCHAR},
-      banner_url = #{bannerUrl,jdbcType=VARCHAR},
-      simple_content = #{simpleContent,jdbcType=VARCHAR},
-      function_url = #{functionUrl,jdbcType=VARCHAR},
-      apply_condition_url = #{applyConditionUrl,jdbcType=VARCHAR},
-      service_condition_url = #{serviceConditionUrl,jdbcType=VARCHAR},
-      begin_time = #{beginTime,jdbcType=TIMESTAMP},
-      end_time = #{endTime,jdbcType=TIMESTAMP},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP},
-      function_content = #{functionContent,jdbcType=LONGVARCHAR},
-      apply_condition_content = #{applyConditionContent,jdbcType=LONGVARCHAR},
-      service_condition_content = #{serviceConditionContent,jdbcType=LONGVARCHAR}
-    where id = #{id,jdbcType=BIGINT}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.aorun.ymgh.model.WorkerCard">
-    update t_worker_card
-    set name = #{name,jdbcType=VARCHAR},
-      banner_url = #{bannerUrl,jdbcType=VARCHAR},
-      simple_content = #{simpleContent,jdbcType=VARCHAR},
-      function_url = #{functionUrl,jdbcType=VARCHAR},
-      apply_condition_url = #{applyConditionUrl,jdbcType=VARCHAR},
-      service_condition_url = #{serviceConditionUrl,jdbcType=VARCHAR},
-      begin_time = #{beginTime,jdbcType=TIMESTAMP},
-      end_time = #{endTime,jdbcType=TIMESTAMP},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
-    where id = #{id,jdbcType=BIGINT}
-  </update>
+        service_condition_content = #{serviceConditionContent,jdbcType=LONGVARCHAR}
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.aorun.ymgh.model.WorkerCard">
+        update t_worker_card
+        set name = #{name,jdbcType=VARCHAR},
+        banner_url = #{bannerUrl,jdbcType=VARCHAR},
+        simple_content = #{simpleContent,jdbcType=VARCHAR},
+        function_url = #{functionUrl,jdbcType=VARCHAR},
+        apply_condition_url = #{applyConditionUrl,jdbcType=VARCHAR},
+        service_condition_url = #{serviceConditionUrl,jdbcType=VARCHAR},
+        begin_time = #{beginTime,jdbcType=TIMESTAMP},
+        end_time = #{endTime,jdbcType=TIMESTAMP},
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+        update_time = #{updateTime,jdbcType=TIMESTAMP}
+        where id = #{id,jdbcType=BIGINT}
+    </update>
 </mapper>

@@ -1,162 +1,162 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.aorun.ymgh.dao.WorkerAdvisoryMapper">
-  <resultMap id="BaseResultMap" type="com.aorun.ymgh.model.WorkerAdvisory">
-    <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="worker_id" jdbcType="BIGINT" property="workerId" />
-    <result column="advisory_type" jdbcType="INTEGER" property="advisoryType" />
-    <result column="advisory_biz_type" jdbcType="INTEGER" property="advisoryBizType" />
-    <result column="advisory_name" jdbcType="VARCHAR" property="advisoryName" />
-    <result column="telephone" jdbcType="VARCHAR" property="telephone" />
-    <result column="company_name" jdbcType="VARCHAR" property="companyName" />
-    <result column="advisory_title" jdbcType="VARCHAR" property="advisoryTitle" />
-    <result column="advisory_content" jdbcType="VARCHAR" property="advisoryContent" />
-    <result column="attorney_id" jdbcType="BIGINT" property="attorneyId" />
-    <result column="materials_urls" jdbcType="VARCHAR" property="materialsUrls" />
-    <result column="status" jdbcType="INTEGER" property="status" />
-    <result column="fail_reason" jdbcType="VARCHAR" property="failReason" />
-    <result column="is_deleted" jdbcType="CHAR" property="isDeleted" />
-    <result column="is_readed" jdbcType="INTEGER" property="isReaded" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    id, worker_id, advisory_type, advisory_biz_type, advisory_name, telephone, company_name, 
-    advisory_title, advisory_content, attorney_id, materials_urls, status, fail_reason, 
-    is_deleted, is_readed, create_time, update_time
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from t_worker_advisory
-    where id = #{id,jdbcType=BIGINT}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from t_worker_advisory
-    where id = #{id,jdbcType=BIGINT}
-  </delete>
-  <insert id="insert" parameterType="com.aorun.ymgh.model.WorkerAdvisory">
-    insert into t_worker_advisory (id, worker_id, advisory_type, 
-      advisory_biz_type, advisory_name, telephone, 
-      company_name, advisory_title, advisory_content, 
-      attorney_id, materials_urls, status, 
-      fail_reason, is_deleted, is_readed, create_time,
-      update_time)
-    values (#{id,jdbcType=BIGINT}, #{workerId,jdbcType=BIGINT}, #{advisoryType,jdbcType=INTEGER}, 
-      #{advisoryBizType,jdbcType=INTEGER}, #{advisoryName,jdbcType=VARCHAR}, #{telephone,jdbcType=VARCHAR}, 
-      #{companyName,jdbcType=VARCHAR}, #{advisoryTitle,jdbcType=VARCHAR}, #{advisoryContent,jdbcType=VARCHAR}, 
-      #{attorneyId,jdbcType=BIGINT}, #{materialsUrls,jdbcType=VARCHAR}, 1,
-      #{failReason,jdbcType=VARCHAR}, 'n', 1, now(),now())
-  </insert>
+    <resultMap id="BaseResultMap" type="com.aorun.ymgh.model.WorkerAdvisory">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="worker_id" jdbcType="BIGINT" property="workerId"/>
+        <result column="advisory_type" jdbcType="INTEGER" property="advisoryType"/>
+        <result column="advisory_biz_type" jdbcType="INTEGER" property="advisoryBizType"/>
+        <result column="advisory_name" jdbcType="VARCHAR" property="advisoryName"/>
+        <result column="telephone" jdbcType="VARCHAR" property="telephone"/>
+        <result column="company_name" jdbcType="VARCHAR" property="companyName"/>
+        <result column="advisory_title" jdbcType="VARCHAR" property="advisoryTitle"/>
+        <result column="advisory_content" jdbcType="VARCHAR" property="advisoryContent"/>
+        <result column="attorney_id" jdbcType="BIGINT" property="attorneyId"/>
+        <result column="materials_urls" jdbcType="VARCHAR" property="materialsUrls"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="fail_reason" jdbcType="VARCHAR" property="failReason"/>
+        <result column="is_deleted" jdbcType="CHAR" property="isDeleted"/>
+        <result column="is_readed" jdbcType="INTEGER" property="isReaded"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, worker_id, advisory_type, advisory_biz_type, advisory_name, telephone, company_name,
+        advisory_title, advisory_content, attorney_id, materials_urls, status, fail_reason,
+        is_deleted, is_readed, create_time, update_time
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_worker_advisory
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from t_worker_advisory
+        where id = #{id,jdbcType=BIGINT}
+    </delete>
+    <insert id="insert" parameterType="com.aorun.ymgh.model.WorkerAdvisory">
+        insert into t_worker_advisory (id, worker_id, advisory_type,
+        advisory_biz_type, advisory_name, telephone,
+        company_name, advisory_title, advisory_content,
+        attorney_id, materials_urls, status,
+        fail_reason, is_deleted, is_readed, create_time,
+        update_time)
+        values (#{id,jdbcType=BIGINT}, #{workerId,jdbcType=BIGINT}, #{advisoryType,jdbcType=INTEGER},
+        #{advisoryBizType,jdbcType=INTEGER}, #{advisoryName,jdbcType=VARCHAR}, #{telephone,jdbcType=VARCHAR},
+        #{companyName,jdbcType=VARCHAR}, #{advisoryTitle,jdbcType=VARCHAR}, #{advisoryContent,jdbcType=VARCHAR},
+        #{attorneyId,jdbcType=BIGINT}, #{materialsUrls,jdbcType=VARCHAR}, 1,
+        #{failReason,jdbcType=VARCHAR}, 'n', 1, now(),now())
+    </insert>
 
-  <update id="updateByPrimaryKeySelective" parameterType="com.aorun.ymgh.model.WorkerAdvisory">
-    update t_worker_advisory
-    <set>
-      <if test="workerId != null">
-        worker_id = #{workerId,jdbcType=BIGINT},
-      </if>
-      <if test="advisoryType != null">
+    <update id="updateByPrimaryKeySelective" parameterType="com.aorun.ymgh.model.WorkerAdvisory">
+        update t_worker_advisory
+        <set>
+            <if test="workerId != null">
+                worker_id = #{workerId,jdbcType=BIGINT},
+            </if>
+            <if test="advisoryType != null">
+                advisory_type = #{advisoryType,jdbcType=INTEGER},
+            </if>
+            <if test="advisoryBizType != null">
+                advisory_biz_type = #{advisoryBizType,jdbcType=INTEGER},
+            </if>
+            <if test="advisoryName != null">
+                advisory_name = #{advisoryName,jdbcType=VARCHAR},
+            </if>
+            <if test="telephone != null">
+                telephone = #{telephone,jdbcType=VARCHAR},
+            </if>
+            <if test="companyName != null">
+                company_name = #{companyName,jdbcType=VARCHAR},
+            </if>
+            <if test="advisoryTitle != null">
+                advisory_title = #{advisoryTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="advisoryContent != null">
+                advisory_content = #{advisoryContent,jdbcType=VARCHAR},
+            </if>
+            <if test="attorneyId != null">
+                attorney_id = #{attorneyId,jdbcType=BIGINT},
+            </if>
+            <if test="materialsUrls != null">
+                materials_urls = #{materialsUrls,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="failReason != null">
+                fail_reason = #{failReason,jdbcType=VARCHAR},
+            </if>
+            <if test="isDeleted != null">
+                is_deleted = #{isDeleted,jdbcType=CHAR},
+            </if>
+            <if test="isReaded != null">
+                is_readed = #{isReaded,jdbcType=INTEGER},
+            </if>
+        </set>
+        ,update_time = now()
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.aorun.ymgh.model.WorkerAdvisory">
+        update t_worker_advisory
+        set worker_id = #{workerId,jdbcType=BIGINT},
         advisory_type = #{advisoryType,jdbcType=INTEGER},
-      </if>
-      <if test="advisoryBizType != null">
         advisory_biz_type = #{advisoryBizType,jdbcType=INTEGER},
-      </if>
-      <if test="advisoryName != null">
         advisory_name = #{advisoryName,jdbcType=VARCHAR},
-      </if>
-      <if test="telephone != null">
         telephone = #{telephone,jdbcType=VARCHAR},
-      </if>
-      <if test="companyName != null">
         company_name = #{companyName,jdbcType=VARCHAR},
-      </if>
-      <if test="advisoryTitle != null">
         advisory_title = #{advisoryTitle,jdbcType=VARCHAR},
-      </if>
-      <if test="advisoryContent != null">
         advisory_content = #{advisoryContent,jdbcType=VARCHAR},
-      </if>
-      <if test="attorneyId != null">
         attorney_id = #{attorneyId,jdbcType=BIGINT},
-      </if>
-      <if test="materialsUrls != null">
         materials_urls = #{materialsUrls,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null">
         status = #{status,jdbcType=INTEGER},
-      </if>
-      <if test="failReason != null">
         fail_reason = #{failReason,jdbcType=VARCHAR},
-      </if>
-      <if test="isDeleted != null">
         is_deleted = #{isDeleted,jdbcType=CHAR},
-      </if>
-      <if test="isReaded != null">
         is_readed = #{isReaded,jdbcType=INTEGER},
-      </if>
-    </set>
-    ,update_time = now()
-    where id = #{id,jdbcType=BIGINT}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.aorun.ymgh.model.WorkerAdvisory">
-    update t_worker_advisory
-    set worker_id = #{workerId,jdbcType=BIGINT},
-      advisory_type = #{advisoryType,jdbcType=INTEGER},
-      advisory_biz_type = #{advisoryBizType,jdbcType=INTEGER},
-      advisory_name = #{advisoryName,jdbcType=VARCHAR},
-      telephone = #{telephone,jdbcType=VARCHAR},
-      company_name = #{companyName,jdbcType=VARCHAR},
-      advisory_title = #{advisoryTitle,jdbcType=VARCHAR},
-      advisory_content = #{advisoryContent,jdbcType=VARCHAR},
-      attorney_id = #{attorneyId,jdbcType=BIGINT},
-      materials_urls = #{materialsUrls,jdbcType=VARCHAR},
-      status = #{status,jdbcType=INTEGER},
-      fail_reason = #{failReason,jdbcType=VARCHAR},
-      is_deleted = #{isDeleted,jdbcType=CHAR},
-      is_readed = #{isReaded,jdbcType=INTEGER},
-      update_time = now()
-    where id = #{id,jdbcType=BIGINT}
-  </update>
+        update_time = now()
+        where id = #{id,jdbcType=BIGINT}
+    </update>
 
 
-  <select id="getWorkerAdvisoryListByWorkerId" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from t_worker_advisory
-    where worker_id = #{workerId}   and is_deleted = 'n'
-    order by create_time desc
-    <if test="start!=null and limit!=null ">
-      limit #{start},#{limit}
-    </if>
+    <select id="getWorkerAdvisoryListByWorkerId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_worker_advisory
+        where worker_id = #{workerId} and is_deleted = 'n'
+        order by create_time desc
+        <if test="start!=null and limit!=null ">
+            limit #{start},#{limit}
+        </if>
 
 
-  </select>
+    </select>
 
 
-  <update id="deleteWorkerAdvisory" parameterType="java.lang.Long">
-    update t_worker_advisory
-    set
-      is_deleted = 'y'
-    where id = #{id,jdbcType=BIGINT}
-  </update>
+    <update id="deleteWorkerAdvisory" parameterType="java.lang.Long">
+        update t_worker_advisory
+        set
+        is_deleted = 'y'
+        where id = #{id,jdbcType=BIGINT}
+    </update>
 
 
-  <select id="getUnReadWorkerAdvisoryList" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from t_worker_advisory
-    where worker_id = #{workerId}   and is_deleted = 'n' and  is_readed = 2
-    order by create_time desc
-  </select>
+    <select id="getUnReadWorkerAdvisoryList" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_worker_advisory
+        where worker_id = #{workerId} and is_deleted = 'n' and is_readed = 2
+        order by create_time desc
+    </select>
 
 
-  <update id="updateIsReadedStatus" parameterType="java.lang.Long">
-    update t_worker_advisory
-    set
-      is_readed = 1,
-      update_time = now()
-    where id = #{id,jdbcType=BIGINT}
-  </update>
+    <update id="updateIsReadedStatus" parameterType="java.lang.Long">
+        update t_worker_advisory
+        set
+        is_readed = 1,
+        update_time = now()
+        where id = #{id,jdbcType=BIGINT}
+    </update>
 
 
 </mapper>

@@ -14,7 +14,7 @@ public interface WorkerCardApplyMapper {
 
     int updateByPrimaryKey(WorkerCardApply record);
 
-    WorkerCardApply findWorkerCardApplyByWorkerIdAndCardId(@Param("workerId")Long workerId, @Param("workerCardId")Long workerCardId);
+    WorkerCardApply findWorkerCardApplyByWorkerIdAndCardId(@Param("workerId") Long workerId, @Param("workerCardId") Long workerCardId);
 
     void updateIsReadedStatus(Long id);
 }

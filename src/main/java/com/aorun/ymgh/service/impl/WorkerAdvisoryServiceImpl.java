@@ -49,7 +49,7 @@ public class WorkerAdvisoryServiceImpl implements WorkerAdvisoryService {
         Integer start = (pageIndex - 1) * pageSize;
         /** 每页大小  */
         Integer limit = pageSize;
-        return workerAdvisoryMapper.getWorkerAdvisoryListByWorkerId(workerId,start,limit);
+        return workerAdvisoryMapper.getWorkerAdvisoryListByWorkerId(workerId, start, limit);
     }
 
     @Override

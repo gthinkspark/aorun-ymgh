@@ -5,7 +5,7 @@ import com.aorun.ymgh.model.WorkerMember;
 
 /**
  * 法律援助-业务逻辑接口类
- *
+ * <p>
  * Created by bysocket on 07/02/2017.
  */
 public interface WorkerMemberService {

@@ -1,278 +1,278 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.aorun.ymgh.dao.WorkerApplyClaimMapper">
-  <resultMap id="BaseResultMap" type="com.aorun.ymgh.model.WorkerApplyClaim">
-    <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="worker_id" jdbcType="BIGINT" property="workerId" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="telephone" jdbcType="VARCHAR" property="telephone" />
-    <result column="id_card" jdbcType="VARCHAR" property="idCard" />
-    <result column="company_name" jdbcType="VARCHAR" property="companyName" />
-    <result column="plan_type" jdbcType="VARCHAR" property="planType" />
-    <result column="bank_name" jdbcType="VARCHAR" property="bankName" />
-    <result column="card_number" jdbcType="VARCHAR" property="cardNumber" />
-    <result column="agency_name" jdbcType="VARCHAR" property="agencyName" />
-    <result column="use_telephone" jdbcType="VARCHAR" property="useTelephone" />
-    <result column="hospital_name" jdbcType="VARCHAR" property="hospitalName" />
-    <result column="begin_time" jdbcType="TIMESTAMP" property="beginTime" />
-    <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
-    <result column="explain_url" jdbcType="VARCHAR" property="explainUrl" />
-    <result column="status" jdbcType="INTEGER" property="status" />
-    <result column="explain_img_urls" jdbcType="VARCHAR" property="explainImgUrls" />
-    <result column="fail_reason" jdbcType="VARCHAR" property="failReason" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    id, worker_id, name, telephone, id_card, company_name, plan_type, bank_name, card_number, 
-    agency_name, use_telephone, hospital_name, begin_time, end_time, explain_url, status, 
-    explain_img_urls, fail_reason, create_time, update_time
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from t_worker_apply_claim
-    where id = #{id,jdbcType=BIGINT}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from t_worker_apply_claim
-    where id = #{id,jdbcType=BIGINT}
-  </delete>
-  <insert id="insert" parameterType="com.aorun.ymgh.model.WorkerApplyClaim">
-    insert into t_worker_apply_claim (id, worker_id, name, 
-      telephone, id_card, company_name, 
-      plan_type, bank_name, card_number, 
-      agency_name, use_telephone, hospital_name, 
-      begin_time, end_time, explain_url, 
-      status, explain_img_urls, fail_reason, 
-      create_time, update_time)
-    values (#{id,jdbcType=BIGINT}, #{workerId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, 
-      #{telephone,jdbcType=VARCHAR}, #{idCard,jdbcType=VARCHAR}, #{companyName,jdbcType=VARCHAR}, 
-      #{planType,jdbcType=VARCHAR}, #{bankName,jdbcType=VARCHAR}, #{cardNumber,jdbcType=VARCHAR}, 
-      #{agencyName,jdbcType=VARCHAR}, #{useTelephone,jdbcType=VARCHAR}, #{hospitalName,jdbcType=VARCHAR}, 
-      #{beginTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, #{explainUrl,jdbcType=VARCHAR}, 
-      1, #{explainImgUrls,jdbcType=VARCHAR}, #{failReason,jdbcType=VARCHAR},
-      now(),now())
-  </insert>
-  <insert id="insertSelective" parameterType="com.aorun.ymgh.model.WorkerApplyClaim">
-    insert into t_worker_apply_claim
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="workerId != null">
-        worker_id,
-      </if>
-      <if test="name != null">
-        name,
-      </if>
-      <if test="telephone != null">
-        telephone,
-      </if>
-      <if test="idCard != null">
-        id_card,
-      </if>
-      <if test="companyName != null">
-        company_name,
-      </if>
-      <if test="planType != null">
-        plan_type,
-      </if>
-      <if test="bankName != null">
-        bank_name,
-      </if>
-      <if test="cardNumber != null">
-        card_number,
-      </if>
-      <if test="agencyName != null">
-        agency_name,
-      </if>
-      <if test="useTelephone != null">
-        use_telephone,
-      </if>
-      <if test="hospitalName != null">
-        hospital_name,
-      </if>
-      <if test="beginTime != null">
-        begin_time,
-      </if>
-      <if test="endTime != null">
-        end_time,
-      </if>
-      <if test="explainUrl != null">
-        explain_url,
-      </if>
-      <if test="status != null">
-        status,
-      </if>
-      <if test="explainImgUrls != null">
-        explain_img_urls,
-      </if>
-      <if test="failReason != null">
-        fail_reason,
-      </if>
-      <if test="createTime != null">
-        create_time,
-      </if>
-      <if test="updateTime != null">
-        update_time,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=BIGINT},
-      </if>
-      <if test="workerId != null">
-        #{workerId,jdbcType=BIGINT},
-      </if>
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="telephone != null">
-        #{telephone,jdbcType=VARCHAR},
-      </if>
-      <if test="idCard != null">
-        #{idCard,jdbcType=VARCHAR},
-      </if>
-      <if test="companyName != null">
-        #{companyName,jdbcType=VARCHAR},
-      </if>
-      <if test="planType != null">
-        #{planType,jdbcType=VARCHAR},
-      </if>
-      <if test="bankName != null">
-        #{bankName,jdbcType=VARCHAR},
-      </if>
-      <if test="cardNumber != null">
-        #{cardNumber,jdbcType=VARCHAR},
-      </if>
-      <if test="agencyName != null">
-        #{agencyName,jdbcType=VARCHAR},
-      </if>
-      <if test="useTelephone != null">
-        #{useTelephone,jdbcType=VARCHAR},
-      </if>
-      <if test="hospitalName != null">
-        #{hospitalName,jdbcType=VARCHAR},
-      </if>
-      <if test="beginTime != null">
-        #{beginTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="endTime != null">
-        #{endTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="explainUrl != null">
-        #{explainUrl,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null">
-        #{status,jdbcType=INTEGER},
-      </if>
-      <if test="explainImgUrls != null">
-        #{explainImgUrls,jdbcType=VARCHAR},
-      </if>
-      <if test="failReason != null">
-        #{failReason,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null">
-        #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.aorun.ymgh.model.WorkerApplyClaim">
-    update t_worker_apply_claim
-    <set>
-      <if test="workerId != null">
-        worker_id = #{workerId,jdbcType=BIGINT},
-      </if>
-      <if test="name != null">
+    <resultMap id="BaseResultMap" type="com.aorun.ymgh.model.WorkerApplyClaim">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="worker_id" jdbcType="BIGINT" property="workerId"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="telephone" jdbcType="VARCHAR" property="telephone"/>
+        <result column="id_card" jdbcType="VARCHAR" property="idCard"/>
+        <result column="company_name" jdbcType="VARCHAR" property="companyName"/>
+        <result column="plan_type" jdbcType="VARCHAR" property="planType"/>
+        <result column="bank_name" jdbcType="VARCHAR" property="bankName"/>
+        <result column="card_number" jdbcType="VARCHAR" property="cardNumber"/>
+        <result column="agency_name" jdbcType="VARCHAR" property="agencyName"/>
+        <result column="use_telephone" jdbcType="VARCHAR" property="useTelephone"/>
+        <result column="hospital_name" jdbcType="VARCHAR" property="hospitalName"/>
+        <result column="begin_time" jdbcType="TIMESTAMP" property="beginTime"/>
+        <result column="end_time" jdbcType="TIMESTAMP" property="endTime"/>
+        <result column="explain_url" jdbcType="VARCHAR" property="explainUrl"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="explain_img_urls" jdbcType="VARCHAR" property="explainImgUrls"/>
+        <result column="fail_reason" jdbcType="VARCHAR" property="failReason"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, worker_id, name, telephone, id_card, company_name, plan_type, bank_name, card_number,
+        agency_name, use_telephone, hospital_name, begin_time, end_time, explain_url, status,
+        explain_img_urls, fail_reason, create_time, update_time
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_worker_apply_claim
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from t_worker_apply_claim
+        where id = #{id,jdbcType=BIGINT}
+    </delete>
+    <insert id="insert" parameterType="com.aorun.ymgh.model.WorkerApplyClaim">
+        insert into t_worker_apply_claim (id, worker_id, name,
+        telephone, id_card, company_name,
+        plan_type, bank_name, card_number,
+        agency_name, use_telephone, hospital_name,
+        begin_time, end_time, explain_url,
+        status, explain_img_urls, fail_reason,
+        create_time, update_time)
+        values (#{id,jdbcType=BIGINT}, #{workerId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR},
+        #{telephone,jdbcType=VARCHAR}, #{idCard,jdbcType=VARCHAR}, #{companyName,jdbcType=VARCHAR},
+        #{planType,jdbcType=VARCHAR}, #{bankName,jdbcType=VARCHAR}, #{cardNumber,jdbcType=VARCHAR},
+        #{agencyName,jdbcType=VARCHAR}, #{useTelephone,jdbcType=VARCHAR}, #{hospitalName,jdbcType=VARCHAR},
+        #{beginTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, #{explainUrl,jdbcType=VARCHAR},
+        1, #{explainImgUrls,jdbcType=VARCHAR}, #{failReason,jdbcType=VARCHAR},
+        now(),now())
+    </insert>
+    <insert id="insertSelective" parameterType="com.aorun.ymgh.model.WorkerApplyClaim">
+        insert into t_worker_apply_claim
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="workerId != null">
+                worker_id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="telephone != null">
+                telephone,
+            </if>
+            <if test="idCard != null">
+                id_card,
+            </if>
+            <if test="companyName != null">
+                company_name,
+            </if>
+            <if test="planType != null">
+                plan_type,
+            </if>
+            <if test="bankName != null">
+                bank_name,
+            </if>
+            <if test="cardNumber != null">
+                card_number,
+            </if>
+            <if test="agencyName != null">
+                agency_name,
+            </if>
+            <if test="useTelephone != null">
+                use_telephone,
+            </if>
+            <if test="hospitalName != null">
+                hospital_name,
+            </if>
+            <if test="beginTime != null">
+                begin_time,
+            </if>
+            <if test="endTime != null">
+                end_time,
+            </if>
+            <if test="explainUrl != null">
+                explain_url,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="explainImgUrls != null">
+                explain_img_urls,
+            </if>
+            <if test="failReason != null">
+                fail_reason,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="workerId != null">
+                #{workerId,jdbcType=BIGINT},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="telephone != null">
+                #{telephone,jdbcType=VARCHAR},
+            </if>
+            <if test="idCard != null">
+                #{idCard,jdbcType=VARCHAR},
+            </if>
+            <if test="companyName != null">
+                #{companyName,jdbcType=VARCHAR},
+            </if>
+            <if test="planType != null">
+                #{planType,jdbcType=VARCHAR},
+            </if>
+            <if test="bankName != null">
+                #{bankName,jdbcType=VARCHAR},
+            </if>
+            <if test="cardNumber != null">
+                #{cardNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="agencyName != null">
+                #{agencyName,jdbcType=VARCHAR},
+            </if>
+            <if test="useTelephone != null">
+                #{useTelephone,jdbcType=VARCHAR},
+            </if>
+            <if test="hospitalName != null">
+                #{hospitalName,jdbcType=VARCHAR},
+            </if>
+            <if test="beginTime != null">
+                #{beginTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="endTime != null">
+                #{endTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="explainUrl != null">
+                #{explainUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=INTEGER},
+            </if>
+            <if test="explainImgUrls != null">
+                #{explainImgUrls,jdbcType=VARCHAR},
+            </if>
+            <if test="failReason != null">
+                #{failReason,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.aorun.ymgh.model.WorkerApplyClaim">
+        update t_worker_apply_claim
+        <set>
+            <if test="workerId != null">
+                worker_id = #{workerId,jdbcType=BIGINT},
+            </if>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="telephone != null">
+                telephone = #{telephone,jdbcType=VARCHAR},
+            </if>
+            <if test="idCard != null">
+                id_card = #{idCard,jdbcType=VARCHAR},
+            </if>
+            <if test="companyName != null">
+                company_name = #{companyName,jdbcType=VARCHAR},
+            </if>
+            <if test="planType != null">
+                plan_type = #{planType,jdbcType=VARCHAR},
+            </if>
+            <if test="bankName != null">
+                bank_name = #{bankName,jdbcType=VARCHAR},
+            </if>
+            <if test="cardNumber != null">
+                card_number = #{cardNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="agencyName != null">
+                agency_name = #{agencyName,jdbcType=VARCHAR},
+            </if>
+            <if test="useTelephone != null">
+                use_telephone = #{useTelephone,jdbcType=VARCHAR},
+            </if>
+            <if test="hospitalName != null">
+                hospital_name = #{hospitalName,jdbcType=VARCHAR},
+            </if>
+            <if test="beginTime != null">
+                begin_time = #{beginTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="endTime != null">
+                end_time = #{endTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="explainUrl != null">
+                explain_url = #{explainUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="explainImgUrls != null">
+                explain_img_urls = #{explainImgUrls,jdbcType=VARCHAR},
+            </if>
+            <if test="failReason != null">
+                fail_reason = #{failReason,jdbcType=VARCHAR},
+            </if>
+        </set>
+        ,update_time = now()
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.aorun.ymgh.model.WorkerApplyClaim">
+        update t_worker_apply_claim
+        set worker_id = #{workerId,jdbcType=BIGINT},
         name = #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="telephone != null">
         telephone = #{telephone,jdbcType=VARCHAR},
-      </if>
-      <if test="idCard != null">
         id_card = #{idCard,jdbcType=VARCHAR},
-      </if>
-      <if test="companyName != null">
         company_name = #{companyName,jdbcType=VARCHAR},
-      </if>
-      <if test="planType != null">
         plan_type = #{planType,jdbcType=VARCHAR},
-      </if>
-      <if test="bankName != null">
         bank_name = #{bankName,jdbcType=VARCHAR},
-      </if>
-      <if test="cardNumber != null">
         card_number = #{cardNumber,jdbcType=VARCHAR},
-      </if>
-      <if test="agencyName != null">
         agency_name = #{agencyName,jdbcType=VARCHAR},
-      </if>
-      <if test="useTelephone != null">
         use_telephone = #{useTelephone,jdbcType=VARCHAR},
-      </if>
-      <if test="hospitalName != null">
         hospital_name = #{hospitalName,jdbcType=VARCHAR},
-      </if>
-      <if test="beginTime != null">
         begin_time = #{beginTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="endTime != null">
         end_time = #{endTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="explainUrl != null">
         explain_url = #{explainUrl,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null">
         status = #{status,jdbcType=INTEGER},
-      </if>
-      <if test="explainImgUrls != null">
         explain_img_urls = #{explainImgUrls,jdbcType=VARCHAR},
-      </if>
-      <if test="failReason != null">
         fail_reason = #{failReason,jdbcType=VARCHAR},
-      </if>
-    </set>
-    ,update_time = now()
-    where id = #{id,jdbcType=BIGINT}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.aorun.ymgh.model.WorkerApplyClaim">
-    update t_worker_apply_claim
-    set worker_id = #{workerId,jdbcType=BIGINT},
-      name = #{name,jdbcType=VARCHAR},
-      telephone = #{telephone,jdbcType=VARCHAR},
-      id_card = #{idCard,jdbcType=VARCHAR},
-      company_name = #{companyName,jdbcType=VARCHAR},
-      plan_type = #{planType,jdbcType=VARCHAR},
-      bank_name = #{bankName,jdbcType=VARCHAR},
-      card_number = #{cardNumber,jdbcType=VARCHAR},
-      agency_name = #{agencyName,jdbcType=VARCHAR},
-      use_telephone = #{useTelephone,jdbcType=VARCHAR},
-      hospital_name = #{hospitalName,jdbcType=VARCHAR},
-      begin_time = #{beginTime,jdbcType=TIMESTAMP},
-      end_time = #{endTime,jdbcType=TIMESTAMP},
-      explain_url = #{explainUrl,jdbcType=VARCHAR},
-      status = #{status,jdbcType=INTEGER},
-      explain_img_urls = #{explainImgUrls,jdbcType=VARCHAR},
-      fail_reason = #{failReason,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
-    where id = #{id,jdbcType=BIGINT}
-  </update>
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+        update_time = #{updateTime,jdbcType=TIMESTAMP}
+        where id = #{id,jdbcType=BIGINT}
+    </update>
 
-  <select id="getWorkerApplyClaimListByWorkerId" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from t_worker_apply_claim
-    where worker_id = #{workerId}
-    order by create_time desc
-    <if test="start!=null and limit!=null ">
-      limit #{start},#{limit}
-    </if>
+    <select id="getWorkerApplyClaimListByWorkerId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_worker_apply_claim
+        where worker_id = #{workerId}
+        order by create_time desc
+        <if test="start!=null and limit!=null ">
+            limit #{start},#{limit}
+        </if>
 
-  </select>
+    </select>
 
 </mapper>

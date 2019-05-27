@@ -31,7 +31,6 @@ public class WorkerSchoolClaimDto {
     private String selfPayingCase;
 
 
-
     private Integer status;
 
     private String failReason;

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 
 /**
- *  商家推荐
+ * 商家推荐
  * Created by bysocket on 07/02/2017.
  */
 @RequestMapping("/worker")
@@ -26,21 +26,20 @@ public class WorkerCompanyRecommendRestController {
     //1.活动详情接口
     @RequestMapping(value = "/workerCompanyRecommend/{id}", method = RequestMethod.GET)
     public Object findOneWorkerLiveClaim(@PathVariable("id") Long id,
-    @RequestParam(name = "sid", required = true, defaultValue = "") String sid
-                                         ) {
+                                         @RequestParam(name = "sid", required = true, defaultValue = "") String sid
+    ) {
         WorkerCompanyRecommend workerCompanyRecommend = workerCompanyRecommendService.findWorkerCompanyRecommendById(id);
 
-        HashMap<String,Object> datamap = new HashMap<String,Object>();
-        datamap.put("companyName",workerCompanyRecommend.getCompanyName());
+        HashMap<String, Object> datamap = new HashMap<String, Object>();
+        datamap.put("companyName", workerCompanyRecommend.getCompanyName());
         datamap.put("address", workerCompanyRecommend.getAddress());
-        datamap.put("bannerUrl", ImagePropertiesConfig.COMPANY_RECOMMEND_SERVER_PATH+workerCompanyRecommend.getBannerUrl());
+        datamap.put("bannerUrl", ImagePropertiesConfig.COMPANY_RECOMMEND_SERVER_PATH + workerCompanyRecommend.getBannerUrl());
         datamap.put("beginTime", DateFormat.dateTimeToDateString(workerCompanyRecommend.getBeginTime()));
-        datamap.put("endTime",DateFormat.dateTimeToDateString(workerCompanyRecommend.getEndTime()));
+        datamap.put("endTime", DateFormat.dateTimeToDateString(workerCompanyRecommend.getEndTime()));
         //datamap.put("recommendDetailUrl","http://60.165.161.145:8085/shop/2/ybj.html");
-        datamap.put("recommendDetailUrl",workerCompanyRecommend.getContentUrl());
+        datamap.put("recommendDetailUrl", workerCompanyRecommend.getContentUrl());
         return Jsonp_data.success(datamap);
     }
-
 
 
 }

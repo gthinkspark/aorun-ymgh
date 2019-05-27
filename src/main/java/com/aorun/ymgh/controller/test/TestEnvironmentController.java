@@ -15,16 +15,16 @@ import org.springframework.web.bind.annotation.RestController;
 public class TestEnvironmentController {
 
     @Autowired
-     private Environment env;
+    private Environment env;
 
     @RequestMapping("/testProfile")
-     public String testProfile(){
+    public String testProfile() {
         return env.getProperty("profile");
     }
 
 
     @RequestMapping("/testProfile2")
-    public String testProfile2(){
+    public String testProfile2() {
         return "testProfile2";
     }
 

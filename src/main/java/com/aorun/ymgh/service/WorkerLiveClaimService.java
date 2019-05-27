@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
  * 生活救助-业务逻辑接口类
- *
+ * <p>
  * Created by bysocket on 07/02/2017.
  */
 public interface WorkerLiveClaimService {
@@ -44,7 +44,7 @@ public interface WorkerLiveClaimService {
     int deleteWorkerLiveClaim(Long id);
 
 
-    List<WorkerLiveClaim> getWorkerLiveClaimListByWorkerId(Long workerId,Integer pageIndex,Integer pageSize);
+    List<WorkerLiveClaim> getWorkerLiveClaimListByWorkerId(Long workerId, Integer pageIndex, Integer pageSize);
 
 
     void updateIsReadedStatus(Long id);

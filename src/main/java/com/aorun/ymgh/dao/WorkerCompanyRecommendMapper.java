@@ -16,6 +16,6 @@ public interface WorkerCompanyRecommendMapper {
 
     int updateByPrimaryKey(WorkerCompanyRecommend record);
 
-    List<WorkerCompanyRecommend> getWorkerCompanyRecommendList(@Param("start") Integer start, @Param("limit")Integer limit);
+    List<WorkerCompanyRecommend> getWorkerCompanyRecommendList(@Param("start") Integer start, @Param("limit") Integer limit);
 
 }

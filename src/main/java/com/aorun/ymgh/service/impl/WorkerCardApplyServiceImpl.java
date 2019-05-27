@@ -55,7 +55,7 @@ public class WorkerCardApplyServiceImpl implements WorkerCardApplyService {
 
     @Override
     public WorkerCardApply findWorkerCardApplyByWorkerIdAndCardId(Long workerId, Long workerCardId) {
-        return workerCardApplyMapper.findWorkerCardApplyByWorkerIdAndCardId(workerId,workerCardId);
+        return workerCardApplyMapper.findWorkerCardApplyByWorkerIdAndCardId(workerId, workerCardId);
     }
 
 

@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *生活援助
+ * 生活援助
  * Created by bysocket on 07/02/2017.
  */
 @RequestMapping("/worker")
@@ -28,22 +28,22 @@ public class WorkerLiveClaimRestController {
     private WorkerLiveClaimService workerLiveClaimService;
 
 
-        //1.列表接口----分页查询
-        @RequestMapping(value = "/workerLiveClaimList", method = RequestMethod.GET)
-        public Object workerLiveClaimList(
+    //1.列表接口----分页查询
+    @RequestMapping(value = "/workerLiveClaimList", method = RequestMethod.GET)
+    public Object workerLiveClaimList(
             @RequestParam(name = "sid", required = true, defaultValue = "") String sid,
-            @RequestParam(name="pageIndex", required = true, defaultValue = "1") Integer pageIndex,
-            @RequestParam(name="pageSize", required = false, defaultValue = PageConstant.APP_PAGE_SIZE + "") Integer pageSize
-            ) {
+            @RequestParam(name = "pageIndex", required = true, defaultValue = "1") Integer pageIndex,
+            @RequestParam(name = "pageSize", required = false, defaultValue = PageConstant.APP_PAGE_SIZE + "") Integer pageSize
+    ) {
 
 
-            Long workerId = WorkerMemberUtil.getWorkerId(sid);
-        List<WorkerLiveClaim>   workerLiveClaimList = new ArrayList<WorkerLiveClaim>();
-        List<WorkerLiveClaimDto>   workerLiveClaimDtoList = new ArrayList<WorkerLiveClaimDto>();
-        workerLiveClaimList = workerLiveClaimService.getWorkerLiveClaimListByWorkerId(workerId,pageIndex,pageSize);
-        for(WorkerLiveClaim workerLiveClaim:workerLiveClaimList){
+        Long workerId = WorkerMemberUtil.getWorkerId(sid);
+        List<WorkerLiveClaim> workerLiveClaimList = new ArrayList<WorkerLiveClaim>();
+        List<WorkerLiveClaimDto> workerLiveClaimDtoList = new ArrayList<WorkerLiveClaimDto>();
+        workerLiveClaimList = workerLiveClaimService.getWorkerLiveClaimListByWorkerId(workerId, pageIndex, pageSize);
+        for (WorkerLiveClaim workerLiveClaim : workerLiveClaimList) {
             WorkerLiveClaimDto workerLiveClaimDto = new WorkerLiveClaimDto();
-            BeanUtils.copyProperties(workerLiveClaim,workerLiveClaimDto);
+            BeanUtils.copyProperties(workerLiveClaim, workerLiveClaimDto);
             workerLiveClaimDto.setCreateTime(DateFormat.dateToString3(workerLiveClaim.getCreateTime()));
             workerLiveClaimDtoList.add(workerLiveClaimDto);
         }
@@ -51,23 +51,22 @@ public class WorkerLiveClaimRestController {
     }
 
 
-
     //3.详情接口
     @RequestMapping(value = "/workerLiveClaim/{id}", method = RequestMethod.GET)
     public Object findOneWorkerLiveClaim(@PathVariable("id") Long id,
-     @RequestParam(name = "sid", required = true, defaultValue = "") String sid) {
+                                         @RequestParam(name = "sid", required = true, defaultValue = "") String sid) {
 
         WorkerLiveClaim workerLiveClaim = workerLiveClaimService.findWorkerLiveClaimById(id);
         WorkerLiveClaimDto workerLiveClaimDto = new WorkerLiveClaimDto();
-        BeanUtils.copyProperties(workerLiveClaim,workerLiveClaimDto);
+        BeanUtils.copyProperties(workerLiveClaim, workerLiveClaimDto);
         workerLiveClaimDto.setCreateTime(DateFormat.dateToString3(workerLiveClaim.getCreateTime()));
         return Jsonp_data.success(workerLiveClaimDto);
     }
 
     //2.新增接口
     @RequestMapping(value = "/workerLiveClaim", method = RequestMethod.POST)
-    public Object createWorkerLiveClaim(  @RequestParam(name = "sid", required = true, defaultValue = "") String sid,
-                                          @RequestBody WorkerLiveClaim workerLiveClaim) {
+    public Object createWorkerLiveClaim(@RequestParam(name = "sid", required = true, defaultValue = "") String sid,
+                                        @RequestBody WorkerLiveClaim workerLiveClaim) {
 
         Long workerId = WorkerMemberUtil.getWorkerId(sid);
         workerLiveClaim.setWorkerId(workerId);
@@ -77,8 +76,8 @@ public class WorkerLiveClaimRestController {
 
     //修改接口
     @RequestMapping(value = "/updateWorkerLiveClaim", method = RequestMethod.POST)
-    public Object updateWorkerLiveClaim(  @RequestParam(name = "sid", required = true, defaultValue = "") String sid,
-                                          @RequestBody WorkerLiveClaim workerLiveClaim) {
+    public Object updateWorkerLiveClaim(@RequestParam(name = "sid", required = true, defaultValue = "") String sid,
+                                        @RequestBody WorkerLiveClaim workerLiveClaim) {
         workerLiveClaim.setStatus(1);
         workerLiveClaimService.updateWorkerLiveClaim(workerLiveClaim);
         return Jsonp.success();

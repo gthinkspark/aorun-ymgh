@@ -10,10 +10,10 @@ import com.aorun.ymgh.util.cache.redis.RedisCache;
  */
 public class WorkerMemberUtil {
 
-	public static Long getWorkerId(
-			String sid){
-		UserDto  user = (UserDto) RedisCache.get(sid);
-		WorkerMember workerMember = RedisCache.getObj(UnionUtil.generateUnionSid(user),WorkerMember.class);
-		return workerMember.getId();
-	}
+    public static Long getWorkerId(
+            String sid) {
+        UserDto user = (UserDto) RedisCache.get(sid);
+        WorkerMember workerMember = RedisCache.getObj(UnionUtil.generateUnionSid(user), WorkerMember.class);
+        return workerMember.getId();
+    }
 }

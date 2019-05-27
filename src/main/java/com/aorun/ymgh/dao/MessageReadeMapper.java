@@ -6,7 +6,7 @@ import com.aorun.ymgh.model.MessageReade;
 import java.util.List;
 import java.util.Map;
 
-public interface MessageReadeMapper{
+public interface MessageReadeMapper {
     int deleteByPrimaryKey(Long id);
 
     int insert(MessageReade record);

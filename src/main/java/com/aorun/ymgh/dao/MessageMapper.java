@@ -13,9 +13,9 @@ public interface MessageMapper {
     int insertSelective(Message record);
 
     Message selectByPrimaryKey(Long id);
-    
+
     List<Message> selectSelective(Map<String, Object> map);
-    
+
     int getTotal(Map<String, Object> map);
 
     int updateByPrimaryKeySelective(Message record);

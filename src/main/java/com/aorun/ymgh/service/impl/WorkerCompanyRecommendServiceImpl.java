@@ -49,7 +49,7 @@ public class WorkerCompanyRecommendServiceImpl implements WorkerCompanyRecommend
         Integer start = (pageIndex - 1) * pageSize;
         /** 每页大小  */
         Integer limit = pageSize;
-        return workerCompanyRecommendMapper.getWorkerCompanyRecommendList(start,limit);
+        return workerCompanyRecommendMapper.getWorkerCompanyRecommendList(start, limit);
     }
 
 }

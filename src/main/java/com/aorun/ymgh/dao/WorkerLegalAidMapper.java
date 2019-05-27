@@ -18,5 +18,5 @@ public interface WorkerLegalAidMapper {
 
     int updateByPrimaryKey(WorkerLegalAid record);
 
-    List<WorkerLegalAid> getWorkerLegelAidListByWorkerId(@Param("workerId") Long workerId, @Param("start") Integer start, @Param("limit")Integer limit);
+    List<WorkerLegalAid> getWorkerLegelAidListByWorkerId(@Param("workerId") Long workerId, @Param("start") Integer start, @Param("limit") Integer limit);
 }

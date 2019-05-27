@@ -1,215 +1,215 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.aorun.ymgh.dao.WorkerMedicalClaimMapper">
-  <resultMap id="BaseResultMap" type="com.aorun.ymgh.model.WorkerMedicalClaim">
-    <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="worker_id" jdbcType="BIGINT" property="workerId" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="population" jdbcType="INTEGER" property="population" />
-    <result column="income" jdbcType="INTEGER" property="income" />
-    <result column="company_name" jdbcType="VARCHAR" property="companyName" />
-    <result column="telephone" jdbcType="VARCHAR" property="telephone" />
-    <result column="disease_name" jdbcType="VARCHAR" property="diseaseName" />
-    <result column="self_paying_case" jdbcType="VARCHAR" property="selfPayingCase" />
-    <result column="status" jdbcType="INTEGER" property="status" />
-    <result column="fail_reason" jdbcType="VARCHAR" property="failReason" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
-    <result column="is_readed" jdbcType="INTEGER" property="isReaded" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    id, worker_id, name, population, income, company_name, telephone, disease_name, self_paying_case, 
-    status, fail_reason, create_time, update_time, is_readed
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from t_worker_medical_claim
-    where id = #{id,jdbcType=BIGINT}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from t_worker_medical_claim
-    where id = #{id,jdbcType=BIGINT}
-  </delete>
-  <insert id="insert" parameterType="com.aorun.ymgh.model.WorkerMedicalClaim">
-    insert into t_worker_medical_claim (id, worker_id, name, 
-      population, income, company_name, 
-      telephone, disease_name, self_paying_case, 
-      status, fail_reason, create_time, 
-      update_time, is_readed)
-    values (#{id,jdbcType=BIGINT}, #{workerId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, 
-      #{population,jdbcType=INTEGER}, #{income,jdbcType=INTEGER}, #{companyName,jdbcType=VARCHAR}, 
-      #{telephone,jdbcType=VARCHAR}, #{diseaseName,jdbcType=VARCHAR}, #{selfPayingCase,jdbcType=VARCHAR}, 
-      1, #{failReason,jdbcType=VARCHAR}, now(),now(), 1)
-  </insert>
-  <insert id="insertSelective" parameterType="com.aorun.ymgh.model.WorkerMedicalClaim">
-    insert into t_worker_medical_claim
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="workerId != null">
-        worker_id,
-      </if>
-      <if test="name != null">
-        name,
-      </if>
-      <if test="population != null">
-        population,
-      </if>
-      <if test="income != null">
-        income,
-      </if>
-      <if test="companyName != null">
-        company_name,
-      </if>
-      <if test="telephone != null">
-        telephone,
-      </if>
-      <if test="diseaseName != null">
-        disease_name,
-      </if>
-      <if test="selfPayingCase != null">
-        self_paying_case,
-      </if>
-      <if test="status != null">
-        status,
-      </if>
-      <if test="failReason != null">
-        fail_reason,
-      </if>
-      <if test="createTime != null">
-        create_time,
-      </if>
-      <if test="updateTime != null">
-        update_time,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=BIGINT},
-      </if>
-      <if test="workerId != null">
-        #{workerId,jdbcType=BIGINT},
-      </if>
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="population != null">
-        #{population,jdbcType=INTEGER},
-      </if>
-      <if test="income != null">
-        #{income,jdbcType=INTEGER},
-      </if>
-      <if test="companyName != null">
-        #{companyName,jdbcType=VARCHAR},
-      </if>
-      <if test="telephone != null">
-        #{telephone,jdbcType=VARCHAR},
-      </if>
-      <if test="diseaseName != null">
-        #{diseaseName,jdbcType=VARCHAR},
-      </if>
-      <if test="selfPayingCase != null">
-        #{selfPayingCase,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null">
-        #{status,jdbcType=INTEGER},
-      </if>
-      <if test="failReason != null">
-        #{failReason,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null">
-        #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.aorun.ymgh.model.WorkerMedicalClaim">
-    update t_worker_medical_claim
-    <set>
-      <if test="workerId != null">
-        worker_id = #{workerId,jdbcType=BIGINT},
-      </if>
-      <if test="name != null">
+    <resultMap id="BaseResultMap" type="com.aorun.ymgh.model.WorkerMedicalClaim">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="worker_id" jdbcType="BIGINT" property="workerId"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="population" jdbcType="INTEGER" property="population"/>
+        <result column="income" jdbcType="INTEGER" property="income"/>
+        <result column="company_name" jdbcType="VARCHAR" property="companyName"/>
+        <result column="telephone" jdbcType="VARCHAR" property="telephone"/>
+        <result column="disease_name" jdbcType="VARCHAR" property="diseaseName"/>
+        <result column="self_paying_case" jdbcType="VARCHAR" property="selfPayingCase"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="fail_reason" jdbcType="VARCHAR" property="failReason"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="is_readed" jdbcType="INTEGER" property="isReaded"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, worker_id, name, population, income, company_name, telephone, disease_name, self_paying_case,
+        status, fail_reason, create_time, update_time, is_readed
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_worker_medical_claim
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from t_worker_medical_claim
+        where id = #{id,jdbcType=BIGINT}
+    </delete>
+    <insert id="insert" parameterType="com.aorun.ymgh.model.WorkerMedicalClaim">
+        insert into t_worker_medical_claim (id, worker_id, name,
+        population, income, company_name,
+        telephone, disease_name, self_paying_case,
+        status, fail_reason, create_time,
+        update_time, is_readed)
+        values (#{id,jdbcType=BIGINT}, #{workerId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR},
+        #{population,jdbcType=INTEGER}, #{income,jdbcType=INTEGER}, #{companyName,jdbcType=VARCHAR},
+        #{telephone,jdbcType=VARCHAR}, #{diseaseName,jdbcType=VARCHAR}, #{selfPayingCase,jdbcType=VARCHAR},
+        1, #{failReason,jdbcType=VARCHAR}, now(),now(), 1)
+    </insert>
+    <insert id="insertSelective" parameterType="com.aorun.ymgh.model.WorkerMedicalClaim">
+        insert into t_worker_medical_claim
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="workerId != null">
+                worker_id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="population != null">
+                population,
+            </if>
+            <if test="income != null">
+                income,
+            </if>
+            <if test="companyName != null">
+                company_name,
+            </if>
+            <if test="telephone != null">
+                telephone,
+            </if>
+            <if test="diseaseName != null">
+                disease_name,
+            </if>
+            <if test="selfPayingCase != null">
+                self_paying_case,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="failReason != null">
+                fail_reason,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="workerId != null">
+                #{workerId,jdbcType=BIGINT},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="population != null">
+                #{population,jdbcType=INTEGER},
+            </if>
+            <if test="income != null">
+                #{income,jdbcType=INTEGER},
+            </if>
+            <if test="companyName != null">
+                #{companyName,jdbcType=VARCHAR},
+            </if>
+            <if test="telephone != null">
+                #{telephone,jdbcType=VARCHAR},
+            </if>
+            <if test="diseaseName != null">
+                #{diseaseName,jdbcType=VARCHAR},
+            </if>
+            <if test="selfPayingCase != null">
+                #{selfPayingCase,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=INTEGER},
+            </if>
+            <if test="failReason != null">
+                #{failReason,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.aorun.ymgh.model.WorkerMedicalClaim">
+        update t_worker_medical_claim
+        <set>
+            <if test="workerId != null">
+                worker_id = #{workerId,jdbcType=BIGINT},
+            </if>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="population != null">
+                population = #{population,jdbcType=INTEGER},
+            </if>
+            <if test="income != null">
+                income = #{income,jdbcType=INTEGER},
+            </if>
+            <if test="companyName != null">
+                company_name = #{companyName,jdbcType=VARCHAR},
+            </if>
+            <if test="telephone != null">
+                telephone = #{telephone,jdbcType=VARCHAR},
+            </if>
+            <if test="diseaseName != null">
+                disease_name = #{diseaseName,jdbcType=VARCHAR},
+            </if>
+            <if test="selfPayingCase != null">
+                self_paying_case = #{selfPayingCase,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="failReason != null">
+                fail_reason = #{failReason,jdbcType=VARCHAR},
+            </if>
+            <if test="isReaded != null">
+                is_readed = #{isReaded,jdbcType=INTEGER},
+            </if>
+        </set>
+        ,update_time = now()
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.aorun.ymgh.model.WorkerMedicalClaim">
+        update t_worker_medical_claim
+        set worker_id = #{workerId,jdbcType=BIGINT},
         name = #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="population != null">
         population = #{population,jdbcType=INTEGER},
-      </if>
-      <if test="income != null">
         income = #{income,jdbcType=INTEGER},
-      </if>
-      <if test="companyName != null">
         company_name = #{companyName,jdbcType=VARCHAR},
-      </if>
-      <if test="telephone != null">
         telephone = #{telephone,jdbcType=VARCHAR},
-      </if>
-      <if test="diseaseName != null">
         disease_name = #{diseaseName,jdbcType=VARCHAR},
-      </if>
-      <if test="selfPayingCase != null">
         self_paying_case = #{selfPayingCase,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null">
         status = #{status,jdbcType=INTEGER},
-      </if>
-      <if test="failReason != null">
         fail_reason = #{failReason,jdbcType=VARCHAR},
-      </if>
-      <if test="isReaded != null">
         is_readed = #{isReaded,jdbcType=INTEGER},
-      </if>
-    </set>
-    ,update_time = now()
-    where id = #{id,jdbcType=BIGINT}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.aorun.ymgh.model.WorkerMedicalClaim">
-    update t_worker_medical_claim
-    set worker_id = #{workerId,jdbcType=BIGINT},
-      name = #{name,jdbcType=VARCHAR},
-      population = #{population,jdbcType=INTEGER},
-      income = #{income,jdbcType=INTEGER},
-      company_name = #{companyName,jdbcType=VARCHAR},
-      telephone = #{telephone,jdbcType=VARCHAR},
-      disease_name = #{diseaseName,jdbcType=VARCHAR},
-      self_paying_case = #{selfPayingCase,jdbcType=VARCHAR},
-      status = #{status,jdbcType=INTEGER},
-      fail_reason = #{failReason,jdbcType=VARCHAR},
-      is_readed = #{isReaded,jdbcType=INTEGER},
-      update_time = now()
-    where id = #{id,jdbcType=BIGINT}
-  </update>
+        update_time = now()
+        where id = #{id,jdbcType=BIGINT}
+    </update>
 
-  <select id="getWorkerMedicalClaimListByWorkerId" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from t_worker_medical_claim
-    where worker_id = #{workerId}
-    order by create_time desc
-    <if test="start!=null and limit!=null ">
-      limit #{start},#{limit}
-    </if>
+    <select id="getWorkerMedicalClaimListByWorkerId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_worker_medical_claim
+        where worker_id = #{workerId}
+        order by create_time desc
+        <if test="start!=null and limit!=null ">
+            limit #{start},#{limit}
+        </if>
 
-  </select>
+    </select>
 
-  <update id="updateIsReadedStatus" parameterType="java.lang.Long">
-    update t_worker_medical_claim
-    set
-      is_readed = 1,
-      update_time = now()
-    where id = #{id,jdbcType=BIGINT}
-  </update>
+    <update id="updateIsReadedStatus" parameterType="java.lang.Long">
+        update t_worker_medical_claim
+        set
+        is_readed = 1,
+        update_time = now()
+        where id = #{id,jdbcType=BIGINT}
+    </update>
 
-  <select id="getUnReadList" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from t_worker_medical_claim
-    where worker_id = #{workerId}    and  is_readed = 2
-    order by create_time desc
-  </select>
+    <select id="getUnReadList" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_worker_medical_claim
+        where worker_id = #{workerId} and is_readed = 2
+        order by create_time desc
+    </select>
 
 </mapper>

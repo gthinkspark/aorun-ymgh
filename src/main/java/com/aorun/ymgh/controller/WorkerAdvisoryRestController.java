@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- *我的咨询&留言
+ * 我的咨询&留言
  * Created by bysocket on 07/02/2017.
  */
 @RequestMapping("/worker")
@@ -35,34 +35,33 @@ public class WorkerAdvisoryRestController {
     private WorkerAdvisoryService workerAdvisoryService;
 
     /**
-     *
      * @param sid
      * @param pageIndex
      * @param pageSize
      * @return
      */
-        //1.我的咨询----列表接口----分页查询
-        @RequestMapping(value = "/workerAdvisoryList", method = RequestMethod.GET)
-        public Object workerLiveClaimList(
+    //1.我的咨询----列表接口----分页查询
+    @RequestMapping(value = "/workerAdvisoryList", method = RequestMethod.GET)
+    public Object workerLiveClaimList(
             @RequestParam(name = "sid", required = true, defaultValue = "") String sid,
-           // @RequestParam(name = "advisoryBizType", required = true, defaultValue = "") Integer advisoryBizType,  // 1-咨询，2-留言
-            @RequestParam(name="pageIndex", required = true, defaultValue = "1") Integer pageIndex,
-            @RequestParam(name="pageSize", required = false, defaultValue = PageConstant.APP_PAGE_SIZE + "") Integer pageSize
-            ) {
+            // @RequestParam(name = "advisoryBizType", required = true, defaultValue = "") Integer advisoryBizType,  // 1-咨询，2-留言
+            @RequestParam(name = "pageIndex", required = true, defaultValue = "1") Integer pageIndex,
+            @RequestParam(name = "pageSize", required = false, defaultValue = PageConstant.APP_PAGE_SIZE + "") Integer pageSize
+    ) {
         Long workerId = WorkerMemberUtil.getWorkerId(sid);
-        List<WorkerAdvisory>   workerAdvisoryList = new ArrayList<WorkerAdvisory>();
-        List<WorkerAdvisoryDto>   workerAdvisoryDtoList = new ArrayList<WorkerAdvisoryDto>();
-            workerAdvisoryList = workerAdvisoryService.getWorkerAdvisoryListByWorkerId(workerId,pageIndex,pageSize);
-        for(WorkerAdvisory workerAdvisory:workerAdvisoryList){
+        List<WorkerAdvisory> workerAdvisoryList = new ArrayList<WorkerAdvisory>();
+        List<WorkerAdvisoryDto> workerAdvisoryDtoList = new ArrayList<WorkerAdvisoryDto>();
+        workerAdvisoryList = workerAdvisoryService.getWorkerAdvisoryListByWorkerId(workerId, pageIndex, pageSize);
+        for (WorkerAdvisory workerAdvisory : workerAdvisoryList) {
             WorkerAdvisoryDto workerAdvisoryDto = new WorkerAdvisoryDto();
-            BeanUtils.copyProperties(workerAdvisory,workerAdvisoryDto);
+            BeanUtils.copyProperties(workerAdvisory, workerAdvisoryDto);
 
             StringBuffer MaterialsUrls = new StringBuffer("");
-            String materialsUrls =  workerAdvisory.getMaterialsUrls();
-            if(materialsUrls!=null&&!materialsUrls.equals("")){
+            String materialsUrls = workerAdvisory.getMaterialsUrls();
+            if (materialsUrls != null && !materialsUrls.equals("")) {
                 String _MaterialsUrls[] = materialsUrls.split(",");
-                for(String materialsUrl:_MaterialsUrls){
-                    MaterialsUrls.append(ImagePropertiesConfig.ADVISORY_SERVER_PATH+materialsUrl).append(",");
+                for (String materialsUrl : _MaterialsUrls) {
+                    MaterialsUrls.append(ImagePropertiesConfig.ADVISORY_SERVER_PATH + materialsUrl).append(",");
                 }
             }
             workerAdvisoryDto.setMaterialsUrls(MaterialsUrls.toString());
@@ -74,15 +73,10 @@ public class WorkerAdvisoryRestController {
     }
 
 
-
-
-
-
     /**
-     *
      * @param sid
-     * @param advisoryType   咨询类别 1-劳动合同,2-工资福利,3-五险一金,4-休息休假,5-其他
-     * @param advisoryBizType   1-咨询，2-留言
+     * @param advisoryType    咨询类别 1-劳动合同,2-工资福利,3-五险一金,4-休息休假,5-其他
+     * @param advisoryBizType 1-咨询，2-留言
      * @param advisoryName
      * @param telephone
      * @param companyName
@@ -114,17 +108,17 @@ public class WorkerAdvisoryRestController {
         workerAdvisory.setAdvisoryTitle(advisoryTitle);
         workerAdvisory.setAdvisoryContent(advisoryContent);
 
-        if (materialsFiles==null && materialsFiles.size()<0) {
+        if (materialsFiles == null && materialsFiles.size() < 0) {
             return Jsonp.error("文件不能为空!");
         }
         try {
             StringBuffer materialsUrls = new StringBuffer("");
-            for(MultipartFile file:materialsFiles){
+            for (MultipartFile file : materialsFiles) {
                 // Get the file and save it somewhere
                 byte[] bytes = file.getBytes();
                 String uuid = UUID.randomUUID().toString();
                 String suffixName = file.getOriginalFilename().substring(file.getOriginalFilename().indexOf("."));
-                String fileName  = uuid+suffixName;
+                String fileName = uuid + suffixName;
                 Path path = Paths.get(ImagePropertiesConfig.ADVISORY_PATH + fileName);
                 Files.write(path, bytes);
                 materialsUrls.append(fileName).append(",");
@@ -139,7 +133,6 @@ public class WorkerAdvisoryRestController {
     }
 
 
-
     //修改接口
     @RequestMapping(value = "/updateWorkerAdvisory", method = RequestMethod.POST)
     public Object updateWorkerAdvisoryClaim(@RequestParam(name = "sid", required = true, defaultValue = "") String sid,
@@ -152,9 +145,9 @@ public class WorkerAdvisoryRestController {
                                             @RequestParam(name = "advisoryTitle", required = true, defaultValue = "") String advisoryTitle,
                                             @RequestParam(name = "advisoryContent", required = true, defaultValue = "") String advisoryContent,
                                             @RequestParam(name = "materialsUrls", required = false, defaultValue = "") String materialsUrls,
-                                            @RequestParam(name="materialsFiles", required = false) List<MultipartFile> materialsFiles) {
+                                            @RequestParam(name = "materialsFiles", required = false) List<MultipartFile> materialsFiles) {
         WorkerAdvisory workerAdvisory = workerAdvisoryService.findWorkerAdvisoryById(id);
-        if(workerAdvisory!=null){
+        if (workerAdvisory != null) {
             workerAdvisory.setAdvisoryName(advisoryName);
             workerAdvisory.setTelephone(telephone);
             workerAdvisory.setCompanyName(companyName);
@@ -163,23 +156,23 @@ public class WorkerAdvisoryRestController {
 
             StringBuffer mymaterialsUrls = new StringBuffer("");
 
-            if(materialsUrls!=null &&!materialsUrls.equals("")){
+            if (materialsUrls != null && !materialsUrls.equals("")) {
                 String[] materialsUrl = materialsUrls.split(",");
-                for (String _materialsUrl:materialsUrl){
-                    String subMaterialsUrl = _materialsUrl.substring(_materialsUrl.lastIndexOf("/")+1);
+                for (String _materialsUrl : materialsUrl) {
+                    String subMaterialsUrl = _materialsUrl.substring(_materialsUrl.lastIndexOf("/") + 1);
                     mymaterialsUrls.append(subMaterialsUrl).append(",");
                 }
             }
 
 
-            if(materialsFiles!=null&&materialsFiles.size()>0){
+            if (materialsFiles != null && materialsFiles.size() > 0) {
                 try {
-                    for(MultipartFile file:materialsFiles){
+                    for (MultipartFile file : materialsFiles) {
                         // Get the file and save it somewhere
                         byte[] bytes = file.getBytes();
                         String uuid = UUID.randomUUID().toString();
                         String suffixName = file.getOriginalFilename().substring(file.getOriginalFilename().indexOf("."));
-                        String fileName  = uuid+suffixName;
+                        String fileName = uuid + suffixName;
                         Path path = Paths.get(ImagePropertiesConfig.ADVISORY_PATH + fileName);
                         Files.write(path, bytes);
                         mymaterialsUrls.append(fileName).append(",");
@@ -193,7 +186,7 @@ public class WorkerAdvisoryRestController {
             workerAdvisory.setStatus(1);
             workerAdvisoryService.updateWorkerAdvisory(workerAdvisory);
             return Jsonp.success();
-        }else{
+        } else {
             return Jsonp.bussiness_tips_code("暂无此信息!");
         }
 
@@ -204,19 +197,19 @@ public class WorkerAdvisoryRestController {
     @RequestMapping(value = "/workerAdvisory/{id}", method = RequestMethod.GET)
     public Object findOneWorkerAdvisory(@PathVariable("id") Long id,
                                         @RequestParam(name = "sid", required = true, defaultValue = "") String sid
-                                        ) {
+    ) {
 
         WorkerAdvisory workerAdvisory = workerAdvisoryService.findWorkerAdvisoryById(id);
         WorkerAdvisoryDto workerAdvisoryDto = new WorkerAdvisoryDto();
-        BeanUtils.copyProperties(workerAdvisory,workerAdvisoryDto);
+        BeanUtils.copyProperties(workerAdvisory, workerAdvisoryDto);
 
 
         StringBuffer MaterialsUrls = new StringBuffer("");
-        String materialsUrls =  workerAdvisory.getMaterialsUrls();
-        if(materialsUrls!=null&&!materialsUrls.equals("")){
+        String materialsUrls = workerAdvisory.getMaterialsUrls();
+        if (materialsUrls != null && !materialsUrls.equals("")) {
             String _MaterialsUrls[] = materialsUrls.split(",");
-            for(String materialsUrl:_MaterialsUrls){
-                MaterialsUrls.append(ImagePropertiesConfig.ADVISORY_SERVER_PATH+materialsUrl).append(",");
+            for (String materialsUrl : _MaterialsUrls) {
+                MaterialsUrls.append(ImagePropertiesConfig.ADVISORY_SERVER_PATH + materialsUrl).append(",");
             }
         }
         workerAdvisoryDto.setMaterialsUrls(MaterialsUrls.toString());
@@ -229,11 +222,11 @@ public class WorkerAdvisoryRestController {
     @RequestMapping(value = "/deleteWorkerAdvisory/{id}", method = RequestMethod.GET)
     public Object deleteWorkerAdvisory(@PathVariable("id") Long id,
                                        @RequestParam(name = "sid", required = true, defaultValue = "") String sid
-                                       ) {
+    ) {
         int flag = workerAdvisoryService.deleteWorkerAdvisory(id);
-        if(flag>0){
+        if (flag > 0) {
             return Jsonp.success();
-        }else{
+        } else {
             return Jsonp.bussiness_tips_code("删除失败");
         }
     }

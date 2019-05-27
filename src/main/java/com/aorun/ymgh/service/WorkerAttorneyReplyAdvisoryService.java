@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
  * 援助-业务逻辑接口类
- *
+ * <p>
  * Created by bysocket on 07/02/2017.
  */
 public interface WorkerAttorneyReplyAdvisoryService {
@@ -44,6 +44,6 @@ public interface WorkerAttorneyReplyAdvisoryService {
     int deleteWorkerAttorneyReplyAdvisory(Long id);
 
 
-    List<WorkerAttorneyReplyAdvisory> getWorkerAttorneyReplyAdvisoryListByWorkerId(Long workerId,  Long advisoryId,String requestTimePoint,String isfirstPoint);
+    List<WorkerAttorneyReplyAdvisory> getWorkerAttorneyReplyAdvisoryListByWorkerId(Long workerId, Long advisoryId, String requestTimePoint, String isfirstPoint);
 
 }

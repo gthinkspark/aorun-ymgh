@@ -18,7 +18,7 @@ public interface WorkerLiveClaimMapper {
 
     int updateByPrimaryKey(WorkerLiveClaim record);
 
-    List<WorkerLiveClaim> getWorkerLiveClaimListByWorkerId(@Param("workerId") Long workerId, @Param("start") Integer start, @Param("limit")Integer limit);
+    List<WorkerLiveClaim> getWorkerLiveClaimListByWorkerId(@Param("workerId") Long workerId, @Param("start") Integer start, @Param("limit") Integer limit);
 
     void updateIsReadedStatus(Long id);
 

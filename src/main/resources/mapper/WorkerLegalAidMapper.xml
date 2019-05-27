@@ -1,173 +1,173 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.aorun.ymgh.dao.WorkerLegalAidMapper">
-  <resultMap id="BaseResultMap" type="com.aorun.ymgh.model.WorkerLegalAid">
-    <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="worker_id" jdbcType="BIGINT" property="workerId" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="company_name" jdbcType="VARCHAR" property="companyName" />
-    <result column="telephone" jdbcType="VARCHAR" property="telephone" />
-    <result column="case_reason" jdbcType="VARCHAR" property="caseReason" />
-    <result column="reply_items" jdbcType="VARCHAR" property="replyItems" />
-    <result column="status" jdbcType="INTEGER" property="status" />
-    <result column="fail_reason" jdbcType="VARCHAR" property="failReason" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    id, worker_id, name, company_name, telephone, case_reason, reply_items, status, fail_reason, 
-    create_time, update_time
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from t_worker_legal_aid
-    where id = #{id,jdbcType=BIGINT}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from t_worker_legal_aid
-    where id = #{id,jdbcType=BIGINT}
-  </delete>
-  <insert id="insert" parameterType="com.aorun.ymgh.model.WorkerLegalAid">
-    insert into t_worker_legal_aid (id, worker_id, name, 
-      company_name, telephone, case_reason, 
-      reply_items, status, fail_reason, 
-      create_time, update_time)
-    values (#{id,jdbcType=BIGINT}, #{workerId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR},
-      #{companyName,jdbcType=VARCHAR}, #{telephone,jdbcType=VARCHAR}, #{caseReason,jdbcType=VARCHAR},
-      #{replyItems,jdbcType=VARCHAR}, 1, #{failReason,jdbcType=VARCHAR},
-      now(), now())
-  </insert>
-  <insert id="insertSelective" parameterType="com.aorun.ymgh.model.WorkerLegalAid">
-    insert into t_worker_legal_aid
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="workerId != null">
-        worker_id,
-      </if>
-      <if test="name != null">
-        name,
-      </if>
-      <if test="companyName != null">
-        company_name,
-      </if>
-      <if test="telephone != null">
-        telephone,
-      </if>
-      <if test="caseReason != null">
-        case_reason,
-      </if>
-      <if test="replyItems != null">
-        reply_items,
-      </if>
-      <if test="status != null">
-        status,
-      </if>
-      <if test="failReason != null">
-        fail_reason,
-      </if>
-      <if test="createTime != null">
-        create_time,
-      </if>
-      <if test="updateTime != null">
-        update_time,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=BIGINT},
-      </if>
-      <if test="workerId != null">
-        #{workerId,jdbcType=BIGINT},
-      </if>
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="companyName != null">
-        #{companyName,jdbcType=VARCHAR},
-      </if>
-      <if test="telephone != null">
-        #{telephone,jdbcType=VARCHAR},
-      </if>
-      <if test="caseReason != null">
-        #{caseReason,jdbcType=VARCHAR},
-      </if>
-      <if test="replyItems != null">
-        #{replyItems,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null">
-        #{status,jdbcType=INTEGER},
-      </if>
-      <if test="failReason != null">
-        #{failReason,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null">
-        #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.aorun.ymgh.model.WorkerLegalAid">
-    update t_worker_legal_aid
-    <set>
-      <if test="workerId != null">
-        worker_id = #{workerId,jdbcType=BIGINT},
-      </if>
-      <if test="name != null">
+    <resultMap id="BaseResultMap" type="com.aorun.ymgh.model.WorkerLegalAid">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="worker_id" jdbcType="BIGINT" property="workerId"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="company_name" jdbcType="VARCHAR" property="companyName"/>
+        <result column="telephone" jdbcType="VARCHAR" property="telephone"/>
+        <result column="case_reason" jdbcType="VARCHAR" property="caseReason"/>
+        <result column="reply_items" jdbcType="VARCHAR" property="replyItems"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="fail_reason" jdbcType="VARCHAR" property="failReason"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, worker_id, name, company_name, telephone, case_reason, reply_items, status, fail_reason,
+        create_time, update_time
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_worker_legal_aid
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from t_worker_legal_aid
+        where id = #{id,jdbcType=BIGINT}
+    </delete>
+    <insert id="insert" parameterType="com.aorun.ymgh.model.WorkerLegalAid">
+        insert into t_worker_legal_aid (id, worker_id, name,
+        company_name, telephone, case_reason,
+        reply_items, status, fail_reason,
+        create_time, update_time)
+        values (#{id,jdbcType=BIGINT}, #{workerId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR},
+        #{companyName,jdbcType=VARCHAR}, #{telephone,jdbcType=VARCHAR}, #{caseReason,jdbcType=VARCHAR},
+        #{replyItems,jdbcType=VARCHAR}, 1, #{failReason,jdbcType=VARCHAR},
+        now(), now())
+    </insert>
+    <insert id="insertSelective" parameterType="com.aorun.ymgh.model.WorkerLegalAid">
+        insert into t_worker_legal_aid
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="workerId != null">
+                worker_id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="companyName != null">
+                company_name,
+            </if>
+            <if test="telephone != null">
+                telephone,
+            </if>
+            <if test="caseReason != null">
+                case_reason,
+            </if>
+            <if test="replyItems != null">
+                reply_items,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="failReason != null">
+                fail_reason,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="workerId != null">
+                #{workerId,jdbcType=BIGINT},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="companyName != null">
+                #{companyName,jdbcType=VARCHAR},
+            </if>
+            <if test="telephone != null">
+                #{telephone,jdbcType=VARCHAR},
+            </if>
+            <if test="caseReason != null">
+                #{caseReason,jdbcType=VARCHAR},
+            </if>
+            <if test="replyItems != null">
+                #{replyItems,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=INTEGER},
+            </if>
+            <if test="failReason != null">
+                #{failReason,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.aorun.ymgh.model.WorkerLegalAid">
+        update t_worker_legal_aid
+        <set>
+            <if test="workerId != null">
+                worker_id = #{workerId,jdbcType=BIGINT},
+            </if>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="companyName != null">
+                company_name = #{companyName,jdbcType=VARCHAR},
+            </if>
+            <if test="telephone != null">
+                telephone = #{telephone,jdbcType=VARCHAR},
+            </if>
+            <if test="caseReason != null">
+                case_reason = #{caseReason,jdbcType=VARCHAR},
+            </if>
+            <if test="replyItems != null">
+                reply_items = #{replyItems,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="failReason != null">
+                fail_reason = #{failReason,jdbcType=VARCHAR},
+            </if>
+        </set>
+        ,update_time = now()
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.aorun.ymgh.model.WorkerLegalAid">
+        update t_worker_legal_aid
+        set worker_id = #{workerId,jdbcType=BIGINT},
         name = #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="companyName != null">
         company_name = #{companyName,jdbcType=VARCHAR},
-      </if>
-      <if test="telephone != null">
         telephone = #{telephone,jdbcType=VARCHAR},
-      </if>
-      <if test="caseReason != null">
         case_reason = #{caseReason,jdbcType=VARCHAR},
-      </if>
-      <if test="replyItems != null">
         reply_items = #{replyItems,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null">
         status = #{status,jdbcType=INTEGER},
-      </if>
-      <if test="failReason != null">
         fail_reason = #{failReason,jdbcType=VARCHAR},
-      </if>
-    </set>
-    ,update_time = now()
-    where id = #{id,jdbcType=BIGINT}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.aorun.ymgh.model.WorkerLegalAid">
-    update t_worker_legal_aid
-    set worker_id = #{workerId,jdbcType=BIGINT},
-      name = #{name,jdbcType=VARCHAR},
-      company_name = #{companyName,jdbcType=VARCHAR},
-      telephone = #{telephone,jdbcType=VARCHAR},
-      case_reason = #{caseReason,jdbcType=VARCHAR},
-      reply_items = #{replyItems,jdbcType=VARCHAR},
-      status = #{status,jdbcType=INTEGER},
-      fail_reason = #{failReason,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
-    where id = #{id,jdbcType=BIGINT}
-  </update>
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+        update_time = #{updateTime,jdbcType=TIMESTAMP}
+        where id = #{id,jdbcType=BIGINT}
+    </update>
 
-  <select id="getWorkerLegelAidListByWorkerId" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from t_worker_legal_aid
-    where worker_id = #{workerId}
-    order by create_time desc
-    <if test="start!=null and limit!=null ">
-      limit #{start},#{limit}
-    </if>
+    <select id="getWorkerLegelAidListByWorkerId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_worker_legal_aid
+        where worker_id = #{workerId}
+        order by create_time desc
+        <if test="start!=null and limit!=null ">
+            limit #{start},#{limit}
+        </if>
 
-  </select>
+    </select>
 
 
 </mapper>

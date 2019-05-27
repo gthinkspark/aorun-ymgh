@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *医疗援助
+ * 医疗援助
  * Created by bysocket on 07/02/2017.
  */
 @RequestMapping("/worker")
@@ -28,22 +28,22 @@ public class WorkerMedicalClaimRestController {
     private WorkerMedicalClaimService workerMedicalClaimService;
 
 
-        //1.列表接口----分页查询
-        @RequestMapping(value = "/workerMedicalClaimList", method = RequestMethod.GET)
-        public Object workerMedicalClaimList(
+    //1.列表接口----分页查询
+    @RequestMapping(value = "/workerMedicalClaimList", method = RequestMethod.GET)
+    public Object workerMedicalClaimList(
             @RequestParam(name = "sid", required = true, defaultValue = "") String sid,
-            @RequestParam(name="pageIndex", required = true, defaultValue = "1") Integer pageIndex,
-            @RequestParam(name="pageSize", required = false, defaultValue = PageConstant.APP_PAGE_SIZE + "") Integer pageSize
-            ) {
+            @RequestParam(name = "pageIndex", required = true, defaultValue = "1") Integer pageIndex,
+            @RequestParam(name = "pageSize", required = false, defaultValue = PageConstant.APP_PAGE_SIZE + "") Integer pageSize
+    ) {
 
 
-            Long workerId = WorkerMemberUtil.getWorkerId(sid);
-        List<WorkerMedicalClaim>   workerMedicalClaimList = new ArrayList<WorkerMedicalClaim>();
-        List<WorkerMedicalClaimDto>   workerMedicalClaimDtoList = new ArrayList<WorkerMedicalClaimDto>();
-        workerMedicalClaimList = workerMedicalClaimService.getWorkerMedicalClaimListByWorkerId(workerId,pageIndex,pageSize);
-        for(WorkerMedicalClaim workerMedicalClaim:workerMedicalClaimList){
+        Long workerId = WorkerMemberUtil.getWorkerId(sid);
+        List<WorkerMedicalClaim> workerMedicalClaimList = new ArrayList<WorkerMedicalClaim>();
+        List<WorkerMedicalClaimDto> workerMedicalClaimDtoList = new ArrayList<WorkerMedicalClaimDto>();
+        workerMedicalClaimList = workerMedicalClaimService.getWorkerMedicalClaimListByWorkerId(workerId, pageIndex, pageSize);
+        for (WorkerMedicalClaim workerMedicalClaim : workerMedicalClaimList) {
             WorkerMedicalClaimDto workerMedicalClaimDto = new WorkerMedicalClaimDto();
-            BeanUtils.copyProperties(workerMedicalClaim,workerMedicalClaimDto);
+            BeanUtils.copyProperties(workerMedicalClaim, workerMedicalClaimDto);
             workerMedicalClaimDto.setCreateTime(DateFormat.dateToString3(workerMedicalClaim.getCreateTime()));
             workerMedicalClaimDtoList.add(workerMedicalClaimDto);
         }
@@ -53,19 +53,19 @@ public class WorkerMedicalClaimRestController {
     //3.详情接口
     @RequestMapping(value = "/workerMedicalClaim/{id}", method = RequestMethod.GET)
     public Object findOneWorkerMedicalClaim(@PathVariable("id") Long id,
-     @RequestParam(name = "sid", required = true, defaultValue = "") String sid) {
+                                            @RequestParam(name = "sid", required = true, defaultValue = "") String sid) {
 
         WorkerMedicalClaim workerMedicalClaim = workerMedicalClaimService.findWorkerMedicalClaimById(id);
         WorkerMedicalClaimDto workerMedicalClaimDto = new WorkerMedicalClaimDto();
-        BeanUtils.copyProperties(workerMedicalClaim,workerMedicalClaimDto);
+        BeanUtils.copyProperties(workerMedicalClaim, workerMedicalClaimDto);
         workerMedicalClaimDto.setCreateTime(DateFormat.dateToString3(workerMedicalClaim.getCreateTime()));
         return Jsonp_data.success(workerMedicalClaimDto);
     }
 
     //2.新增接口
     @RequestMapping(value = "/workerMedicalClaim", method = RequestMethod.POST)
-    public Object createWorkerMedicalClaim(  @RequestParam(name = "sid", required = true, defaultValue = "") String sid,
-                                          @RequestBody WorkerMedicalClaim workerMedicalClaim) {
+    public Object createWorkerMedicalClaim(@RequestParam(name = "sid", required = true, defaultValue = "") String sid,
+                                           @RequestBody WorkerMedicalClaim workerMedicalClaim) {
 
         Long workerId = WorkerMemberUtil.getWorkerId(sid);
         workerMedicalClaim.setWorkerId(workerId);
@@ -76,8 +76,8 @@ public class WorkerMedicalClaimRestController {
 
     //修改接口
     @RequestMapping(value = "/updateWorkerMedicalClaim", method = RequestMethod.POST)
-    public Object updateWorkerMedicalClaim(  @RequestParam(name = "sid", required = true, defaultValue = "") String sid,
-                                             @RequestBody WorkerMedicalClaim workerMedicalClaim) {
+    public Object updateWorkerMedicalClaim(@RequestParam(name = "sid", required = true, defaultValue = "") String sid,
+                                           @RequestBody WorkerMedicalClaim workerMedicalClaim) {
         workerMedicalClaim.setStatus(1);
         workerMedicalClaimService.updateWorkerMedicalClaim(workerMedicalClaim);
         return Jsonp.success();

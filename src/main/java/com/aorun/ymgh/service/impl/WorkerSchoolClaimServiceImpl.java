@@ -49,7 +49,7 @@ public class WorkerSchoolClaimServiceImpl implements WorkerSchoolClaimService {
         Integer start = (pageIndex - 1) * pageSize;
         /** 每页大小  */
         Integer limit = pageSize;
-        return workerSchoolClaimMapper.getWorkerSchoolClaimListByWorkerId(workerId,start,limit);
+        return workerSchoolClaimMapper.getWorkerSchoolClaimListByWorkerId(workerId, start, limit);
     }
 
 

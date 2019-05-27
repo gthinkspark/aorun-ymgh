@@ -49,7 +49,7 @@ public class WorkerTempClaimServiceImpl implements WorkerTempClaimService {
         Integer start = (pageIndex - 1) * pageSize;
         /** 每页大小  */
         Integer limit = pageSize;
-        return workerTempClaimMapper.getWorkerTempClaimListByWorkerId(workerId,start,limit);
+        return workerTempClaimMapper.getWorkerTempClaimListByWorkerId(workerId, start, limit);
     }
 
 

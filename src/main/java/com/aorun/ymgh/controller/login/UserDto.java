@@ -3,30 +3,42 @@ package com.aorun.ymgh.controller.login;
 import java.io.Serializable;
 
 public class UserDto implements Serializable {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	public UserDto() {
-	}
+    public UserDto() {
+    }
 
 //	public UserDto(Integer status, String errorMsg) {
 //		this.loginStatus = status;
 //		this.errorMsg = errorMsg;
 //	}
 
-	/** 用户唯一ID */
-	private Long memberId;
-	/** 类似session ID(判断登录状态) */
-	private String sid;
-	/** 用户名 */
-	private String loginName;
-	
-	/** 昵称 */
-	private String nickName;
-	
-	/** 用户头像 */
-	private String imgPath;
-	/** 积分 */
-	private int epoints;
+    /**
+     * 用户唯一ID
+     */
+    private Long memberId;
+    /**
+     * 类似session ID(判断登录状态)
+     */
+    private String sid;
+    /**
+     * 用户名
+     */
+    private String loginName;
+
+    /**
+     * 昵称
+     */
+    private String nickName;
+
+    /**
+     * 用户头像
+     */
+    private String imgPath;
+    /**
+     * 积分
+     */
+    private int epoints;
 //	/** 钱包总金额 */
 //	private BigDecimal walletMoney;
 //	/** 可用金额 */
@@ -37,89 +49,91 @@ public class UserDto implements Serializable {
 //	private Integer loginStatus;
 //	/** 登录失败信息 */
 //	private String errorMsg;
-	/** 会员手机号 */
-	private String telephone;
-	
-	/** 会员类型 */
-	private String memberType;
-	
-	private String memberImAccount;
-	
-	
+    /**
+     * 会员手机号
+     */
+    private String telephone;
 
-	public String getMemberType() {
-		return memberType;
-	}
+    /**
+     * 会员类型
+     */
+    private String memberType;
 
-	public void setMemberType(String memberType) {
-		this.memberType = memberType;
-	}
+    private String memberImAccount;
 
-	public Long getMemberId() {
-		return memberId;
-	}
 
-	public void setMemberId(Long memberId) {
-		this.memberId = memberId;
-	}
+    public String getMemberType() {
+        return memberType;
+    }
 
-	public String getSid() {
-		return sid;
-	}
+    public void setMemberType(String memberType) {
+        this.memberType = memberType;
+    }
 
-	public void setSid(String sid) {
-		this.sid = sid;
-	}
+    public Long getMemberId() {
+        return memberId;
+    }
 
-	public String getLoginName() {
-		return loginName;
-	}
+    public void setMemberId(Long memberId) {
+        this.memberId = memberId;
+    }
 
-	public void setLoginName(String loginName) {
-		this.loginName = loginName;
-	}
+    public String getSid() {
+        return sid;
+    }
 
-	public String getImgPath() {
-		return imgPath;
-	}
+    public void setSid(String sid) {
+        this.sid = sid;
+    }
 
-	public void setImgPath(String imgPath) {
-		this.imgPath = imgPath;
-	}
+    public String getLoginName() {
+        return loginName;
+    }
 
-	public int getEpoints() {
-		return epoints;
-	}
+    public void setLoginName(String loginName) {
+        this.loginName = loginName;
+    }
 
-	public void setEpoints(int epoints) {
-		this.epoints = epoints;
-	}
-	
+    public String getImgPath() {
+        return imgPath;
+    }
 
-	public String getNickName() {
-		return nickName;
-	}
+    public void setImgPath(String imgPath) {
+        this.imgPath = imgPath;
+    }
 
-	public void setNickName(String nickName) {
-		this.nickName = nickName;
-	}
+    public int getEpoints() {
+        return epoints;
+    }
 
-	public String getTelephone() {
-		return telephone;
-	}
+    public void setEpoints(int epoints) {
+        this.epoints = epoints;
+    }
 
-	public void setTelephone(String telephone) {
-		this.telephone = telephone;
-	}
 
-	public String getMemberImAccount() {
-		return memberImAccount;
-	}
+    public String getNickName() {
+        return nickName;
+    }
 
-	public void setMemberImAccount(String memberImAccount) {
-		this.memberImAccount = memberImAccount;
-	}
-	
-	
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
+    }
+
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
+    }
+
+    public String getMemberImAccount() {
+        return memberImAccount;
+    }
+
+    public void setMemberImAccount(String memberImAccount) {
+        this.memberImAccount = memberImAccount;
+    }
+
 
 }

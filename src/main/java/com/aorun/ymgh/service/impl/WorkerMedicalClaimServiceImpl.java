@@ -44,13 +44,13 @@ public class WorkerMedicalClaimServiceImpl implements WorkerMedicalClaimService 
     }
 
     @Override
-    public List<WorkerMedicalClaim> getWorkerMedicalClaimListByWorkerId(Long workerId,Integer pageIndex,Integer pageSize) {
+    public List<WorkerMedicalClaim> getWorkerMedicalClaimListByWorkerId(Long workerId, Integer pageIndex, Integer pageSize) {
 
         ///** 启始页-位置 */
         Integer start = (pageIndex - 1) * pageSize;
         /** 每页大小  */
         Integer limit = pageSize;
-        return workerMedicalClaimMapper.getWorkerMedicalClaimListByWorkerId(workerId,start,limit);
+        return workerMedicalClaimMapper.getWorkerMedicalClaimListByWorkerId(workerId, start, limit);
     }
 
     @Override

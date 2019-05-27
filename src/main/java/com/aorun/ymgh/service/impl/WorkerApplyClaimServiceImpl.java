@@ -49,7 +49,7 @@ public class WorkerApplyClaimServiceImpl implements WorkerApplyClaimService {
         Integer start = (pageIndex - 1) * pageSize;
         /** 每页大小  */
         Integer limit = pageSize;
-        return workerApplyClaimMapper.getWorkerApplyClaimListByWorkerId(workerId,start,limit);
+        return workerApplyClaimMapper.getWorkerApplyClaimListByWorkerId(workerId, start, limit);
     }
 
 }

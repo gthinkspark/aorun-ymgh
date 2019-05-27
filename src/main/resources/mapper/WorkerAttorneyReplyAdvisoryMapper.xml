@@ -1,138 +1,138 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.aorun.ymgh.dao.WorkerAttorneyReplyAdvisoryMapper">
-  <resultMap id="BaseResultMap" type="com.aorun.ymgh.model.WorkerAttorneyReplyAdvisory">
-    <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="worker_id" jdbcType="BIGINT" property="workerId" />
-    <result column="attorney_id" jdbcType="BIGINT" property="attorneyId" />
-    <result column="advisory_id" jdbcType="BIGINT" property="advisoryId" />
-    <result column="reply_content" jdbcType="VARCHAR" property="replyContent" />
-    <result column="reply_type" jdbcType="INTEGER" property="replyType" />
-    <result column="reply_time" jdbcType="TIMESTAMP" property="replyTime" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    id, worker_id, attorney_id, advisory_id, reply_content, reply_type, reply_time
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from t_worker_attorney_reply_advisory
-    where id = #{id,jdbcType=BIGINT}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from t_worker_attorney_reply_advisory
-    where id = #{id,jdbcType=BIGINT}
-  </delete>
-  <insert id="insert" parameterType="com.aorun.ymgh.model.WorkerAttorneyReplyAdvisory">
-    insert into t_worker_attorney_reply_advisory (id, worker_id, attorney_id, 
-      advisory_id, reply_content, reply_type, 
-      reply_time)
-    values (#{id,jdbcType=BIGINT}, #{workerId,jdbcType=BIGINT}, #{attorneyId,jdbcType=BIGINT}, 
-      #{advisoryId,jdbcType=BIGINT}, #{replyContent,jdbcType=VARCHAR}, #{replyType,jdbcType=INTEGER}, 
-      now())
-  </insert>
-  <insert id="insertSelective" parameterType="com.aorun.ymgh.model.WorkerAttorneyReplyAdvisory">
-    insert into t_worker_attorney_reply_advisory
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="workerId != null">
-        worker_id,
-      </if>
-      <if test="attorneyId != null">
-        attorney_id,
-      </if>
-      <if test="advisoryId != null">
-        advisory_id,
-      </if>
-      <if test="replyContent != null">
-        reply_content,
-      </if>
-      <if test="replyType != null">
-        reply_type,
-      </if>
-      <if test="replyTime != null">
-        reply_time,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=BIGINT},
-      </if>
-      <if test="workerId != null">
-        #{workerId,jdbcType=BIGINT},
-      </if>
-      <if test="attorneyId != null">
-        #{attorneyId,jdbcType=BIGINT},
-      </if>
-      <if test="advisoryId != null">
-        #{advisoryId,jdbcType=BIGINT},
-      </if>
-      <if test="replyContent != null">
-        #{replyContent,jdbcType=VARCHAR},
-      </if>
-      <if test="replyType != null">
-        #{replyType,jdbcType=INTEGER},
-      </if>
-      <if test="replyTime != null">
-        #{replyTime,jdbcType=TIMESTAMP},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.aorun.ymgh.model.WorkerAttorneyReplyAdvisory">
-    update t_worker_attorney_reply_advisory
-    <set>
-      <if test="workerId != null">
-        worker_id = #{workerId,jdbcType=BIGINT},
-      </if>
-      <if test="attorneyId != null">
+    <resultMap id="BaseResultMap" type="com.aorun.ymgh.model.WorkerAttorneyReplyAdvisory">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="worker_id" jdbcType="BIGINT" property="workerId"/>
+        <result column="attorney_id" jdbcType="BIGINT" property="attorneyId"/>
+        <result column="advisory_id" jdbcType="BIGINT" property="advisoryId"/>
+        <result column="reply_content" jdbcType="VARCHAR" property="replyContent"/>
+        <result column="reply_type" jdbcType="INTEGER" property="replyType"/>
+        <result column="reply_time" jdbcType="TIMESTAMP" property="replyTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, worker_id, attorney_id, advisory_id, reply_content, reply_type, reply_time
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_worker_attorney_reply_advisory
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from t_worker_attorney_reply_advisory
+        where id = #{id,jdbcType=BIGINT}
+    </delete>
+    <insert id="insert" parameterType="com.aorun.ymgh.model.WorkerAttorneyReplyAdvisory">
+        insert into t_worker_attorney_reply_advisory (id, worker_id, attorney_id,
+        advisory_id, reply_content, reply_type,
+        reply_time)
+        values (#{id,jdbcType=BIGINT}, #{workerId,jdbcType=BIGINT}, #{attorneyId,jdbcType=BIGINT},
+        #{advisoryId,jdbcType=BIGINT}, #{replyContent,jdbcType=VARCHAR}, #{replyType,jdbcType=INTEGER},
+        now())
+    </insert>
+    <insert id="insertSelective" parameterType="com.aorun.ymgh.model.WorkerAttorneyReplyAdvisory">
+        insert into t_worker_attorney_reply_advisory
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="workerId != null">
+                worker_id,
+            </if>
+            <if test="attorneyId != null">
+                attorney_id,
+            </if>
+            <if test="advisoryId != null">
+                advisory_id,
+            </if>
+            <if test="replyContent != null">
+                reply_content,
+            </if>
+            <if test="replyType != null">
+                reply_type,
+            </if>
+            <if test="replyTime != null">
+                reply_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="workerId != null">
+                #{workerId,jdbcType=BIGINT},
+            </if>
+            <if test="attorneyId != null">
+                #{attorneyId,jdbcType=BIGINT},
+            </if>
+            <if test="advisoryId != null">
+                #{advisoryId,jdbcType=BIGINT},
+            </if>
+            <if test="replyContent != null">
+                #{replyContent,jdbcType=VARCHAR},
+            </if>
+            <if test="replyType != null">
+                #{replyType,jdbcType=INTEGER},
+            </if>
+            <if test="replyTime != null">
+                #{replyTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.aorun.ymgh.model.WorkerAttorneyReplyAdvisory">
+        update t_worker_attorney_reply_advisory
+        <set>
+            <if test="workerId != null">
+                worker_id = #{workerId,jdbcType=BIGINT},
+            </if>
+            <if test="attorneyId != null">
+                attorney_id = #{attorneyId,jdbcType=BIGINT},
+            </if>
+            <if test="advisoryId != null">
+                advisory_id = #{advisoryId,jdbcType=BIGINT},
+            </if>
+            <if test="replyContent != null">
+                reply_content = #{replyContent,jdbcType=VARCHAR},
+            </if>
+            <if test="replyType != null">
+                reply_type = #{replyType,jdbcType=INTEGER},
+            </if>
+            <if test="replyTime != null">
+                reply_time = #{replyTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.aorun.ymgh.model.WorkerAttorneyReplyAdvisory">
+        update t_worker_attorney_reply_advisory
+        set worker_id = #{workerId,jdbcType=BIGINT},
         attorney_id = #{attorneyId,jdbcType=BIGINT},
-      </if>
-      <if test="advisoryId != null">
         advisory_id = #{advisoryId,jdbcType=BIGINT},
-      </if>
-      <if test="replyContent != null">
         reply_content = #{replyContent,jdbcType=VARCHAR},
-      </if>
-      <if test="replyType != null">
         reply_type = #{replyType,jdbcType=INTEGER},
-      </if>
-      <if test="replyTime != null">
-        reply_time = #{replyTime,jdbcType=TIMESTAMP},
-      </if>
-    </set>
-    where id = #{id,jdbcType=BIGINT}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.aorun.ymgh.model.WorkerAttorneyReplyAdvisory">
-    update t_worker_attorney_reply_advisory
-    set worker_id = #{workerId,jdbcType=BIGINT},
-      attorney_id = #{attorneyId,jdbcType=BIGINT},
-      advisory_id = #{advisoryId,jdbcType=BIGINT},
-      reply_content = #{replyContent,jdbcType=VARCHAR},
-      reply_type = #{replyType,jdbcType=INTEGER},
-      reply_time = #{replyTime,jdbcType=TIMESTAMP}
-    where id = #{id,jdbcType=BIGINT}
-  </update>
+        reply_time = #{replyTime,jdbcType=TIMESTAMP}
+        where id = #{id,jdbcType=BIGINT}
+    </update>
 
 
-  <select id="getWorkerAttorneyReplyAdvisoryListByWorkerId" resultMap="BaseResultMap" >
-  select
-  <include refid="Base_Column_List" />
-  from t_worker_attorney_reply_advisory
-    where worker_id = #{workerId}  and advisory_id = #{advisoryId}
+    <select id="getWorkerAttorneyReplyAdvisoryListByWorkerId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_worker_attorney_reply_advisory
+        where worker_id = #{workerId} and advisory_id = #{advisoryId}
 
-    <if test="isfirstPoint  == 'n'.toString()" >
-      and  reply_type = 1
-        <if test="requestTimePoint != ''" >
-           <![CDATA[
+        <if test="isfirstPoint  == 'n'.toString()">
+            and reply_type = 1
+            <if test="requestTimePoint != ''">
+                <![CDATA[
 			and    reply_time > #{requestTimePoint}
 				]]>
-       </if>
-    </if>
+            </if>
+        </if>
 
-  order by reply_time asc
-</select>
+        order by reply_time asc
+    </select>
 
 
 </mapper>

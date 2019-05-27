@@ -28,6 +28,7 @@ public class WorkerTempClaim {
     private Date updateTime;
 
     private Integer isReaded;
+
     public Integer getIsReaded() {
         return isReaded;
     }

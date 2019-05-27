@@ -17,16 +17,16 @@ public interface WorkerAdvisoryMapper {
     int updateByPrimaryKey(WorkerAdvisory record);
 
     /**
-     *
      * @param workerId
      * @param start
      * @param limit
      * @return
      */
-    List<WorkerAdvisory> getWorkerAdvisoryListByWorkerId(@Param("workerId") Long workerId,@Param("start") Integer start, @Param("limit")Integer limit);
+    List<WorkerAdvisory> getWorkerAdvisoryListByWorkerId(@Param("workerId") Long workerId, @Param("start") Integer start, @Param("limit") Integer limit);
 
     /**
      * 逻辑删除
+     *
      * @param id
      * @return
      */

@@ -1,106 +1,107 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.aorun.ymgh.dao.WorkerCompanyRecommendMapper">
-  <resultMap id="BaseResultMap" type="com.aorun.ymgh.model.WorkerCompanyRecommend">
-    <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="banner_url" jdbcType="VARCHAR" property="bannerUrl" />
-    <result column="company_name" jdbcType="VARCHAR" property="companyName" />
-    <result column="address" jdbcType="VARCHAR" property="address" />
-    <result column="begin_time" jdbcType="TIMESTAMP" property="beginTime" />
-    <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
-    <result column="status" jdbcType="INTEGER" property="status" />
-    <result column="content" jdbcType="LONGVARCHAR" property="content" />
-    <result column="content_url" jdbcType="VARCHAR" property="contentUrl" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    id, banner_url, company_name, address, begin_time, end_time, status, content, content_url, create_time, update_time
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from t_worker_company_recommend
-    where id = #{id,jdbcType=BIGINT}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from t_worker_company_recommend
-    where id = #{id,jdbcType=BIGINT}
-  </delete>
-  <insert id="insert" parameterType="com.aorun.ymgh.model.WorkerCompanyRecommend">
-    insert into t_worker_company_recommend (id, banner_url, company_name, 
-      address, begin_time, end_time, status, content, content_url,
-      create_time, update_time)
-    values (#{id,jdbcType=BIGINT}, #{bannerUrl,jdbcType=VARCHAR}, #{companyName,jdbcType=VARCHAR}, 
-      #{address,jdbcType=VARCHAR}, #{beginTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP},
-      1,#{content,jdbcType=LONGVARCHAR},#{contentUrl,jdbcType=VARCHAR},
-      now(),now())
-  </insert>
+    <resultMap id="BaseResultMap" type="com.aorun.ymgh.model.WorkerCompanyRecommend">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="banner_url" jdbcType="VARCHAR" property="bannerUrl"/>
+        <result column="company_name" jdbcType="VARCHAR" property="companyName"/>
+        <result column="address" jdbcType="VARCHAR" property="address"/>
+        <result column="begin_time" jdbcType="TIMESTAMP" property="beginTime"/>
+        <result column="end_time" jdbcType="TIMESTAMP" property="endTime"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="content" jdbcType="LONGVARCHAR" property="content"/>
+        <result column="content_url" jdbcType="VARCHAR" property="contentUrl"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, banner_url, company_name, address, begin_time, end_time, status, content, content_url, create_time,
+        update_time
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_worker_company_recommend
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from t_worker_company_recommend
+        where id = #{id,jdbcType=BIGINT}
+    </delete>
+    <insert id="insert" parameterType="com.aorun.ymgh.model.WorkerCompanyRecommend">
+        insert into t_worker_company_recommend (id, banner_url, company_name,
+        address, begin_time, end_time, status, content, content_url,
+        create_time, update_time)
+        values (#{id,jdbcType=BIGINT}, #{bannerUrl,jdbcType=VARCHAR}, #{companyName,jdbcType=VARCHAR},
+        #{address,jdbcType=VARCHAR}, #{beginTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP},
+        1,#{content,jdbcType=LONGVARCHAR},#{contentUrl,jdbcType=VARCHAR},
+        now(),now())
+    </insert>
 
-  <update id="updateByPrimaryKeySelective" parameterType="com.aorun.ymgh.model.WorkerCompanyRecommend">
-    update t_worker_company_recommend
-    <set>
-      <if test="bannerUrl != null">
-        banner_url = #{bannerUrl,jdbcType=VARCHAR},
-      </if>
-      <if test="companyName != null">
+    <update id="updateByPrimaryKeySelective" parameterType="com.aorun.ymgh.model.WorkerCompanyRecommend">
+        update t_worker_company_recommend
+        <set>
+            <if test="bannerUrl != null">
+                banner_url = #{bannerUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="companyName != null">
+                company_name = #{companyName,jdbcType=VARCHAR},
+            </if>
+            <if test="address != null">
+                address = #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="beginTime != null">
+                begin_time = #{beginTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="endTime != null">
+                end_time = #{endTime,jdbcType=TIMESTAMP},
+            </if>
+
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="content != null">
+                content = #{content,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="contentUrl != null">
+                content_url = #{contentUrl,jdbcType=VARCHAR},
+            </if>
+
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.aorun.ymgh.model.WorkerCompanyRecommend">
+        update t_worker_company_recommend
+        set banner_url = #{bannerUrl,jdbcType=VARCHAR},
         company_name = #{companyName,jdbcType=VARCHAR},
-      </if>
-      <if test="address != null">
         address = #{address,jdbcType=VARCHAR},
-      </if>
-      <if test="beginTime != null">
         begin_time = #{beginTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="endTime != null">
         end_time = #{endTime,jdbcType=TIMESTAMP},
-      </if>
-
-      <if test="status != null">
         status = #{status,jdbcType=INTEGER},
-      </if>
-      <if test="content != null">
         content = #{content,jdbcType=LONGVARCHAR},
-      </if>
-      <if test="contentUrl != null">
         content_url = #{contentUrl,jdbcType=VARCHAR},
-      </if>
-
-      <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null">
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-    </set>
-    where id = #{id,jdbcType=BIGINT}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.aorun.ymgh.model.WorkerCompanyRecommend">
-    update t_worker_company_recommend
-    set banner_url = #{bannerUrl,jdbcType=VARCHAR},
-      company_name = #{companyName,jdbcType=VARCHAR},
-      address = #{address,jdbcType=VARCHAR},
-      begin_time = #{beginTime,jdbcType=TIMESTAMP},
-      end_time = #{endTime,jdbcType=TIMESTAMP},
-      status = #{status,jdbcType=INTEGER},
-      content = #{content,jdbcType=LONGVARCHAR},
-      content_url = #{contentUrl,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
-    where id = #{id,jdbcType=BIGINT}
-  </update>
+        update_time = #{updateTime,jdbcType=TIMESTAMP}
+        where id = #{id,jdbcType=BIGINT}
+    </update>
 
 
-  <select id="getWorkerCompanyRecommendList" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from t_worker_company_recommend
-    order by create_time desc
-    <if test="start!=null and limit!=null ">
-      limit #{start},#{limit}
-    </if>
+    <select id="getWorkerCompanyRecommendList" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_worker_company_recommend
+        order by create_time desc
+        <if test="start!=null and limit!=null ">
+            limit #{start},#{limit}
+        </if>
 
-  </select>
+    </select>
 
 
 </mapper>

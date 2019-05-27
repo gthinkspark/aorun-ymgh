@@ -18,7 +18,7 @@ public interface WorkerTempClaimMapper {
 
     int updateByPrimaryKey(WorkerTempClaim record);
 
-    List<WorkerTempClaim> getWorkerTempClaimListByWorkerId(@Param("workerId") Long workerId, @Param("start") Integer start, @Param("limit")Integer limit);
+    List<WorkerTempClaim> getWorkerTempClaimListByWorkerId(@Param("workerId") Long workerId, @Param("start") Integer start, @Param("limit") Integer limit);
 
     void updateIsReadedStatus(Long id);
 

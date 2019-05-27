@@ -1,176 +1,176 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.aorun.ymgh.dao.MessageReadeMapper" >
-  <resultMap id="BaseResultMap" type="com.aorun.ymgh.model.MessageReade" >
-    <id column="id" property="id" jdbcType="BIGINT" />
-    <result column="message_id" property="messageId" jdbcType="BIGINT" />
-    <result column="member_id" property="memberId" jdbcType="BIGINT" />
-    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
-    <result column="source" property="source" jdbcType="INTEGER" />
-    <result column="is_reade" property="isReade" jdbcType="INTEGER" />
-    <result column="device_code" property="deviceCode" jdbcType="VARCHAR" />
-  </resultMap>
-  <sql id="Base_Column_List" >
-    id, message_id, member_id, create_time, source, is_reade, device_code
-  </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select 
-    <include refid="Base_Column_List" />
-    from t_message_reade
-    where id = #{id,jdbcType=BIGINT}
-  </select>
-   <!-- 条件查询 -->
-  <select id="selectSelective" resultMap="BaseResultMap" parameterType="java.util.Map">
-    select 
-    <include refid="Base_Column_List" />
-    from t_message_reade
-    <where>
-	  <if test="messageId != null" >
-        and message_id = #{messageId,jdbcType=BIGINT}
-      </if>
-      <if test="memberId != null" >
-        and member_id = #{memberId,jdbcType=BIGINT}
-      </if>
-      <if test="createTime != null" >
-        and create_time = #{createTime,jdbcType=TIMESTAMP}
-      </if>
-      <if test="source != null" >
-        and source = #{source,jdbcType=INTEGER}
-      </if>
-      <if test="isReade != null" >
-        and is_reade = #{isReade,jdbcType=INTEGER}
-      </if>
-      <if test="deviceCode != null" >
-        and device_code = #{deviceCode,jdbcType=VARCHAR}
-      </if>
-    </where>
-     order by 
-     <if test="sort != null" >
-        ${sort} 
-        <if test="dir != null" >
-        ${dir}
+<mapper namespace="com.aorun.ymgh.dao.MessageReadeMapper">
+    <resultMap id="BaseResultMap" type="com.aorun.ymgh.model.MessageReade">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="message_id" property="messageId" jdbcType="BIGINT"/>
+        <result column="member_id" property="memberId" jdbcType="BIGINT"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="source" property="source" jdbcType="INTEGER"/>
+        <result column="is_reade" property="isReade" jdbcType="INTEGER"/>
+        <result column="device_code" property="deviceCode" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, message_id, member_id, create_time, source, is_reade, device_code
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="Base_Column_List"/>
+        from t_message_reade
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <!-- 条件查询 -->
+    <select id="selectSelective" resultMap="BaseResultMap" parameterType="java.util.Map">
+        select
+        <include refid="Base_Column_List"/>
+        from t_message_reade
+        <where>
+            <if test="messageId != null">
+                and message_id = #{messageId,jdbcType=BIGINT}
+            </if>
+            <if test="memberId != null">
+                and member_id = #{memberId,jdbcType=BIGINT}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="source != null">
+                and source = #{source,jdbcType=INTEGER}
+            </if>
+            <if test="isReade != null">
+                and is_reade = #{isReade,jdbcType=INTEGER}
+            </if>
+            <if test="deviceCode != null">
+                and device_code = #{deviceCode,jdbcType=VARCHAR}
+            </if>
+        </where>
+        order by
+        <if test="sort != null">
+            ${sort}
+            <if test="dir != null">
+                ${dir}
+            </if>
+            ,
         </if>
-        ,
-     </if>
-     create_time DESC,id DESC
-	 <if test="limit != null and start!=null">
-	 LIMIT #{start},#{limit}
-  	 </if>
-  </select>
-  <!-- 查询该表的总数  -->
-  <select id="getTotal" resultType="java.lang.Integer" parameterType="java.util.Map">
-    select count(1) from t_message
-    <where>
-       <if test="messageId != null" >
-        and message_id = #{messageId,jdbcType=BIGINT}
-      </if>
-      <if test="memberId != null" >
-        and member_id = #{memberId,jdbcType=BIGINT}
-      </if>
-      <if test="createTime != null" >
-        and create_time = #{createTime,jdbcType=TIMESTAMP}
-      </if>
-      <if test="source != null" >
-        and source = #{source,jdbcType=INTEGER}
-      </if>
-      <if test="isReade != null" >
-        and is_reade = #{isReade,jdbcType=INTEGER}
-      </if>
-      <if test="deviceCode != null" >
-        and device_code = #{deviceCode,jdbcType=VARCHAR}
-      </if>
-    </where>
-  </select>
+        create_time DESC,id DESC
+        <if test="limit != null and start!=null">
+            LIMIT #{start},#{limit}
+        </if>
+    </select>
+    <!-- 查询该表的总数  -->
+    <select id="getTotal" resultType="java.lang.Integer" parameterType="java.util.Map">
+        select count(1) from t_message
+        <where>
+            <if test="messageId != null">
+                and message_id = #{messageId,jdbcType=BIGINT}
+            </if>
+            <if test="memberId != null">
+                and member_id = #{memberId,jdbcType=BIGINT}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="source != null">
+                and source = #{source,jdbcType=INTEGER}
+            </if>
+            <if test="isReade != null">
+                and is_reade = #{isReade,jdbcType=INTEGER}
+            </if>
+            <if test="deviceCode != null">
+                and device_code = #{deviceCode,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </select>
 
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
-    delete from t_message_reade
-    where id = #{id,jdbcType=BIGINT}
-  </delete>
-  <insert id="insert" parameterType="com.aorun.ymgh.model.MessageReade" >
-    insert into t_message_reade (id, message_id, member_id, 
-      create_time, source, is_reade, 
-      device_code)
-    values (#{id,jdbcType=BIGINT}, #{messageId,jdbcType=BIGINT}, #{memberId,jdbcType=BIGINT}, 
-      NOW(), #{source,jdbcType=INTEGER}, #{isReade,jdbcType=INTEGER}, 
-      #{deviceCode,jdbcType=VARCHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="com.aorun.ymgh.model.MessageReade" >
-    insert into t_message_reade
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
-      </if>
-      <if test="messageId != null" >
-        message_id,
-      </if>
-      <if test="memberId != null" >
-        member_id,
-      </if>
-        create_time,
-      <if test="source != null" >
-        source,
-      </if>
-      <if test="isReade != null" >
-        is_reade,
-      </if>
-      <if test="deviceCode != null" >
-        device_code,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=BIGINT},
-      </if>
-      <if test="messageId != null" >
-        #{messageId,jdbcType=BIGINT},
-      </if>
-      <if test="memberId != null" >
-        #{memberId,jdbcType=BIGINT},
-      </if>
-        NOW(),
-      <if test="source != null" >
-        #{source,jdbcType=INTEGER},
-      </if>
-      <if test="isReade != null" >
-        #{isReade,jdbcType=INTEGER},
-      </if>
-      <if test="deviceCode != null" >
-        #{deviceCode,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.aorun.ymgh.model.MessageReade" >
-    update t_message_reade
-    <set >
-      <if test="messageId != null" >
-        message_id = #{messageId,jdbcType=BIGINT},
-      </if>
-      <if test="memberId != null" >
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from t_message_reade
+        where id = #{id,jdbcType=BIGINT}
+    </delete>
+    <insert id="insert" parameterType="com.aorun.ymgh.model.MessageReade">
+        insert into t_message_reade (id, message_id, member_id,
+        create_time, source, is_reade,
+        device_code)
+        values (#{id,jdbcType=BIGINT}, #{messageId,jdbcType=BIGINT}, #{memberId,jdbcType=BIGINT},
+        NOW(), #{source,jdbcType=INTEGER}, #{isReade,jdbcType=INTEGER},
+        #{deviceCode,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.aorun.ymgh.model.MessageReade">
+        insert into t_message_reade
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="messageId != null">
+                message_id,
+            </if>
+            <if test="memberId != null">
+                member_id,
+            </if>
+            create_time,
+            <if test="source != null">
+                source,
+            </if>
+            <if test="isReade != null">
+                is_reade,
+            </if>
+            <if test="deviceCode != null">
+                device_code,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="messageId != null">
+                #{messageId,jdbcType=BIGINT},
+            </if>
+            <if test="memberId != null">
+                #{memberId,jdbcType=BIGINT},
+            </if>
+            NOW(),
+            <if test="source != null">
+                #{source,jdbcType=INTEGER},
+            </if>
+            <if test="isReade != null">
+                #{isReade,jdbcType=INTEGER},
+            </if>
+            <if test="deviceCode != null">
+                #{deviceCode,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.aorun.ymgh.model.MessageReade">
+        update t_message_reade
+        <set>
+            <if test="messageId != null">
+                message_id = #{messageId,jdbcType=BIGINT},
+            </if>
+            <if test="memberId != null">
+                member_id = #{memberId,jdbcType=BIGINT},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="source != null">
+                source = #{source,jdbcType=INTEGER},
+            </if>
+            <if test="isReade != null">
+                is_reade = #{isReade,jdbcType=INTEGER},
+            </if>
+            <if test="deviceCode != null">
+                device_code = #{deviceCode,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.aorun.ymgh.model.MessageReade">
+        update t_message_reade
+        set message_id = #{messageId,jdbcType=BIGINT},
         member_id = #{memberId,jdbcType=BIGINT},
-      </if>
-      <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="source != null" >
         source = #{source,jdbcType=INTEGER},
-      </if>
-      <if test="isReade != null" >
         is_reade = #{isReade,jdbcType=INTEGER},
-      </if>
-      <if test="deviceCode != null" >
-        device_code = #{deviceCode,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=BIGINT}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.aorun.ymgh.model.MessageReade" >
-    update t_message_reade
-    set message_id = #{messageId,jdbcType=BIGINT},
-      member_id = #{memberId,jdbcType=BIGINT},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      source = #{source,jdbcType=INTEGER},
-      is_reade = #{isReade,jdbcType=INTEGER},
-      device_code = #{deviceCode,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=BIGINT}
-  </update>
+        device_code = #{deviceCode,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=BIGINT}
+    </update>
 </mapper>

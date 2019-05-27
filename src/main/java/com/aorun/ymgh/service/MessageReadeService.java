@@ -12,7 +12,7 @@ import java.util.Map;
  * @version 创建时间：2016年12月7日 下午2:28:10
  * 类说明:
  */
-public interface MessageReadeService{
+public interface MessageReadeService {
     public List<MessageReade> findByMap(Map<String, Object> map);
 
     public void add(MessageReade messageReade) throws DataAccessException;

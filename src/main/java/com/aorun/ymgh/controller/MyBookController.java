@@ -24,7 +24,7 @@ import java.util.Map;
 @RequestMapping("/book")
 @RestController
 public class MyBookController {
-    private final String BOOK_URL="http://www.ucdrs.net/area/gslib";
+    private final String BOOK_URL = "http://www.ucdrs.net/area/gslib";
 
     //1.列表接口----分页查询
     @RequestMapping(value = "/bookDetail", method = RequestMethod.GET)
@@ -45,8 +45,8 @@ public class MyBookController {
 //        } else {
 //            return Jsonp.noLoginError("用户SID不正确,请核对后重试");
 //        }
-        Map<String,Object> resultMap = new HashMap<>();
-        resultMap.put("bookUrl",BOOK_URL);
+        Map<String, Object> resultMap = new HashMap<>();
+        resultMap.put("bookUrl", BOOK_URL);
         return Jsonp_data.success(resultMap);
     }
 

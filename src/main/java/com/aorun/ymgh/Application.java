@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Bean;
 
 /**
  * Spring Boot 应用启动类
- *
+ * <p>
  * Created by bysocket on 16/4/26.
  */
 // Spring Boot 应用的标识
@@ -22,7 +22,7 @@ public class Application {
     public static void main(String[] args) {
         // 程序启动入口
         // 启动嵌入式的 Tomcat 并初始化 Spring 环境及其各 Spring 组件
-        SpringApplication.run(Application.class,args);
+        SpringApplication.run(Application.class, args);
     }
 
     //Tomcat large file upload connection reset

@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
  * 法律援助-业务逻辑接口类
- *
+ * <p>
  * Created by bysocket on 07/02/2017.
  */
 public interface WorkerCardApplyService {
@@ -53,7 +53,7 @@ public interface WorkerCardApplyService {
      * @param workerId
      * @param workerCardId
      */
-    WorkerCardApply findWorkerCardApplyByWorkerIdAndCardId(Long workerId,Long workerCardId);
+    WorkerCardApply findWorkerCardApplyByWorkerIdAndCardId(Long workerId, Long workerCardId);
 
     void updateIsReadedStatus(Long id);
 }

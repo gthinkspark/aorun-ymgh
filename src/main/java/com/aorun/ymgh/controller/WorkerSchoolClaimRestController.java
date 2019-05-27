@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *助学救助
+ * 助学救助
  * Created by bysocket on 07/02/2017.
  */
 @RequestMapping("/worker")
@@ -28,20 +28,20 @@ public class WorkerSchoolClaimRestController {
     private WorkerSchoolClaimService workerSchoolClaimService;
 
 
-        //1.列表接口----分页查询
-        @RequestMapping(value = "/workerSchoolClaimList", method = RequestMethod.GET)
-        public Object workerSchoolClaimList(
+    //1.列表接口----分页查询
+    @RequestMapping(value = "/workerSchoolClaimList", method = RequestMethod.GET)
+    public Object workerSchoolClaimList(
             @RequestParam(name = "sid", required = true, defaultValue = "") String sid,
-            @RequestParam(name="pageIndex", required = true, defaultValue = "1") Integer pageIndex,
-            @RequestParam(name="pageSize", required = false, defaultValue = PageConstant.APP_PAGE_SIZE + "") Integer pageSize
-            ) {
-            Long workerId = WorkerMemberUtil.getWorkerId(sid);
-        List<WorkerSchoolClaim>   workerSchoolClaimList = new ArrayList<WorkerSchoolClaim>();
-        List<WorkerSchoolClaimDto>   workerSchoolClaimDtoList = new ArrayList<WorkerSchoolClaimDto>();
-        workerSchoolClaimList = workerSchoolClaimService.getWorkerSchoolClaimListByWorkerId(workerId,pageIndex,pageSize);
-        for(WorkerSchoolClaim workerSchoolClaim:workerSchoolClaimList){
+            @RequestParam(name = "pageIndex", required = true, defaultValue = "1") Integer pageIndex,
+            @RequestParam(name = "pageSize", required = false, defaultValue = PageConstant.APP_PAGE_SIZE + "") Integer pageSize
+    ) {
+        Long workerId = WorkerMemberUtil.getWorkerId(sid);
+        List<WorkerSchoolClaim> workerSchoolClaimList = new ArrayList<WorkerSchoolClaim>();
+        List<WorkerSchoolClaimDto> workerSchoolClaimDtoList = new ArrayList<WorkerSchoolClaimDto>();
+        workerSchoolClaimList = workerSchoolClaimService.getWorkerSchoolClaimListByWorkerId(workerId, pageIndex, pageSize);
+        for (WorkerSchoolClaim workerSchoolClaim : workerSchoolClaimList) {
             WorkerSchoolClaimDto workerSchoolClaimDto = new WorkerSchoolClaimDto();
-            BeanUtils.copyProperties(workerSchoolClaim,workerSchoolClaimDto);
+            BeanUtils.copyProperties(workerSchoolClaim, workerSchoolClaimDto);
             workerSchoolClaimDto.setCreateTime(DateFormat.dateToString3(workerSchoolClaim.getCreateTime()));
             workerSchoolClaimDtoList.add(workerSchoolClaimDto);
         }
@@ -51,18 +51,18 @@ public class WorkerSchoolClaimRestController {
     //3.详情接口
     @RequestMapping(value = "/workerSchoolClaim/{id}", method = RequestMethod.GET)
     public Object findOneWorkerSchoolClaim(@PathVariable("id") Long id,
-     @RequestParam(name = "sid", required = true, defaultValue = "") String sid) {
+                                           @RequestParam(name = "sid", required = true, defaultValue = "") String sid) {
 
         WorkerSchoolClaim workerSchoolClaim = workerSchoolClaimService.findWorkerSchoolClaimById(id);
         WorkerSchoolClaimDto workerSchoolClaimDto = new WorkerSchoolClaimDto();
-        BeanUtils.copyProperties(workerSchoolClaim,workerSchoolClaimDto);
+        BeanUtils.copyProperties(workerSchoolClaim, workerSchoolClaimDto);
         workerSchoolClaimDto.setCreateTime(DateFormat.dateToString3(workerSchoolClaim.getCreateTime()));
         return Jsonp_data.success(workerSchoolClaimDto);
     }
 
     //2.新增接口
     @RequestMapping(value = "/workerSchoolClaim", method = RequestMethod.POST)
-    public Object createWorkerSchoolClaim(  @RequestParam(name = "sid", required = true, defaultValue = "") String sid,
+    public Object createWorkerSchoolClaim(@RequestParam(name = "sid", required = true, defaultValue = "") String sid,
                                           @RequestBody WorkerSchoolClaim workerSchoolClaim) {
 
         Long workerId = WorkerMemberUtil.getWorkerId(sid);
@@ -74,8 +74,8 @@ public class WorkerSchoolClaimRestController {
 
     //修改接口
     @RequestMapping(value = "/updateWorkerSchoolClaim", method = RequestMethod.POST)
-    public Object updateWorkerSchoolClaim(  @RequestParam(name = "sid", required = true, defaultValue = "") String sid,
-                                            @RequestBody WorkerSchoolClaim workerSchoolClaim) {
+    public Object updateWorkerSchoolClaim(@RequestParam(name = "sid", required = true, defaultValue = "") String sid,
+                                          @RequestBody WorkerSchoolClaim workerSchoolClaim) {
         workerSchoolClaim.setStatus(1);
         workerSchoolClaimService.updateWorkerSchoolClaim(workerSchoolClaim);
         return Jsonp.success();

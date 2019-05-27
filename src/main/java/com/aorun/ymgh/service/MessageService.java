@@ -11,7 +11,7 @@ import org.springframework.dao.DataAccessException;
  * @version 创建时间：2016年8月4日 下午3:50:10
  * 类说明:
  */
-public interface MessageService{
+public interface MessageService {
     public List<Message> findByMap(Map<String, Object> map);
 
     public void add(Message message) throws DataAccessException;

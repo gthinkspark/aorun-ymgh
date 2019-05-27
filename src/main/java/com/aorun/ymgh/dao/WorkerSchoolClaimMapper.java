@@ -18,7 +18,7 @@ public interface WorkerSchoolClaimMapper {
 
     int updateByPrimaryKey(WorkerSchoolClaim record);
 
-    List<WorkerSchoolClaim> getWorkerSchoolClaimListByWorkerId(@Param("workerId") Long workerId, @Param("start") Integer start, @Param("limit")Integer limit);
+    List<WorkerSchoolClaim> getWorkerSchoolClaimListByWorkerId(@Param("workerId") Long workerId, @Param("start") Integer start, @Param("limit") Integer limit);
 
     void updateIsReadedStatus(Long id);
 

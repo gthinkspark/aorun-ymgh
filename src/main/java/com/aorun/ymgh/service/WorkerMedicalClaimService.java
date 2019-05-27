@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
  * 医疗救助-业务逻辑接口类
- *
+ * <p>
  * Created by bysocket on 07/02/2017.
  */
 public interface WorkerMedicalClaimService {
