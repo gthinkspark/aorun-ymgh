@@ -31,93 +31,93 @@ public class MessageController {
     private MessageReadeService messageReadeService;
 
 
+
     //1.列表接口----分页查询
     @RequestMapping(value = "/messageList/{type}", method = RequestMethod.GET)
     public Object messageList(
             @PathVariable("type") Integer type,
             @RequestParam(name = "sid", required = true, defaultValue = "") String sid,
-            @RequestParam(name = "pageIndex", required = false, defaultValue = "1") Integer pageIndex,
-            @RequestParam(name = "pageSize", required = false, defaultValue = PageConstant.APP_PAGE_SIZE + "") Integer pageSize
+            @RequestParam(name="pageIndex", required = false, defaultValue = "1") Integer pageIndex,
+            @RequestParam(name="pageSize", required = false, defaultValue = PageConstant.APP_PAGE_SIZE + "") Integer pageSize
     ) {
-        UserDto user = (UserDto) RedisCache.get(sid);
-        Map<String, Object> resultMap = new HashMap<>();
-        Map<String, Object> params = new HashMap<String, Object>();
+        UserDto  user = (UserDto) RedisCache.get(sid);
+        Map<String,Object> resultMap = new HashMap<>();
+        Map<String,Object> params = new HashMap<String,Object>();
         params.put("checkup", MessageUtil.MESSAGE_CHECK_OK);
         params.put("statu", MessageUtil.MESSAGE_STATU_ISDEL_NO);
-        params.put("start", (pageIndex - 1) * pageSize);
-        params.put("limit", pageIndex * pageSize);
-        params.put("type", type);
-        params.put("sort", "create_time");
-        params.put("dir", "desc");
-        if (type == MessageUtil.MESSAGE_TYPE_CLAIM) {
-            params.put("memberId", user.getMemberId());
+        params.put("start",(pageIndex-1)*pageSize);
+        params.put("limit",pageIndex*pageSize);
+        params.put("type",type);
+        params.put("sort","create_time");
+        params.put("dir","desc");
+        if(type== MessageUtil.MESSAGE_TYPE_CLAIM){
+            params.put("memberId",user.getMemberId());
         }
         List<Message> messageList = messageService.findByMap(params);
-        List<MessageDto> messageDtoList = MessageUtil.setMessageReade(user, messageList, messageReadeService);
+        List<MessageDto> messageDtoList = MessageUtil.setMessageReade(user, messageList,messageReadeService);
         //todo:将是否已读标记存入缓存
         resultMap.put("messageList", messageDtoList);
         return Jsonp_data.success(resultMap);
     }
-
     //2.消息首页接口----分页查询
     @RequestMapping(value = "/messageHomeList", method = RequestMethod.GET)
     public Object messageHomeList(
             @RequestParam(name = "sid", required = true, defaultValue = "") String sid
     ) {
 
-        UserDto user = (UserDto) RedisCache.get(sid);
-        Map<String, Object> resultMap = new HashMap<>();
-        Map<String, Object> params = new HashMap<String, Object>();
+        UserDto  user = (UserDto) RedisCache.get(sid);
+        Map<String,Object> resultMap = new HashMap<>();
+        Map<String,Object> params = new HashMap<String,Object>();
         params.put("checkup", MessageUtil.MESSAGE_CHECK_OK);
         params.put("type", MessageUtil.MESSAGE_TYPE_SYS);
         params.put("statu", MessageUtil.MESSAGE_STATU_ISDEL_NO);
-        params.put("start", 0);
-        params.put("limit", 1);
-        params.put("sort", "create_time");
-        params.put("dir", "desc");
+        params.put("start",0);
+        params.put("limit",1);
+        params.put("sort","create_time");
+        params.put("dir","desc");
         /*系统通知*/
-        Map<String, Object> sysMessageMap = new HashMap<>();
+        Map<String,Object> sysMessageMap = new HashMap<>();
         List<Message> sysMessageList = messageService.findByMap(params);
-        sysMessageMap.put("name", "系统通知");
-        sysMessageMap.put("icon", "http://mov.91catv.com/img/userfiles/worker/message/sys_message.png");
-        List<MessageDto> sysMessageDtoList = MessageUtil.setMessageReade(user, sysMessageList, messageReadeService);
-        sysMessageMap.put("sysMessageList", sysMessageDtoList);
-        Map<String, Object> unionMessageMap = new HashMap<>();
-        Map<String, Object> calimMessageMap = new HashMap<>();
+        sysMessageMap.put("name","系统通知");
+        sysMessageMap.put("icon","http://mov.91catv.com/img/userfiles/worker/message/sys_message.png");
+        List<MessageDto> sysMessageDtoList =  MessageUtil.setMessageReade(user, sysMessageList,messageReadeService);
+        sysMessageMap.put("sysMessageList",sysMessageDtoList);
+        Map<String,Object> unionMessageMap = new HashMap<>();
+        Map<String,Object> calimMessageMap = new HashMap<>();
         List<Message> unionMessageList = new ArrayList<Message>();
         List<Message> claimMessageList = new ArrayList<Message>();
-        if (null != user) {
-            params.put("memberId", user.getMemberId());
+        if(null!=user){
+            params.put("memberId",user.getMemberId());
             params.put("type", MessageUtil.MESSAGE_TYPE_CLAIM);
             claimMessageList = messageService.findByMap(params);
         }
         /*工会通知*/
         params.put("type", MessageUtil.MESSAGE_TYPE_UNION);
         unionMessageList = messageService.findByMap(params);
-        List<MessageDto> unionMessageDtoList = MessageUtil.setMessageReade(user, unionMessageList, messageReadeService);
-        unionMessageMap.put("unionMessageList", unionMessageDtoList);
-        unionMessageMap.put("name", "工会通知");
-        unionMessageMap.put("icon", "http://mov.91catv.com/img/userfiles/worker/message/union_message.png");
+        List<MessageDto> unionMessageDtoList = MessageUtil.setMessageReade(user, unionMessageList,messageReadeService);
+        unionMessageMap.put("unionMessageList",unionMessageDtoList);
+        unionMessageMap.put("name","工会通知");
+        unionMessageMap.put("icon","http://mov.91catv.com/img/userfiles/worker/message/union_message.png");
         /*理赔通知*/
-        List<MessageDto> calimMessageDtoList = MessageUtil.setMessageReade(user, claimMessageList, messageReadeService);
-        calimMessageMap.put("claimMessageList", calimMessageDtoList);
-        calimMessageMap.put("name", "理赔通知");
-        calimMessageMap.put("icon", "http://mov.91catv.com/img/userfiles/worker/message/calim_message.png");
-        resultMap.put("sysMessage", sysMessageMap);
-        resultMap.put("unionMessage", unionMessageMap);
-        resultMap.put("claimMessage", calimMessageMap);
+        List<MessageDto> calimMessageDtoList = MessageUtil.setMessageReade(user, claimMessageList,messageReadeService);
+        calimMessageMap.put("claimMessageList",calimMessageDtoList);
+        calimMessageMap.put("name","理赔通知");
+        calimMessageMap.put("icon","http://mov.91catv.com/img/userfiles/worker/message/calim_message.png");
+        resultMap.put("sysMessage",sysMessageMap);
+        resultMap.put("unionMessage",unionMessageMap);
+        resultMap.put("claimMessage",calimMessageMap);
         return Jsonp_data.success(resultMap);
     }
 
 
     //3.单条消息已读接口
     @RequestMapping(value = "/messageReade", method = RequestMethod.POST)
-    public Object messageReade(@RequestParam(name = "sid", required = true, defaultValue = "") String sid,
-                               @RequestParam(name = "messageId", required = true, defaultValue = "") Long messageId,
-                               @RequestParam(name = "source", required = true, defaultValue = "") Integer source,
-                               @RequestParam(name = "deviceCode", required = true, defaultValue = "") String deviceCode) {
+    public Object messageReade(  @RequestParam(name = "sid", required = true, defaultValue = "") String sid,
+                                 @RequestParam(name = "messageId", required = true, defaultValue = "") Long messageId,
+                                 @RequestParam(name = "source", required = true, defaultValue = "") Integer source,
+                                 @RequestParam(name = "deviceCode", required = true, defaultValue = "") String deviceCode) {
 
-        UserDto user = (UserDto) RedisCache.get(sid);
+        UserDto  user = (UserDto) RedisCache.get(sid);
 
         MessageReade messageReade = new MessageReade();
         messageReade.setMemberId(user.getMemberId());
