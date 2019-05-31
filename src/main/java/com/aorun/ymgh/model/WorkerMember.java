@@ -27,9 +27,15 @@ public class WorkerMember {
 
     private Integer epoints;
 
+    private String epointLevel;
+
     private String macAddr;
 
     private String pushSignAddr;
+
+    private String bankCardNumber;
+
+    private String issuingBank;
 
     public Long getId() {
         return id;
@@ -127,6 +133,14 @@ public class WorkerMember {
         this.epoints = epoints;
     }
 
+    public String getEpointLevel() {
+        return epointLevel;
+    }
+
+    public void setEpointLevel(String epointLevel) {
+        this.epointLevel = epointLevel == null ? null : epointLevel.trim();
+    }
+
     public String getMacAddr() {
         return macAddr;
     }
@@ -141,5 +155,21 @@ public class WorkerMember {
 
     public void setPushSignAddr(String pushSignAddr) {
         this.pushSignAddr = pushSignAddr == null ? null : pushSignAddr.trim();
+    }
+
+    public String getBankCardNumber() {
+        return bankCardNumber;
+    }
+
+    public void setBankCardNumber(String bankCardNumber) {
+        this.bankCardNumber = bankCardNumber == null ? null : bankCardNumber.trim();
+    }
+
+    public String getIssuingBank() {
+        return issuingBank;
+    }
+
+    public void setIssuingBank(String issuingBank) {
+        this.issuingBank = issuingBank == null ? null : issuingBank.trim();
     }
 }

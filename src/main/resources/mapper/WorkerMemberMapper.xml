@@ -1,284 +1,218 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.aorun.ymgh.dao.WorkerMemberMapper" >
-  <resultMap id="BaseResultMap" type="com.aorun.ymgh.model.WorkerMember" >
-    <id column="id" property="id" jdbcType="BIGINT" />
-    <result column="member_id" property="memberId" jdbcType="BIGINT" />
-    <result column="nick_name" property="nickName" jdbcType="VARCHAR" />
-    <result column="login_name" property="loginName" jdbcType="VARCHAR" />
-    <result column="password" property="password" jdbcType="VARCHAR" />
-    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
-    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
-    <result column="telephone" property="telephone" jdbcType="VARCHAR" />
-    <result column="email" property="email" jdbcType="VARCHAR" />
-    <result column="img_path" property="imgPath" jdbcType="VARCHAR" />
-    <result column="disable" property="disable" jdbcType="CHAR" />
-    <result column="epoints" property="epoints" jdbcType="INTEGER" />
-    <result column="mac_addr" property="macAddr" jdbcType="VARCHAR" />
-    <result column="push_sign_addr" property="pushSignAddr" jdbcType="VARCHAR" />
-    <result column="bank_card_number" property="bankCardNumber" jdbcType="VARCHAR" />
-    <result column="issuing_bank" property="issuingBank" jdbcType="VARCHAR" />
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aorun.ymgh.dao.WorkerMemberMapper">
+  <resultMap id="BaseResultMap" type="com.aorun.ymgh.model.WorkerMember">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="member_id" jdbcType="BIGINT" property="memberId" />
+    <result column="nick_name" jdbcType="VARCHAR" property="nickName" />
+    <result column="login_name" jdbcType="VARCHAR" property="loginName" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="telephone" jdbcType="VARCHAR" property="telephone" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="img_path" jdbcType="VARCHAR" property="imgPath" />
+    <result column="disable" jdbcType="CHAR" property="disable" />
+    <result column="epoints" jdbcType="INTEGER" property="epoints" />
+    <result column="epoint_level" jdbcType="VARCHAR" property="epointLevel" />
+    <result column="mac_addr" jdbcType="VARCHAR" property="macAddr" />
+    <result column="push_sign_addr" jdbcType="VARCHAR" property="pushSignAddr" />
+    <result column="bank_card_number" jdbcType="VARCHAR" property="bankCardNumber" />
+    <result column="issuing_bank" jdbcType="VARCHAR" property="issuingBank" />
   </resultMap>
-  <sql id="Base_Column_List" >
+  <sql id="Base_Column_List">
     id, member_id, nick_name, login_name, password, create_time, update_time, telephone, 
-    email, img_path, disable, epoints, mac_addr, push_sign_addr, bank_card_number, issuing_bank
+    email, img_path, disable, epoints, epoint_level, mac_addr, push_sign_addr, bank_card_number, 
+    issuing_bank
   </sql>
-     <!-- table -->  
-<sql id="Base_Table" >
-  	from t_worker_member
-</sql>
-<!-- group and order -->
- <sql id="Base_Other_ParamString" >
- 	<if test="groupParamString != null and groupParamString != ''" >
- 	 	group by
-      ${groupParamString} 
-  </if>
-  <if test="sortParamString != null and sortParamString != ''" >
- 	 	order by
-      ${sortParamString} 
-  </if>
-  <if test="limit != null and limit != ''" >
-  	LIMIT 
-  	<if test="start != null and start != ''">
-   	 #{start},
-   	</if>
-   	#{limit}
-  </if>
-</sql>
-<!-- Base_Column_Where_Param -->
-<sql id="Base_Column_Where_Param" >
-	  <if test="memberId != null" >
-        and member_id = #{memberId,jdbcType=BIGINT}
-      </if>
-      <if test="nickName != null" >
-        and nick_name = #{nickName,jdbcType=VARCHAR}
-      </if>
-      <if test="loginName != null" >
-        and login_name = #{loginName,jdbcType=VARCHAR}
-      </if>
-      <if test="password != null" >
-        and password = #{password,jdbcType=VARCHAR}
-      </if>
-      <if test="createTime != null" >
-        and create_time = #{createTime,jdbcType=TIMESTAMP}
-      </if>
-      <if test="updateTime != null" >
-        and update_time = #{updateTime,jdbcType=TIMESTAMP}
-      </if>
-      <if test="telephone != null" >
-        and telephone = #{telephone,jdbcType=VARCHAR}
-      </if>
-      <if test="email != null" >
-        and email = #{email,jdbcType=VARCHAR}
-      </if>
-      <if test="imgPath != null" >
-        and img_path = #{imgPath,jdbcType=VARCHAR}
-      </if>
-      <if test="disable != null" >
-        and disable = #{disable,jdbcType=CHAR}
-      </if>
-      <if test="epoints != null" >
-        and epoints = #{epoints,jdbcType=INTEGER}
-      </if>
-      <if test="macAddr != null" >
-        and mac_addr = #{macAddr,jdbcType=VARCHAR}
-      </if>
-      <if test="pushSignAddr != null" >
-        and push_sign_addr = #{pushSignAddr,jdbcType=VARCHAR}
-      </if>
-</sql>
-<!-- Batch_Where_Param -->
-<sql id="Batch_Where_Param">
-	  <if test="ids != null" >
-        and id in (${ids})
-      </if>
-</sql>
-
-<!-- where -->
-<select id="selectByMap" resultMap="BaseResultMap" parameterType="java.util.Map" >
-  select 
-  <include refid="Base_Column_List" />
-  <include refid="Base_Table" />
-  <where>
-  <include refid="Base_Column_Where_Param" />
-  </where>
-  <include refid="Base_Other_ParamString" />
-</select>
-<!-- count -->
-<select id="getTotal" resultType="java.lang.Integer" parameterType="java.util.Map">
-	select count(1)
-	<include refid="Base_Table" />
-	<where>
-  	<include refid="Base_Column_Where_Param" />
-  	</where>
-</select>
-  
-  
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from t_worker_member
     where id = #{id,jdbcType=BIGINT}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from t_worker_member
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.aorun.ymgh.model.WorkerMember" >
+  <insert id="insert" parameterType="com.aorun.ymgh.model.WorkerMember">
     insert into t_worker_member (id, member_id, nick_name, 
       login_name, password, create_time, 
       update_time, telephone, email, 
       img_path, disable, epoints, 
-      mac_addr, push_sign_addr)
+      epoint_level, mac_addr, push_sign_addr, 
+      bank_card_number, issuing_bank)
     values (#{id,jdbcType=BIGINT}, #{memberId,jdbcType=BIGINT}, #{nickName,jdbcType=VARCHAR}, 
       #{loginName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
       #{updateTime,jdbcType=TIMESTAMP}, #{telephone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
       #{imgPath,jdbcType=VARCHAR}, #{disable,jdbcType=CHAR}, #{epoints,jdbcType=INTEGER}, 
-      #{macAddr,jdbcType=VARCHAR}, #{pushSignAddr,jdbcType=VARCHAR})
+      #{epointLevel,jdbcType=VARCHAR}, #{macAddr,jdbcType=VARCHAR}, #{pushSignAddr,jdbcType=VARCHAR}, 
+      #{bankCardNumber,jdbcType=VARCHAR}, #{issuingBank,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.aorun.ymgh.model.WorkerMember" useGeneratedKeys="true" keyProperty="id">
+  <insert id="insertSelective" parameterType="com.aorun.ymgh.model.WorkerMember">
     insert into t_worker_member
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
         id,
       </if>
-      <if test="memberId != null" >
+      <if test="memberId != null">
         member_id,
       </if>
-      <if test="nickName != null" >
+      <if test="nickName != null">
         nick_name,
       </if>
-      <if test="loginName != null" >
+      <if test="loginName != null">
         login_name,
       </if>
-      <if test="password != null" >
+      <if test="password != null">
         password,
       </if>
-      <if test="createTime != null" >
+      <if test="createTime != null">
         create_time,
       </if>
-      <if test="updateTime != null" >
+      <if test="updateTime != null">
         update_time,
       </if>
-      <if test="telephone != null" >
+      <if test="telephone != null">
         telephone,
       </if>
-      <if test="email != null" >
+      <if test="email != null">
         email,
       </if>
-      <if test="imgPath != null" >
+      <if test="imgPath != null">
         img_path,
       </if>
-      <if test="disable != null" >
+      <if test="disable != null">
         disable,
       </if>
-      <if test="epoints != null" >
+      <if test="epoints != null">
         epoints,
       </if>
-      <if test="macAddr != null" >
+      <if test="epointLevel != null">
+        epoint_level,
+      </if>
+      <if test="macAddr != null">
         mac_addr,
       </if>
-      <if test="pushSignAddr != null" >
+      <if test="pushSignAddr != null">
         push_sign_addr,
       </if>
+      <if test="bankCardNumber != null">
+        bank_card_number,
+      </if>
+      <if test="issuingBank != null">
+        issuing_bank,
+      </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
         #{id,jdbcType=BIGINT},
       </if>
-      <if test="memberId != null" >
+      <if test="memberId != null">
         #{memberId,jdbcType=BIGINT},
       </if>
-      <if test="nickName != null" >
+      <if test="nickName != null">
         #{nickName,jdbcType=VARCHAR},
       </if>
-      <if test="loginName != null" >
+      <if test="loginName != null">
         #{loginName,jdbcType=VARCHAR},
       </if>
-      <if test="password != null" >
+      <if test="password != null">
         #{password,jdbcType=VARCHAR},
       </if>
-      <if test="createTime != null" >
+      <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="updateTime != null" >
+      <if test="updateTime != null">
         #{updateTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="telephone != null" >
+      <if test="telephone != null">
         #{telephone,jdbcType=VARCHAR},
       </if>
-      <if test="email != null" >
+      <if test="email != null">
         #{email,jdbcType=VARCHAR},
       </if>
-      <if test="imgPath != null" >
+      <if test="imgPath != null">
         #{imgPath,jdbcType=VARCHAR},
       </if>
-      <if test="disable != null" >
+      <if test="disable != null">
         #{disable,jdbcType=CHAR},
       </if>
-      <if test="epoints != null" >
+      <if test="epoints != null">
         #{epoints,jdbcType=INTEGER},
       </if>
-      <if test="macAddr != null" >
+      <if test="epointLevel != null">
+        #{epointLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="macAddr != null">
         #{macAddr,jdbcType=VARCHAR},
       </if>
-      <if test="pushSignAddr != null" >
+      <if test="pushSignAddr != null">
         #{pushSignAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="bankCardNumber != null">
+        #{bankCardNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="issuingBank != null">
+        #{issuingBank,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.aorun.ymgh.model.WorkerMember" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.aorun.ymgh.model.WorkerMember">
     update t_worker_member
-    <set >
-      <if test="memberId != null" >
+    <set>
+      <if test="memberId != null">
         member_id = #{memberId,jdbcType=BIGINT},
       </if>
-      <if test="nickName != null" >
+      <if test="nickName != null">
         nick_name = #{nickName,jdbcType=VARCHAR},
       </if>
-      <if test="loginName != null" >
+      <if test="loginName != null">
         login_name = #{loginName,jdbcType=VARCHAR},
       </if>
-      <if test="password != null" >
+      <if test="password != null">
         password = #{password,jdbcType=VARCHAR},
       </if>
-      <if test="createTime != null" >
+      <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="updateTime != null" >
+      <if test="updateTime != null">
         update_time = #{updateTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="telephone != null" >
+      <if test="telephone != null">
         telephone = #{telephone,jdbcType=VARCHAR},
       </if>
-      <if test="email != null" >
+      <if test="email != null">
         email = #{email,jdbcType=VARCHAR},
       </if>
-      <if test="imgPath != null" >
+      <if test="imgPath != null">
         img_path = #{imgPath,jdbcType=VARCHAR},
       </if>
-      <if test="disable != null" >
+      <if test="disable != null">
         disable = #{disable,jdbcType=CHAR},
       </if>
-      <if test="epoints != null" >
+      <if test="epoints != null">
         epoints = #{epoints,jdbcType=INTEGER},
       </if>
-      <if test="macAddr != null" >
+      <if test="epointLevel != null">
+        epoint_level = #{epointLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="macAddr != null">
         mac_addr = #{macAddr,jdbcType=VARCHAR},
       </if>
-      <if test="pushSignAddr != null" >
+      <if test="pushSignAddr != null">
         push_sign_addr = #{pushSignAddr,jdbcType=VARCHAR},
       </if>
-      <if test="bankCardNumber != null" >
+      <if test="bankCardNumber != null">
         bank_card_number = #{bankCardNumber,jdbcType=VARCHAR},
       </if>
-      <if test="issuingBank != null" >
+      <if test="issuingBank != null">
         issuing_bank = #{issuingBank,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.aorun.ymgh.model.WorkerMember" >
+  <update id="updateByPrimaryKey" parameterType="com.aorun.ymgh.model.WorkerMember">
     update t_worker_member
     set member_id = #{memberId,jdbcType=BIGINT},
       nick_name = #{nickName,jdbcType=VARCHAR},
@@ -291,6 +225,7 @@
       img_path = #{imgPath,jdbcType=VARCHAR},
       disable = #{disable,jdbcType=CHAR},
       epoints = #{epoints,jdbcType=INTEGER},
+      epoint_level = #{epointLevel,jdbcType=VARCHAR},
       mac_addr = #{macAddr,jdbcType=VARCHAR},
       push_sign_addr = #{pushSignAddr,jdbcType=VARCHAR},
       bank_card_number = #{bankCardNumber,jdbcType=VARCHAR},

@@ -69,7 +69,7 @@ public class HomeCenterController {
         }
 
         List<WorkerAdvisory> workerAdvisoryList = workerAdvisoryService.getUnReadWorkerAdvisoryList(workerId);
-        if (workerAdvisoryList != null && workerAdvisoryList.size() > 0) {//我的维权
+        if (workerAdvisoryList != null && workerAdvisoryList.size() > 0) {//我的维权&留言
             datamap.put("advisoryRead", MESSAGE_UN_READE);
         } else {
             datamap.put("advisoryRead", MESSAGE_IS_READED);

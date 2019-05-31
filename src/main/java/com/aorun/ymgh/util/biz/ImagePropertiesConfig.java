@@ -78,11 +78,11 @@ public class ImagePropertiesConfig {
 
 
     /**
-     * 申请理赔-图片 服务器存放位置
+     * 我的咨询&留言-图片 服务器存放位置
      */
     public static final String ADVISORY_PATH = FILE_PATH + "images" + File.separator + "advisory" + File.separator;
     /**
-     * 申请理赔-图片--web服务路径
+     * 我的咨询&留言-图片--web服务路径
      */
     public static final String ADVISORY_SERVER_PATH = CDN_SERVER_ROOT_PATH + "images" + File.separator + "advisory" + File.separator;
 
@@ -90,7 +90,8 @@ public class ImagePropertiesConfig {
     /**
      * 工会会员头像-图片--web服务路径
      */
-    public static final String WORKERMEMBER_SERVER_PATH = CDN_SERVER_ROOT_PATH + "images" + File.separator + "workermember" + File.separator;
+    public static final String WORKERMEMBER_HEADIMG_SERVER_PATH = CDN_SERVER_ROOT_PATH + "images";
+
 
 
     /**

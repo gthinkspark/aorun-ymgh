@@ -83,11 +83,21 @@ public class WorkerAttorneyReplyAdvisoryRestController {
             Long attorneyId = workerAttorneyReplyAdvisory.getAttorneyId();//律师ID
             Long myworkerId = workerAttorneyReplyAdvisory.getWorkerId();// 工会用户ID
             WorkerMember myworkerMember = workerMemberService.findWorkerMemberById(myworkerId);
-            myDataMap.put("workerMemberImgPath", ImagePropertiesConfig.WORKERMEMBER_SERVER_PATH + myworkerMember.getImgPath()); //用户头像
+            if(myworkerMember!=null){
+                myDataMap.put("workerMemberImgPath", ImagePropertiesConfig.WORKERMEMBER_HEADIMG_SERVER_PATH + myworkerMember.getImgPath()); //用户头像
+            }else{
+                myDataMap.put("workerMemberImgPath", ""); //用户头像
+            }
+
             WorkerAttorney workerAttorney = workerAttorneyService.findWorkerAttorneyById(attorneyId);
-            myDataMap.put("attorneyImgPath", ImagePropertiesConfig.WORKERATTORNEY_SERVER_PATH + workerAttorney.getImgPath()); //律师头像，
-            myDataMap.put("nickName", workerAttorney.getNickName());// 律师昵称
-            myDataMap.put("replyTime", DateFriendlyShow.showTimeText(workerAttorneyReplyAdvisory.getReplyTime()));
+            if(workerAttorney!=null){
+                myDataMap.put("attorneyImgPath", ImagePropertiesConfig.WORKERATTORNEY_SERVER_PATH + workerAttorney.getImgPath()); //律师头像，
+                myDataMap.put("nickName", workerAttorney.getNickName());// 律师昵称
+            }else {
+                myDataMap.put("attorneyImgPath", ""); //律师头像，
+                myDataMap.put("nickName", "");// 律师昵称
+            }
+
             myDataMap.put("replyTime", DateFriendlyShow.showTimeText(workerAttorneyReplyAdvisory.getReplyTime()));
             dataMapList.add(myDataMap);
 
