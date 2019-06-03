@@ -23,6 +23,9 @@ public class SessionInterceptor implements HandlerInterceptor {
         if (request.getRequestURI().indexOf("/worker/checkUserLogin") > -1) {
             return true;
         }
+        else if (request.getRequestURI().indexOf("/contact/contactOur") > -1) {
+            return true;
+        }
         String sid = request.getParameter("sid");
         System.out.println("sid==" + sid);
         int status = 0;
