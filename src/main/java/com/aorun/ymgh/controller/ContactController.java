@@ -22,11 +22,11 @@ public class ContactController {
             @RequestParam(name = "sid", required = true, defaultValue = "") String sid
     ) {
         Map<String, Object> resultMap = new HashMap<>();
-        resultMap.put("tel", "0937-3365111");
-        resultMap.put("mobile", "16633441344");
-        resultMap.put("fax", "0937-3365222");
-        resultMap.put("qq", "XXXXXXXXX");
-        resultMap.put("address", "甘肃省玉门市XXXXXXXXXXXXXX");
+        resultMap.put("tel", "0937-3362339");
+        resultMap.put("mobile", "15097235830");
+        resultMap.put("fax", "0937-3362339");
+        resultMap.put("qq", "1791327277");
+        resultMap.put("address", "甘肃省玉门市新市区铁人路9号");
         return Jsonp_data.success(resultMap);
     }
 
