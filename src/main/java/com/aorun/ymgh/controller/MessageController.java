@@ -6,6 +6,7 @@ import com.aorun.ymgh.model.Message;
 import com.aorun.ymgh.model.MessageReade;
 import com.aorun.ymgh.service.MessageReadeService;
 import com.aorun.ymgh.service.MessageService;
+import com.aorun.ymgh.util.CheckObjectIsNull;
 import com.aorun.ymgh.util.MessageUtil;
 import com.aorun.ymgh.util.PageConstant;
 import com.aorun.ymgh.util.cache.redis.RedisCache;
@@ -50,7 +51,10 @@ public class MessageController {
         params.put("type",type);
         params.put("sort","create_time");
         params.put("dir","desc");
-        if(type== MessageUtil.MESSAGE_TYPE_CLAIM){
+        if(type== MessageUtil.MESSAGE_TYPE_CLAIM||type==MessageUtil.MESSAGE_TYPE_UNION){
+            if (CheckObjectIsNull.isNull(user)) {
+                return Jsonp.noLoginError("请先登录或重新登录");
+            }
             params.put("memberId",user.getMemberId());
         }
         List<Message> messageList = messageService.findByMap(params);
