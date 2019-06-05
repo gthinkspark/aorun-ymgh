@@ -24,7 +24,7 @@ import java.util.Map;
 @RequestMapping("/book")
 @RestController
 public class MyBookController {
-    private final String BOOK_URL = "http://www.ucdrs.net/area/gslib";
+    private final String BOOK_URL = "http://www.dzzgsw.com/";
 
     //1.列表接口----分页查询
     @RequestMapping(value = "/bookDetail", method = RequestMethod.GET)
