@@ -105,7 +105,7 @@ public class DateFriendlyShow {
     public static String timeDiffText(Date startDate, Date nowDate) {
         int calDiffs = DateFriendlyShow.calDiffs(startDate, nowDate,
                 DateFriendlyShow.CAL_MINUTES);
-        if (calDiffs == 0) {
+        if (calDiffs <= 0) {
             return "刚刚";
         }
         if (calDiffs < 60) {

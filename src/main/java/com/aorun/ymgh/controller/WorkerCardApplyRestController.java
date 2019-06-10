@@ -110,6 +110,7 @@ public class WorkerCardApplyRestController {
             }
 
             workerCardApply.setIdCardUrls(myIdCardUrls.toString());
+            workerCardApply.setStatus(1);//1-审核中，2-审核失败，3-审核成功。
             workerCardApplyService.updateWorkerCardApply(workerCardApply);
             return Jsonp.success();
         } else {
