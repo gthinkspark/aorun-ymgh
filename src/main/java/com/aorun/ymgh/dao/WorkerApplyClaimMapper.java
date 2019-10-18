@@ -20,4 +20,6 @@ public interface WorkerApplyClaimMapper {
 
     List<WorkerApplyClaim> getWorkerApplyClaimListByWorkerId(@Param("workerId") Long workerId, @Param("start") Integer start, @Param("limit") Integer limit);
 
+    List<WorkerApplyClaim> getAllList();
+
 }

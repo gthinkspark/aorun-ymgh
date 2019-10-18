@@ -50,4 +50,6 @@ public interface WorkerTempClaimService {
 
     List<WorkerTempClaim> getUnReadList(Long workerId);
 
+    List<WorkerTempClaim> getAllList();
+
 }

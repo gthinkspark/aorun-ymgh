@@ -64,5 +64,10 @@ public class WorkerLiveClaimServiceImpl implements WorkerLiveClaimService {
         return workerLiveClaimMapper.getUnReadList(workerId);
     }
 
+    @Override
+    public List<WorkerLiveClaim> getAllList() {
+        return workerLiveClaimMapper.getAllList();
+    }
+
 
 }

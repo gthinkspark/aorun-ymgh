@@ -24,4 +24,6 @@ public interface WorkerTempClaimMapper {
 
     List<WorkerTempClaim> getUnReadList(@Param("workerId") Long workerId);
 
+
+    List<WorkerTempClaim> getAllList();
 }

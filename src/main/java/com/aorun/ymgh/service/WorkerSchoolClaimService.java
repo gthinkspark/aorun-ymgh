@@ -50,4 +50,6 @@ public interface WorkerSchoolClaimService {
 
     List<WorkerSchoolClaim> getUnReadList(Long workerId);
 
+    List<WorkerSchoolClaim> getAllList();
+
 }

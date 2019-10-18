@@ -21,6 +21,8 @@ public class WorkerLegalAidDto {
 
     private String createTime;
 
+    private String explainImgUrls;
+
     public Long getId() {
         return id;
     }
@@ -101,5 +103,11 @@ public class WorkerLegalAidDto {
         this.createTime = createTime;
     }
 
+    public String getExplainImgUrls() {
+        return explainImgUrls;
+    }
 
+    public void setExplainImgUrls(String explainImgUrls) {
+        this.explainImgUrls = explainImgUrls;
+    }
 }

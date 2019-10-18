@@ -18,7 +18,7 @@ public class ImagePropertiesConfig {
 
     static {
 
-        PropertyUtil props = new PropertyUtil(System.getenv("aorun_env_config_path") + "/account/image.properties");
+        PropertyUtil props = new PropertyUtil(System.getenv("aorun_env_config_second_path") + "/account/image.properties");
 
         CDN_SERVER_ROOT_PATH = props.getCommonConf("cdn.server_root.path");
         //FILE_SERVER_ROOT_PATH = props.getCommonConf("file.server_root.path");
@@ -98,6 +98,59 @@ public class ImagePropertiesConfig {
      * 律师头像-图片--web服务路径
      */
     public static final String WORKERATTORNEY_SERVER_PATH = CDN_SERVER_ROOT_PATH + "images" + File.separator + "workerattorney" + File.separator;
+
+
+
+    /**
+     * 生活援助-图片 服务器存放位置
+     */
+    public static final String LIVE_CLAIM_PATH = FILE_PATH + "images" + File.separator + "liveclaim" + File.separator;
+    /**
+     * 生活援助-图片--web服务路径
+     */
+    public static final String LIVE_CLAIM_SERVER_PATH = CDN_SERVER_ROOT_PATH + "images" + File.separator + "liveclaim" + File.separator;
+
+
+    /**
+     * 生活援助-图片 服务器存放位置
+     */
+    public static final String MEDICAL_CLAIM_PATH = FILE_PATH + "images" + File.separator + "medicalclaim" + File.separator;
+    /**
+     * 生活援助-图片--web服务路径
+     */
+    public static final String MEDICAL_CLAIM_SERVER_PATH = CDN_SERVER_ROOT_PATH + "images" + File.separator + "medicalclaim" + File.separator;
+
+
+    /**
+     * 助学救助-图片 服务器存放位置
+     */
+    public static final String SCHOOL_CLAIM_PATH = FILE_PATH + "images" + File.separator + "schoolclaim" + File.separator;
+    /**
+     * 助学救助-图片--web服务路径
+     */
+    public static final String SCHOOL_CLAIM_SERVER_PATH = CDN_SERVER_ROOT_PATH + "images" + File.separator + "schoolclaim" + File.separator;
+
+
+    /**
+     * 临时救助-图片 服务器存放位置
+     */
+    public static final String TEMP_CLAIM_PATH = FILE_PATH + "images" + File.separator + "tempclaim" + File.separator;
+    /**
+     * 临时救助-图片--web服务路径
+     */
+    public static final String TEMP_CLAIM_SERVER_PATH = CDN_SERVER_ROOT_PATH + "images" + File.separator + "tempclaim" + File.separator;
+
+
+
+    /**
+     * 法律援助-图片 服务器存放位置
+     */
+    public static final String LEGAL_AID_PATH = FILE_PATH + "images" + File.separator + "legelaid" + File.separator;
+    /**
+     * 法律援助-图片--web服务路径
+     */
+    public static final String LEGAL_AID_SERVER_PATH = CDN_SERVER_ROOT_PATH + "images" + File.separator + "legelaid" + File.separator;
+
 
 
 }

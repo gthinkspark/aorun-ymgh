@@ -29,14 +29,11 @@ public class WorkerLiveClaim {
 
     private Integer isReaded;
 
+    private String bankName;
 
-    public Integer getIsReaded() {
-        return isReaded;
-    }
+    private String cardNumber;
 
-    public void setIsReaded(Integer isReaded) {
-        this.isReaded = isReaded;
-    }
+    private String explainImgUrls;
 
     public Long getId() {
         return id;
@@ -132,5 +129,37 @@ public class WorkerLiveClaim {
 
     public void setCompanyName(String companyName) {
         this.companyName = companyName == null ? null : companyName.trim();
+    }
+
+    public Integer getIsReaded() {
+        return isReaded;
+    }
+
+    public void setIsReaded(Integer isReaded) {
+        this.isReaded = isReaded;
+    }
+
+    public String getBankName() {
+        return bankName;
+    }
+
+    public void setBankName(String bankName) {
+        this.bankName = bankName == null ? null : bankName.trim();
+    }
+
+    public String getCardNumber() {
+        return cardNumber;
+    }
+
+    public void setCardNumber(String cardNumber) {
+        this.cardNumber = cardNumber == null ? null : cardNumber.trim();
+    }
+
+    public String getExplainImgUrls() {
+        return explainImgUrls;
+    }
+
+    public void setExplainImgUrls(String explainImgUrls) {
+        this.explainImgUrls = explainImgUrls == null ? null : explainImgUrls.trim();
     }
 }

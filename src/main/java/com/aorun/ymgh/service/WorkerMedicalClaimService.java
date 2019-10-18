@@ -50,4 +50,6 @@ public interface WorkerMedicalClaimService {
 
     List<WorkerMedicalClaim> getUnReadList(Long workerId);
 
+    List<WorkerMedicalClaim> getAllList();
+
 }

@@ -23,6 +23,12 @@ public class WorkerLiveClaimDto {
 
     private Integer isReaded;
 
+    private String bankName;
+
+    private String cardNumber;
+
+    private String explainImgUrls;
+
     public Integer getIsReaded() {
         return isReaded;
     }
@@ -111,5 +117,27 @@ public class WorkerLiveClaimDto {
         this.companyName = companyName;
     }
 
+    public String getBankName() {
+        return bankName;
+    }
 
+    public void setBankName(String bankName) {
+        this.bankName = bankName;
+    }
+
+    public String getCardNumber() {
+        return cardNumber;
+    }
+
+    public void setCardNumber(String cardNumber) {
+        this.cardNumber = cardNumber;
+    }
+
+    public String getExplainImgUrls() {
+        return explainImgUrls;
+    }
+
+    public void setExplainImgUrls(String explainImgUrls) {
+        this.explainImgUrls = explainImgUrls;
+    }
 }

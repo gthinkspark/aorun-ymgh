@@ -23,4 +23,6 @@ public interface WorkerMedicalClaimMapper {
     void updateIsReadedStatus(Long id);
 
     List<WorkerMedicalClaim> getUnReadList(@Param("workerId") Long workerId);
+
+    List<WorkerMedicalClaim> getAllList();
 }

@@ -1,274 +1,318 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.aorun.ymgh.dao.WorkerSchoolClaimMapper">
-    <resultMap id="BaseResultMap" type="com.aorun.ymgh.model.WorkerSchoolClaim">
-        <id column="id" jdbcType="BIGINT" property="id"/>
-        <result column="worker_id" jdbcType="BIGINT" property="workerId"/>
-        <result column="name" jdbcType="VARCHAR" property="name"/>
-        <result column="population" jdbcType="INTEGER" property="population"/>
-        <result column="income" jdbcType="INTEGER" property="income"/>
-        <result column="company_name" jdbcType="VARCHAR" property="companyName"/>
-        <result column="telephone" jdbcType="VARCHAR" property="telephone"/>
-        <result column="month_income" jdbcType="INTEGER" property="monthIncome"/>
-        <result column="worker_number" jdbcType="INTEGER" property="workerNumber"/>
-        <result column="student_name" jdbcType="VARCHAR" property="studentName"/>
-        <result column="relation" jdbcType="VARCHAR" property="relation"/>
-        <result column="exam_score" jdbcType="INTEGER" property="examScore"/>
-        <result column="enroll_info" jdbcType="VARCHAR" property="enrollInfo"/>
-        <result column="enroll_school" jdbcType="VARCHAR" property="enrollSchool"/>
-        <result column="self_paying_case" jdbcType="VARCHAR" property="selfPayingCase"/>
-        <result column="status" jdbcType="INTEGER" property="status"/>
-        <result column="fail_reason" jdbcType="VARCHAR" property="failReason"/>
-        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
-        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
-        <result column="is_readed" jdbcType="INTEGER" property="isReaded"/>
-    </resultMap>
-    <sql id="Base_Column_List">
-        id, worker_id, name, population, income, company_name, telephone, month_income, worker_number,
-        student_name, relation, exam_score, enroll_info, enroll_school, self_paying_case,
-        status, fail_reason, create_time, update_time, is_readed
-    </sql>
-    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List"/>
-        from t_worker_school_claim
-        where id = #{id,jdbcType=BIGINT}
-    </select>
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-        delete from t_worker_school_claim
-        where id = #{id,jdbcType=BIGINT}
-    </delete>
-    <insert id="insert" parameterType="com.aorun.ymgh.model.WorkerSchoolClaim">
-        insert into t_worker_school_claim (id, worker_id, name,
-        population, income, company_name,
-        telephone, month_income, worker_number,
-        student_name, relation, exam_score,
-        enroll_info, enroll_school, self_paying_case,
-        status, fail_reason, create_time,
-        update_time, is_readed)
-        values (#{id,jdbcType=BIGINT}, #{workerId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR},
-        #{population,jdbcType=INTEGER}, #{income,jdbcType=INTEGER}, #{companyName,jdbcType=VARCHAR},
-        #{telephone,jdbcType=VARCHAR}, #{monthIncome,jdbcType=INTEGER}, #{workerNumber,jdbcType=INTEGER},
-        #{studentName,jdbcType=VARCHAR}, #{relation,jdbcType=VARCHAR}, #{examScore,jdbcType=INTEGER},
-        #{enrollInfo,jdbcType=VARCHAR}, #{enrollSchool,jdbcType=VARCHAR}, #{selfPayingCase,jdbcType=VARCHAR},
-        1, #{failReason,jdbcType=VARCHAR}, now(),now(), 1)
-    </insert>
-    <insert id="insertSelective" parameterType="com.aorun.ymgh.model.WorkerSchoolClaim">
-        insert into t_worker_school_claim
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="id != null">
-                id,
-            </if>
-            <if test="workerId != null">
-                worker_id,
-            </if>
-            <if test="name != null">
-                name,
-            </if>
-            <if test="population != null">
-                population,
-            </if>
-            <if test="income != null">
-                income,
-            </if>
-            <if test="companyName != null">
-                company_name,
-            </if>
-            <if test="telephone != null">
-                telephone,
-            </if>
-            <if test="monthIncome != null">
-                month_income,
-            </if>
-            <if test="workerNumber != null">
-                worker_number,
-            </if>
-            <if test="studentName != null">
-                student_name,
-            </if>
-            <if test="relation != null">
-                relation,
-            </if>
-            <if test="examScore != null">
-                exam_score,
-            </if>
-            <if test="enrollInfo != null">
-                enroll_info,
-            </if>
-            <if test="enrollSchool != null">
-                enroll_school,
-            </if>
-            <if test="selfPayingCase != null">
-                self_paying_case,
-            </if>
-            <if test="status != null">
-                status,
-            </if>
-            <if test="failReason != null">
-                fail_reason,
-            </if>
-            <if test="createTime != null">
-                create_time,
-            </if>
-            <if test="updateTime != null">
-                update_time,
-            </if>
-        </trim>
-        <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="id != null">
-                #{id,jdbcType=BIGINT},
-            </if>
-            <if test="workerId != null">
-                #{workerId,jdbcType=BIGINT},
-            </if>
-            <if test="name != null">
-                #{name,jdbcType=VARCHAR},
-            </if>
-            <if test="population != null">
-                #{population,jdbcType=INTEGER},
-            </if>
-            <if test="income != null">
-                #{income,jdbcType=INTEGER},
-            </if>
-            <if test="companyName != null">
-                #{companyName,jdbcType=VARCHAR},
-            </if>
-            <if test="telephone != null">
-                #{telephone,jdbcType=VARCHAR},
-            </if>
-            <if test="monthIncome != null">
-                #{monthIncome,jdbcType=INTEGER},
-            </if>
-            <if test="workerNumber != null">
-                #{workerNumber,jdbcType=INTEGER},
-            </if>
-            <if test="studentName != null">
-                #{studentName,jdbcType=VARCHAR},
-            </if>
-            <if test="relation != null">
-                #{relation,jdbcType=VARCHAR},
-            </if>
-            <if test="examScore != null">
-                #{examScore,jdbcType=INTEGER},
-            </if>
-            <if test="enrollInfo != null">
-                #{enrollInfo,jdbcType=VARCHAR},
-            </if>
-            <if test="enrollSchool != null">
-                #{enrollSchool,jdbcType=VARCHAR},
-            </if>
-            <if test="selfPayingCase != null">
-                #{selfPayingCase,jdbcType=VARCHAR},
-            </if>
-            <if test="status != null">
-                #{status,jdbcType=INTEGER},
-            </if>
-            <if test="failReason != null">
-                #{failReason,jdbcType=VARCHAR},
-            </if>
-            <if test="createTime != null">
-                #{createTime,jdbcType=TIMESTAMP},
-            </if>
-            <if test="updateTime != null">
-                #{updateTime,jdbcType=TIMESTAMP},
-            </if>
-        </trim>
-    </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="com.aorun.ymgh.model.WorkerSchoolClaim">
-        update t_worker_school_claim
-        <set>
-            <if test="workerId != null">
-                worker_id = #{workerId,jdbcType=BIGINT},
-            </if>
-            <if test="name != null">
-                name = #{name,jdbcType=VARCHAR},
-            </if>
-            <if test="population != null">
-                population = #{population,jdbcType=INTEGER},
-            </if>
-            <if test="income != null">
-                income = #{income,jdbcType=INTEGER},
-            </if>
-            <if test="companyName != null">
-                company_name = #{companyName,jdbcType=VARCHAR},
-            </if>
-            <if test="telephone != null">
-                telephone = #{telephone,jdbcType=VARCHAR},
-            </if>
-            <if test="monthIncome != null">
-                month_income = #{monthIncome,jdbcType=INTEGER},
-            </if>
-            <if test="workerNumber != null">
-                worker_number = #{workerNumber,jdbcType=INTEGER},
-            </if>
-            <if test="studentName != null">
-                student_name = #{studentName,jdbcType=VARCHAR},
-            </if>
-            <if test="relation != null">
-                relation = #{relation,jdbcType=VARCHAR},
-            </if>
-            <if test="examScore != null">
-                exam_score = #{examScore,jdbcType=INTEGER},
-            </if>
-            <if test="enrollInfo != null">
-                enroll_info = #{enrollInfo,jdbcType=VARCHAR},
-            </if>
-            <if test="enrollSchool != null">
-                enroll_school = #{enrollSchool,jdbcType=VARCHAR},
-            </if>
-            <if test="selfPayingCase != null">
-                self_paying_case = #{selfPayingCase,jdbcType=VARCHAR},
-            </if>
-            <if test="status != null">
-                status = #{status,jdbcType=INTEGER},
-            </if>
-            <if test="failReason != null">
-                fail_reason = #{failReason,jdbcType=VARCHAR},
-            </if>
-            <if test="isReaded != null">
-                is_readed = #{isReaded,jdbcType=INTEGER},
-            </if>
-        </set>
-        ,update_time = now()
-        where id = #{id,jdbcType=BIGINT}
-    </update>
-    <update id="updateByPrimaryKey" parameterType="com.aorun.ymgh.model.WorkerSchoolClaim">
-        update t_worker_school_claim
-        set worker_id = #{workerId,jdbcType=BIGINT},
+  <resultMap id="BaseResultMap" type="com.aorun.ymgh.model.WorkerSchoolClaim">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="worker_id" jdbcType="BIGINT" property="workerId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="population" jdbcType="INTEGER" property="population" />
+    <result column="income" jdbcType="INTEGER" property="income" />
+    <result column="company_name" jdbcType="VARCHAR" property="companyName" />
+    <result column="telephone" jdbcType="VARCHAR" property="telephone" />
+    <result column="month_income" jdbcType="INTEGER" property="monthIncome" />
+    <result column="worker_number" jdbcType="INTEGER" property="workerNumber" />
+    <result column="student_name" jdbcType="VARCHAR" property="studentName" />
+    <result column="relation" jdbcType="VARCHAR" property="relation" />
+    <result column="exam_score" jdbcType="INTEGER" property="examScore" />
+    <result column="enroll_info" jdbcType="VARCHAR" property="enrollInfo" />
+    <result column="enroll_school" jdbcType="VARCHAR" property="enrollSchool" />
+    <result column="self_paying_case" jdbcType="VARCHAR" property="selfPayingCase" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="fail_reason" jdbcType="VARCHAR" property="failReason" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="is_readed" jdbcType="INTEGER" property="isReaded" />
+    <result column="bank_name" jdbcType="VARCHAR" property="bankName" />
+    <result column="card_number" jdbcType="VARCHAR" property="cardNumber" />
+    <result column="explain_img_urls" jdbcType="VARCHAR" property="explainImgUrls" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, worker_id, name, population, income, company_name, telephone, month_income, worker_number, 
+    student_name, relation, exam_score, enroll_info, enroll_school, self_paying_case, 
+    status, fail_reason, create_time, update_time, is_readed, bank_name, card_number, 
+    explain_img_urls
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_worker_school_claim
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_worker_school_claim
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.aorun.ymgh.model.WorkerSchoolClaim">
+    insert into t_worker_school_claim (id, worker_id, name, 
+      population, income, company_name, 
+      telephone, month_income, worker_number, 
+      student_name, relation, exam_score, 
+      enroll_info, enroll_school, self_paying_case, 
+      status, fail_reason, create_time, 
+      update_time, is_readed, bank_name, 
+      card_number, explain_img_urls)
+    values (#{id,jdbcType=BIGINT}, #{workerId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, 
+      #{population,jdbcType=INTEGER}, #{income,jdbcType=INTEGER}, #{companyName,jdbcType=VARCHAR}, 
+      #{telephone,jdbcType=VARCHAR}, #{monthIncome,jdbcType=INTEGER}, #{workerNumber,jdbcType=INTEGER}, 
+      #{studentName,jdbcType=VARCHAR}, #{relation,jdbcType=VARCHAR}, #{examScore,jdbcType=INTEGER}, 
+      #{enrollInfo,jdbcType=VARCHAR}, #{enrollSchool,jdbcType=VARCHAR}, #{selfPayingCase,jdbcType=VARCHAR}, 
+      1, #{failReason,jdbcType=VARCHAR}, now(),now(),1, #{bankName,jdbcType=VARCHAR},
+      #{cardNumber,jdbcType=VARCHAR}, #{explainImgUrls,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.aorun.ymgh.model.WorkerSchoolClaim">
+    insert into t_worker_school_claim
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="workerId != null">
+        worker_id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="population != null">
+        population,
+      </if>
+      <if test="income != null">
+        income,
+      </if>
+      <if test="companyName != null">
+        company_name,
+      </if>
+      <if test="telephone != null">
+        telephone,
+      </if>
+      <if test="monthIncome != null">
+        month_income,
+      </if>
+      <if test="workerNumber != null">
+        worker_number,
+      </if>
+      <if test="studentName != null">
+        student_name,
+      </if>
+      <if test="relation != null">
+        relation,
+      </if>
+      <if test="examScore != null">
+        exam_score,
+      </if>
+      <if test="enrollInfo != null">
+        enroll_info,
+      </if>
+      <if test="enrollSchool != null">
+        enroll_school,
+      </if>
+      <if test="selfPayingCase != null">
+        self_paying_case,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="failReason != null">
+        fail_reason,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="isReaded != null">
+        is_readed,
+      </if>
+      <if test="bankName != null">
+        bank_name,
+      </if>
+      <if test="cardNumber != null">
+        card_number,
+      </if>
+      <if test="explainImgUrls != null">
+        explain_img_urls,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="workerId != null">
+        #{workerId,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="population != null">
+        #{population,jdbcType=INTEGER},
+      </if>
+      <if test="income != null">
+        #{income,jdbcType=INTEGER},
+      </if>
+      <if test="companyName != null">
+        #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null">
+        #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="monthIncome != null">
+        #{monthIncome,jdbcType=INTEGER},
+      </if>
+      <if test="workerNumber != null">
+        #{workerNumber,jdbcType=INTEGER},
+      </if>
+      <if test="studentName != null">
+        #{studentName,jdbcType=VARCHAR},
+      </if>
+      <if test="relation != null">
+        #{relation,jdbcType=VARCHAR},
+      </if>
+      <if test="examScore != null">
+        #{examScore,jdbcType=INTEGER},
+      </if>
+      <if test="enrollInfo != null">
+        #{enrollInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="enrollSchool != null">
+        #{enrollSchool,jdbcType=VARCHAR},
+      </if>
+      <if test="selfPayingCase != null">
+        #{selfPayingCase,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="failReason != null">
+        #{failReason,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isReaded != null">
+        #{isReaded,jdbcType=INTEGER},
+      </if>
+      <if test="bankName != null">
+        #{bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="cardNumber != null">
+        #{cardNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="explainImgUrls != null">
+        #{explainImgUrls,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.aorun.ymgh.model.WorkerSchoolClaim">
+    update t_worker_school_claim
+    <set>
+      <if test="workerId != null">
+        worker_id = #{workerId,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
         name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="population != null">
         population = #{population,jdbcType=INTEGER},
+      </if>
+      <if test="income != null">
         income = #{income,jdbcType=INTEGER},
+      </if>
+      <if test="companyName != null">
         company_name = #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null">
         telephone = #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="monthIncome != null">
         month_income = #{monthIncome,jdbcType=INTEGER},
+      </if>
+      <if test="workerNumber != null">
         worker_number = #{workerNumber,jdbcType=INTEGER},
+      </if>
+      <if test="studentName != null">
         student_name = #{studentName,jdbcType=VARCHAR},
+      </if>
+      <if test="relation != null">
         relation = #{relation,jdbcType=VARCHAR},
+      </if>
+      <if test="examScore != null">
         exam_score = #{examScore,jdbcType=INTEGER},
+      </if>
+      <if test="enrollInfo != null">
         enroll_info = #{enrollInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="enrollSchool != null">
         enroll_school = #{enrollSchool,jdbcType=VARCHAR},
+      </if>
+      <if test="selfPayingCase != null">
         self_paying_case = #{selfPayingCase,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
         status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="failReason != null">
         fail_reason = #{failReason,jdbcType=VARCHAR},
+      </if>
+
+      <if test="isReaded != null">
         is_readed = #{isReaded,jdbcType=INTEGER},
-        update_time = now()
-        where id = #{id,jdbcType=BIGINT}
-    </update>
+      </if>
+      <if test="bankName != null">
+        bank_name = #{bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="cardNumber != null">
+        card_number = #{cardNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="explainImgUrls != null">
+        explain_img_urls = #{explainImgUrls,jdbcType=VARCHAR},
+      </if>
+    </set>
+    ,update_time = now()
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.aorun.ymgh.model.WorkerSchoolClaim">
+    update t_worker_school_claim
+    set worker_id = #{workerId,jdbcType=BIGINT},
+      name = #{name,jdbcType=VARCHAR},
+      population = #{population,jdbcType=INTEGER},
+      income = #{income,jdbcType=INTEGER},
+      company_name = #{companyName,jdbcType=VARCHAR},
+      telephone = #{telephone,jdbcType=VARCHAR},
+      month_income = #{monthIncome,jdbcType=INTEGER},
+      worker_number = #{workerNumber,jdbcType=INTEGER},
+      student_name = #{studentName,jdbcType=VARCHAR},
+      relation = #{relation,jdbcType=VARCHAR},
+      exam_score = #{examScore,jdbcType=INTEGER},
+      enroll_info = #{enrollInfo,jdbcType=VARCHAR},
+      enroll_school = #{enrollSchool,jdbcType=VARCHAR},
+      self_paying_case = #{selfPayingCase,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      fail_reason = #{failReason,jdbcType=VARCHAR},
+       update_time = now(),
+      is_readed = #{isReaded,jdbcType=INTEGER},
+      bank_name = #{bankName,jdbcType=VARCHAR},
+      card_number = #{cardNumber,jdbcType=VARCHAR},
+      explain_img_urls = #{explainImgUrls,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
 
-    <select id="getWorkerSchoolClaimListByWorkerId" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List"/>
-        from t_worker_school_claim
-        where worker_id = #{workerId}
-        order by create_time desc
-        <if test="start!=null and limit!=null ">
-            limit #{start},#{limit}
-        </if>
 
-    </select>
+  <select id="getWorkerSchoolClaimListByWorkerId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from t_worker_school_claim
+    where worker_id = #{workerId}
+    order by create_time desc
+    <if test="start!=null and limit!=null ">
+      limit #{start},#{limit}
+    </if>
+
+  </select>
 
 
-    <update id="updateIsReadedStatus" parameterType="java.lang.Long">
+  <update id="updateIsReadedStatus" parameterType="java.lang.Long">
         update t_worker_school_claim
         set
         is_readed = 1,
@@ -276,12 +320,19 @@
         where id = #{id,jdbcType=BIGINT}
     </update>
 
-    <select id="getUnReadList" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List"/>
-        from t_worker_school_claim
-        where worker_id = #{workerId} and is_readed = 2
-        order by create_time desc
-    </select>
+  <select id="getUnReadList" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from t_worker_school_claim
+    where worker_id = #{workerId} and is_readed = 2
+    order by create_time desc
+  </select>
+
+
+  <select id="getAllList" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from t_worker_school_claim
+  </select>
 
 </mapper>

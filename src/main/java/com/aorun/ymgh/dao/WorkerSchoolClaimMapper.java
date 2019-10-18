@@ -24,4 +24,8 @@ public interface WorkerSchoolClaimMapper {
 
     List<WorkerSchoolClaim> getUnReadList(@Param("workerId") Long workerId);
 
+
+    List<WorkerSchoolClaim> getAllList();
+
+
 }

@@ -24,4 +24,6 @@ public interface WorkerLiveClaimMapper {
 
     List<WorkerLiveClaim> getUnReadList(@Param("workerId") Long workerId);
 
+    List<WorkerLiveClaim> getAllList();
+
 }

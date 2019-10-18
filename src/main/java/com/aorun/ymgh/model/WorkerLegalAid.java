@@ -25,6 +25,8 @@ public class WorkerLegalAid {
 
     private Date updateTime;
 
+    private String explainImgUrls;
+
     public Long getId() {
         return id;
     }
@@ -111,5 +113,13 @@ public class WorkerLegalAid {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public String getExplainImgUrls() {
+        return explainImgUrls;
+    }
+
+    public void setExplainImgUrls(String explainImgUrls) {
+        this.explainImgUrls = explainImgUrls;
     }
 }

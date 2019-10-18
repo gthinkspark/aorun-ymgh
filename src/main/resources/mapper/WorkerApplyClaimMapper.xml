@@ -272,7 +272,12 @@
         <if test="start!=null and limit!=null ">
             limit #{start},#{limit}
         </if>
+    </select>
 
+    <select id="getAllList" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_worker_apply_claim
     </select>
 
 </mapper>

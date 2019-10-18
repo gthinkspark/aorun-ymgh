@@ -63,4 +63,9 @@ public class WorkerTempClaimServiceImpl implements WorkerTempClaimService {
         return workerTempClaimMapper.getUnReadList(workerId);
     }
 
+    @Override
+    public List<WorkerTempClaim> getAllList() {
+        return workerTempClaimMapper.getAllList();
+    }
+
 }

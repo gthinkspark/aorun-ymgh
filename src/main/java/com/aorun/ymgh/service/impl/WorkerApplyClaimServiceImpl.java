@@ -52,4 +52,9 @@ public class WorkerApplyClaimServiceImpl implements WorkerApplyClaimService {
         return workerApplyClaimMapper.getWorkerApplyClaimListByWorkerId(workerId, start, limit);
     }
 
+    @Override
+    public List<WorkerApplyClaim> getAllList() {
+        return workerApplyClaimMapper.getAllList();
+    }
+
 }

@@ -46,4 +46,6 @@ public interface WorkerApplyClaimService {
 
     List<WorkerApplyClaim> getWorkerApplyClaimListByWorkerId(Long workerId, Integer pageIndex, Integer pageSize);
 
+    List<WorkerApplyClaim> getAllList();
+
 }

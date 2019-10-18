@@ -63,4 +63,9 @@ public class WorkerSchoolClaimServiceImpl implements WorkerSchoolClaimService {
         return workerSchoolClaimMapper.getUnReadList(workerId);
     }
 
+    @Override
+    public List<WorkerSchoolClaim> getAllList() {
+        return workerSchoolClaimMapper.getAllList();
+    }
+
 }
