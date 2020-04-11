@@ -29,6 +29,8 @@ public class ContactController {
     private static String fax = "0937-3362339";
     private static String qq = "1791327277";
     private static String address = "甘肃省玉门市新市区铁人路9号";
+    private static String e_mail = "ymszgh@126.com";
+    private static String customer = "QQ - 390666779";
 
     //1.联系我们接口
     @RequestMapping(value = "/contactOur", method = RequestMethod.GET)
@@ -57,6 +59,8 @@ public class ContactController {
         resultMap.put("fax", fax);
         resultMap.put("qq", qq);
         resultMap.put("address", address);
+        resultMap.put("e_mail", e_mail);
+        resultMap.put("customer", customer);
         return Jsonp_data.success(resultMap);
     }
 

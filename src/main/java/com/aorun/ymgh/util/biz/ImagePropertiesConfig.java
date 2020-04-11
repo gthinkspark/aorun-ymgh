@@ -18,7 +18,7 @@ public class ImagePropertiesConfig {
 
     static {
 
-        PropertyUtil props = new PropertyUtil(System.getenv("aorun_env_config_second_path") + "/account/image.properties");
+        PropertyUtil props = new PropertyUtil(System.getenv("aorun_env_config_path") + "/account/image.properties");
 
         CDN_SERVER_ROOT_PATH = props.getCommonConf("cdn.server_root.path");
         //FILE_SERVER_ROOT_PATH = props.getCommonConf("file.server_root.path");
@@ -152,5 +152,8 @@ public class ImagePropertiesConfig {
     public static final String LEGAL_AID_SERVER_PATH = CDN_SERVER_ROOT_PATH + "images" + File.separator + "legelaid" + File.separator;
 
 
-
+    /** 后台上传资源文件的路径 */
+    public static String RESOURCE_PATH = FILE_PATH + "resource" + "/";
+    /** 后台上传资源文件的路径 */
+    public static String RESOURCE_SERVER_PATH = CDN_SERVER_ROOT_PATH + "resource" + "/";
 }

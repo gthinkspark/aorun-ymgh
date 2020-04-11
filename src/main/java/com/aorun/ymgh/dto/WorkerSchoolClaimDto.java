@@ -1,5 +1,8 @@
 package com.aorun.ymgh.dto;
 
+import java.util.List;
+import java.util.Map;
+
 public class WorkerSchoolClaimDto {
     private Long id;
 
@@ -44,6 +47,16 @@ public class WorkerSchoolClaimDto {
     private String cardNumber;
 
     private String explainImgUrls;
+
+    private List<Map<String,Object>> resMapList;
+
+    public List<Map<String, Object>> getResMapList() {
+        return resMapList;
+    }
+
+    public void setResMapList(List<Map<String, Object>> resMapList) {
+        this.resMapList = resMapList;
+    }
 
     public Integer getIsReaded() {
         return isReaded;
