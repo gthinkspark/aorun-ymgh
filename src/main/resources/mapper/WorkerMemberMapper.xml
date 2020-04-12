@@ -35,7 +35,7 @@
     delete from t_worker_member
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.aorun.ymgh.model.WorkerMember">
+  <insert id="insert" parameterType="com.aorun.ymgh.model.WorkerMember" useGeneratedKeys="true" keyProperty="id">
     insert into t_worker_member (id, member_id, nick_name, 
       login_name, password, create_time, 
       update_time, telephone, email, 
@@ -49,7 +49,7 @@
       #{epointLevel,jdbcType=VARCHAR}, #{macAddr,jdbcType=VARCHAR}, #{pushSignAddr,jdbcType=VARCHAR}, 
       #{bankCardNumber,jdbcType=VARCHAR}, #{issuingBank,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.aorun.ymgh.model.WorkerMember">
+  <insert id="insertSelective" parameterType="com.aorun.ymgh.model.WorkerMember" useGeneratedKeys="true" keyProperty="id">
     insert into t_worker_member
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">

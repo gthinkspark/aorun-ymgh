@@ -103,7 +103,9 @@ public class ResourceController {
 						resource.setUrl(ImagePathUtil.getFileName(filePath));
 						resource.setUserId(workerId+"");
 						resource.setCreateTime(now);
-						resource.setType(getFileTypeBySuffix(suffix));
+						resource.setFileType(getFileTypeBySuffix(suffix));
+						//1上传  2下载
+						resource.setType(1);
 						resourceService.add(resource);
 						
 						idBuffer.append(resource.getId() + ",");

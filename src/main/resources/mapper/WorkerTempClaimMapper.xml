@@ -33,7 +33,7 @@
     delete from t_worker_temp_claim
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.aorun.ymgh.model.WorkerTempClaim">
+  <insert id="insert" parameterType="com.aorun.ymgh.model.WorkerTempClaim" useGeneratedKeys="true" keyProperty="id" >
     insert into t_worker_temp_claim (id, worker_id, name, 
       population, income, company_name, 
       telephone, main_reason, status, 
@@ -46,7 +46,7 @@
       #{failReason,jdbcType=VARCHAR}, now(),now(),1, #{bankName,jdbcType=VARCHAR}, #{cardNumber,jdbcType=VARCHAR},
       #{explainImgUrls,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.aorun.ymgh.model.WorkerTempClaim">
+  <insert id="insertSelective" parameterType="com.aorun.ymgh.model.WorkerTempClaim" useGeneratedKeys="true" keyProperty="id">
     insert into t_worker_temp_claim
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">

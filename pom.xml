@@ -7,10 +7,10 @@
     <artifactId>aorun-ymgh</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>aorun-ymgh</name>
-    <!--
-        <packaging>jar</packaging>-->
 
-        <packaging>war</packaging>
+<!--      <packaging>jar</packaging>-->
+
+<!--        <packaging>war</packaging>-->
     <!-- Spring Boot 启动父依赖 -->
     <parent>
         <groupId>org.springframework.boot</groupId>

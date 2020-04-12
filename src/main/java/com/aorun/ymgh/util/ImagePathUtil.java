@@ -22,7 +22,7 @@ public class ImagePathUtil {
 	 */
 	public static String getFileName(String fileJavaPath){
 		String fileName = "";
-		if(StringUtils.isEmpty(fileJavaPath)){
+		if(!StringUtils.isEmpty(fileJavaPath)){
 			fileName =  fileJavaPath.substring(fileJavaPath.indexOf("userfiles/")+"userfiles/".length());
 		}
 		return fileName;

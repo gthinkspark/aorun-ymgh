@@ -42,8 +42,11 @@ public class UnionConstant {
 	public static final int RESOURCE_RESCODE_LEN=8;
 	public static final int RESOURCE_UPLOAD=1;
 	public static final int RESOURCE_DOWLOAD=2;
-	//资源-新闻
+
+	//资源-新闻 后台
 	public static final String RESOURCE_ARTICLE_CODE_NEWS="article_news";
+	//资源-新闻 APP
+	public static final String RESOURCE_ARTICLE_CODE_NEWS_APP="article_news_app";
 	//资源-生活救助
 	public static final String RESOURCE_ARTICLE_CODE_LIVE_CLAIM="article_live_claim";
 	//资源-医疗救助
@@ -69,4 +72,8 @@ public class UnionConstant {
 	public static final String RESOURCE_TAG_INVOICE="invoice_img";
 	//大学录取通知书
 	public static final String RESOURCE_TAG_UNIVERSITY_OFFER="university_offer_img";
+	//所在单位公示意见
+	public static final String RESOURCE_TAG_UNIT_OPINIONS="unit_opinions";
+	//所在单位出具的申请报告（红头文件）
+	public static final String RESOURCE_TAG_UNIT_REDHEAD_FILE="unit_redhead_file";
 }
