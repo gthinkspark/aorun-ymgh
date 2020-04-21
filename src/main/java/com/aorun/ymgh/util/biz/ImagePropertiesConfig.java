@@ -21,12 +21,12 @@ public class ImagePropertiesConfig {
         PropertyUtil props = new PropertyUtil(System.getenv("aorun_env_config_path") + "/account/image.properties");
 
         CDN_SERVER_ROOT_PATH = props.getCommonConf("cdn.server_root.path");
-        //FILE_SERVER_ROOT_PATH = props.getCommonConf("file.server_root.path");
+        FILE_SERVER_ROOT_PATH = props.getCommonConf("file.server_root.path");
         FILE_PATH = props.getCommonConf("file.path");
     }
 
-//	/** 服务器端的资源根路径 */
-//	public static String FILE_SERVER_ROOT_PATH;
+	/** 服务器端的资源根路径 */
+	public static String FILE_SERVER_ROOT_PATH;
     /**
      * 服务器端的资源根路径
      */

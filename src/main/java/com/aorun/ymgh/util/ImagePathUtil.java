@@ -23,7 +23,19 @@ public class ImagePathUtil {
 	public static String getFileName(String fileJavaPath){
 		String fileName = "";
 		if(!StringUtils.isEmpty(fileJavaPath)){
-			fileName =  fileJavaPath.substring(fileJavaPath.indexOf("userfiles/")+"userfiles/".length());
+			String FilePath = ImagePropertiesConfig.FILE_PATH;
+			int lastIndexOf = FilePath.lastIndexOf("/");
+			//"+1"代表在定位时往后取一位,即去掉"/"
+			String fileRootPathLast = FilePath.substring(lastIndexOf+1);
+			System.out.println(fileRootPathLast);
+			if(null==fileRootPathLast||fileRootPathLast.length()==0){
+				//"-1"代表以"/"字符定位的位置向前取一位
+				//从path.lastIndexOf("/")-1位置开始向前寻找倒数第二个"/"的位置
+				int lastIndexOf2 = FilePath.lastIndexOf("/",lastIndexOf-1);
+				fileRootPathLast = FilePath.substring(lastIndexOf2+1);
+			}
+			System.out.println(fileRootPathLast);
+			fileName =  fileJavaPath.substring(fileJavaPath.indexOf(fileRootPathLast)+fileRootPathLast.length());
 		}
 		return fileName;
 	}
@@ -57,7 +69,7 @@ public class ImagePathUtil {
 	 */
 	public static String setFileServerName(String pathUrl) {
 		if (!StringUtils.isEmpty(pathUrl) && !pathUrl.startsWith("http")) {
-			return ImagePropertiesConfig.CDN_SERVER_ROOT_PATH + pathUrl;
+			return fileServerRootPath()+ pathUrl;
 		}
 		return pathUrl;
 	}
@@ -80,8 +92,13 @@ public class ImagePathUtil {
 		}
 		return stringBuffer.toString();
 	}
-	
 
+	private static String fileServerRootPath(){
+		if(!StringUtils.isEmpty(ImagePropertiesConfig.CDN_SERVER_ROOT_PATH)){
+			return ImagePropertiesConfig.CDN_SERVER_ROOT_PATH;
+		}
+		return ImagePropertiesConfig.FILE_SERVER_ROOT_PATH;
+	}
 	
 
 }

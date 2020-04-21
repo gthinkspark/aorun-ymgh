@@ -37,6 +37,8 @@ public class Resource {
 
     private String desc;
 
+    private String isDel;
+
     public Long getId() {
         return id;
     }
@@ -171,5 +173,13 @@ public class Resource {
 
     public void setDesc(String desc) {
         this.desc = desc == null ? null : desc.trim();
+    }
+
+    public String getIsDel() {
+        return isDel;
+    }
+
+    public void setIsDel(String isDel) {
+        this.isDel = isDel;
     }
 }

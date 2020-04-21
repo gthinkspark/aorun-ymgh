@@ -11,7 +11,8 @@ public class UnionConstant {
 	
 	public static final int SEX_MAN = 1;
 	public static final int SEX_WOMAN = 2;
-	
+
+
 	public static final int CHECK_NEGATIVE = -1;// 默认常量
 	public static final int CHECK_DEF = 0;
 	public static final int CHECK_SUC = 1;
@@ -41,8 +42,7 @@ public class UnionConstant {
 	
 	public static final int RESOURCE_RESCODE_LEN=8;
 	public static final int RESOURCE_UPLOAD=1;
-	public static final int RESOURCE_DOWLOAD=2;
-
+	public static final int RESOURCE_DOWNLOAD=2;
 	//资源-新闻 后台
 	public static final String RESOURCE_ARTICLE_CODE_NEWS="article_news";
 	//资源-新闻 APP
@@ -56,7 +56,7 @@ public class UnionConstant {
 	//资源-助学救助
 	public static final String RESOURCE_ARTICLE_CODE_SCHOOL_CLAIM="article_school_claim";
 	
-	//注册表
+	//登记表
 	public static final String RESOURCE_TAG_REG="reg_tab";
 	//身份证
 	public static final String RESOURCE_TAG_IDCARD="id_card_img";

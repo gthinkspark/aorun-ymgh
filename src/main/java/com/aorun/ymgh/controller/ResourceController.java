@@ -73,14 +73,16 @@ public class ResourceController {
 					long timeMillis = System.currentTimeMillis();
 					String TIME_PATH = DateFormat.dateToYearMonth(now);
 					String articlePath = "";
-					if(UnionConstant.RESOURCE_ARTICLE_CODE_NEWS.equals(articleCode)){
-						articlePath = "news";
+					if(UnionConstant.RESOURCE_ARTICLE_CODE_NEWS_APP.equals(articleCode)){
+						articlePath = "newsApp";
 					}else if(UnionConstant.RESOURCE_ARTICLE_CODE_LIVE_CLAIM.equals(articleCode)||
 							UnionConstant.RESOURCE_ARTICLE_CODE_MEDICAL_CLAIM.equals(articleCode)||
 							UnionConstant.RESOURCE_ARTICLE_CODE_SCHOOL_CLAIM.equals(articleCode)||
 							UnionConstant.RESOURCE_ARTICLE_CODE_TEMP_CLAIM.equals(articleCode)
 							){
 						articlePath = "claim";
+					}else{
+						articlePath = "other";
 					}
 					// 文件类型目录+时间目录+时间戳名+文件后缀名
 					String FilePostfix = articlePath + "/" + TIME_PATH + "/" + timeMillis + "." + suffix;
@@ -93,7 +95,7 @@ public class ResourceController {
 						resource.setArticleCode(articleCode);
 						resource.setArticleValue(articleValue);
 						resource.setFileFix(suffix);
-						resource.setFileMixName(timeMillis + suffix);
+						resource.setFileMixName(timeMillis + "." + suffix);
 						resource.setFileName(filename);
 						resource.setFileSize(fileSize);
 						resource.setSource(source);
@@ -104,8 +106,9 @@ public class ResourceController {
 						resource.setUserId(workerId+"");
 						resource.setCreateTime(now);
 						resource.setFileType(getFileTypeBySuffix(suffix));
+						resource.setIsDel(UnionConstant.IS_DEL_N);
 						//1上传  2下载
-						resource.setType(1);
+						resource.setType(UnionConstant.RESOURCE_UPLOAD);
 						resourceService.add(resource);
 						
 						idBuffer.append(resource.getId() + ",");
@@ -150,8 +153,10 @@ public class ResourceController {
 		else if("pptx,ppt".indexOf(suffix)!=-1){
 			type=5;
 		}
-		else if("txt".indexOf(suffix)!=-1){
+		else if("pdf".indexOf(suffix)!=-1){
 			type=6;
+		}else if("txt".indexOf(suffix)!=-1){
+			type=7;
 		}
 		return type;
 	}
@@ -161,12 +166,12 @@ public class ResourceController {
 	@RequestMapping("fileDownLoad")
 	public Object fileDownLoad(
 			@RequestParam(value="sid",required=true) String sid,
-			@RequestParam(value="resCode",required=true) String resCode,
+			@RequestParam(value="resId",required=true) long resId,
 			@RequestParam(value="source",required=true) int source
 			){
 		Long workerId = WorkerMemberUtil.getWorkerId(sid);
 		ResourceDownload resourceDownload = new ResourceDownload();
-		resourceDownload.setResCode(resCode);
+		resourceDownload.setResId(resId);
 		resourceDownload.setUserId(workerId);
 		resourceDownload.setCreateTime(new Date());
 		resourceDownload.setSource(source);

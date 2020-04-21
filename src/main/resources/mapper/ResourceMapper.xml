@@ -19,111 +19,117 @@
     <result column="last_modify_time" property="lastModifyTime" jdbcType="TIMESTAMP" />
     <result column="user_id" property="userId" jdbcType="VARCHAR" />
     <result column="desc" property="desc" jdbcType="VARCHAR" />
+    <result column="is_del" property="isDel" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     id, res_code, article_code, article_value, tag, url, source, `type`, file_type, file_fix,
-    file_size, file_name, file_mix_name, create_time, last_modify_time, user_id, `desc`
+    file_size, file_name, file_mix_name, create_time, last_modify_time, user_id, `desc`,is_del
   </sql>
-  
-   <!-- table -->  
-<sql id="Base_Table" >
+
+  <!-- table -->
+  <sql id="Base_Table" >
   	from t_resource
 </sql>
-<!-- group and order -->
- <sql id="Base_Other_ParamString" >
- 	<if test="groupParamString != null and groupParamString != ''" >
- 	 	group by
-      ${groupParamString} 
-  </if>
-  <if test="sortParamString != null and sortParamString != ''" >
- 	 	order by
-      ${sortParamString} 
-  </if>
-  <if test="limit != null and limit != ''" >
-  	LIMIT 
-  	<if test="start != null and start != ''">
-   	 #{start},
-   	</if>
-   	#{limit}
-  </if>
-</sql>
-<!-- Base_Column_Where_Param -->
-<sql id="Base_Column_Where_Param" >
-	  <if test="resCode != null" >
-        and res_code = #{resCode,jdbcType=VARCHAR}
+  <!-- group and order -->
+  <sql id="Base_Other_ParamString" >
+    <if test="groupParamString != null and groupParamString != ''" >
+      group by
+      ${groupParamString}
+    </if>
+    <if test="sortParamString != null and sortParamString != ''" >
+      order by
+      ${sortParamString}
+    </if>
+    <if test="limit != null and limit != ''" >
+      LIMIT
+      <if test="start != null and start != ''">
+        #{start},
       </if>
-      <if test="articleCode != null" >
-        and article_code = #{articleCode,jdbcType=VARCHAR}
-      </if>
-      <if test="articleValue != null" >
-        and article_value = #{articleValue,jdbcType=VARCHAR}
-      </if>
-      <if test="tag != null" >
-        and tag = #{tag,jdbcType=VARCHAR}
-      </if>
-      <if test="url != null" >
-        and url = #{url,jdbcType=VARCHAR}
-      </if>
-      <if test="source != null" >
-        and source = #{source,jdbcType=INTEGER}
-      </if>
-      <if test="type != null" >
-        and `type` = #{type,jdbcType=INTEGER}
-      </if>
-      <if test="fileType != null" >
-        and file_type = #{fileType,jdbcType=INTEGER}
-      </if>
-      <if test="fileFix != null" >
-        and file_fix = #{fileFix,jdbcType=VARCHAR}
-      </if>
-      <if test="fileSize != null" >
-        and file_size = #{fileSize,jdbcType=BIGINT}
-      </if>
-      <if test="fileName != null" >
-        and file_name = #{fileName,jdbcType=VARCHAR}
-      </if>
-      <if test="fileMixName != null" >
-        and file_mix_name = #{fileMixName,jdbcType=VARCHAR}
-      </if>
-      <if test="createTime != null" >
-        and create_time = #{createTime,jdbcType=TIMESTAMP}
-      </if>
-      <if test="lastModifyTime != null" >
-        and last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP}
-      </if>
-      <if test="userId != null" >
-        and user_id = #{userId,jdbcType=VARCHAR}
-      </if>
-      <if test="desc != null" >
-        and `desc` = #{desc,jdbcType=VARCHAR}
-      </if>
-</sql>
-<!-- Batch_Where_Param -->
-<sql id="Batch_Where_Param">
-	  <if test="ids != null" >
-        and id in (${ids})
-      </if>
-</sql>
+      #{limit}
+    </if>
+  </sql>
+  <!-- Base_Column_Where_Param -->
+  <sql id="Base_Column_Where_Param" >
+    <if test="resCode != null" >
+      and res_code = #{resCode,jdbcType=VARCHAR}
+    </if>
+    <if test="articleCode != null" >
+      and article_code = #{articleCode,jdbcType=VARCHAR}
+    </if>
+    <if test="articleValue != null" >
+      and article_value = #{articleValue,jdbcType=VARCHAR}
+    </if>
+    <if test="tag != null" >
+      and tag = #{tag,jdbcType=VARCHAR}
+    </if>
+    <if test="url != null" >
+      and url = #{url,jdbcType=VARCHAR}
+    </if>
+    <if test="source != null" >
+      and source = #{source,jdbcType=INTEGER}
+    </if>
+    <if test="type != null" >
+      and `type` = #{type,jdbcType=INTEGER}
+    </if>
+    <if test="fileType != null" >
+      and file_type = #{fileType,jdbcType=INTEGER}
+    </if>
+    <if test="fileFix != null" >
+      and file_fix = #{fileFix,jdbcType=VARCHAR}
+    </if>
+    <if test="fileSize != null" >
+      and file_size = #{fileSize,jdbcType=BIGINT}
+    </if>
+    <if test="fileName != null" >
+      and file_name = #{fileName,jdbcType=VARCHAR}
+    </if>
+    <if test="fileMixName != null" >
+      and file_mix_name = #{fileMixName,jdbcType=VARCHAR}
+    </if>
+    <if test="createTime != null" >
+      and create_time = #{createTime,jdbcType=TIMESTAMP}
+    </if>
+    <if test="lastModifyTime != null" >
+      and last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP}
+    </if>
+    <if test="userId != null" >
+      and user_id = #{userId,jdbcType=VARCHAR}
+    </if>
+    <if test="desc != null" >
+      and `desc` = #{desc,jdbcType=VARCHAR}
+    </if>
+    <if test="isDel != null" >
+      and is_del = #{isDel,jdbcType=VARCHAR}
+    </if>
+  </sql>
+  <!-- Batch_Where_Param -->
+  <sql id="Batch_Where_Param">
+    <if test="ids != null" >
+      and id in (${ids})
+    </if>
+  </sql>
 
-<!-- where -->
-<select id="selectByMap" resultMap="BaseResultMap" parameterType="java.util.Map" >
-  select 
-  <include refid="Base_Column_List" />
-  <include refid="Base_Table" />
-  <where>
-  <include refid="Base_Column_Where_Param" />
-  </where>
-  <include refid="Base_Other_ParamString" />
-</select>
-<!-- count -->
-<select id="getTotal" resultType="java.lang.Integer" parameterType="java.util.Map">
-	select count(1)
-	<include refid="Base_Table" />
-	<where>
-  	<include refid="Base_Column_Where_Param" />
-  	</where>
-</select>
-<!-- updateBatchByPrimaryKeySelective -->
+  <!-- where -->
+  <select id="selectByMap" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select
+    <include refid="Base_Column_List" />
+    <include refid="Base_Table" />
+    <where>
+      <include refid="Base_Column_Where_Param" />
+      <include refid="Batch_Where_Param" />
+    </where>
+    <include refid="Base_Other_ParamString" />
+  </select>
+  <!-- count -->
+  <select id="getTotal" resultType="java.lang.Integer" parameterType="java.util.Map">
+    select count(1)
+    <include refid="Base_Table" />
+    <where>
+      <include refid="Base_Column_Where_Param" />
+      <include refid="Batch_Where_Param" />
+    </where>
+  </select>
+  <!-- updateBatchByPrimaryKeySelective -->
   <update id="updateBatchByPrimaryKeySelective" parameterType="java.util.Map" >
     update t_resource
     <set >
@@ -175,16 +181,19 @@
       <if test="desc != null" >
         `desc` = #{desc,jdbcType=VARCHAR},
       </if>
+      <if test="isDel != null" >
+        is_del = #{isDel,jdbcType=VARCHAR},
+      </if>
     </set>
     <where>
-  	 <include refid="Batch_Where_Param" />
-  	</where>
+      <include refid="Batch_Where_Param" />
+    </where>
   </update>
 
 
-  
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select 
+    select
     <include refid="Base_Column_List" />
     from t_resource
     where id = #{id,jdbcType=BIGINT}
@@ -199,13 +208,13 @@
       source, `type`, file_type,
       file_fix, file_size, file_name, 
       file_mix_name, create_time, last_modify_time, 
-      user_id, `desc`)
+      user_id, `desc`, is_del)
     values (#{id,jdbcType=BIGINT}, #{resCode,jdbcType=VARCHAR}, #{articleCode,jdbcType=VARCHAR}, 
       #{articleValue,jdbcType=VARCHAR}, #{tag,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, 
       #{source,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, #{fileType,jdbcType=INTEGER}, 
       #{fileFix,jdbcType=VARCHAR}, #{fileSize,jdbcType=BIGINT}, #{fileName,jdbcType=VARCHAR}, 
       #{fileMixName,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{lastModifyTime,jdbcType=TIMESTAMP}, 
-      #{userId,jdbcType=VARCHAR}, #{desc,jdbcType=VARCHAR})
+      #{userId,jdbcType=VARCHAR}, #{desc,jdbcType=VARCHAR}, #{isDel,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.aorun.ymgh.model.Resource" useGeneratedKeys="true" keyProperty="id">
     insert into t_resource
@@ -261,6 +270,9 @@
       <if test="desc != null" >
         `desc`,
       </if>
+      <if test="isDel != null" >
+        is_del,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -313,6 +325,9 @@
       </if>
       <if test="desc != null" >
         #{desc,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null" >
+        #{isDel,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -367,6 +382,9 @@
       <if test="desc != null" >
         `desc` = #{desc,jdbcType=VARCHAR},
       </if>
+      <if test="isDel != null" >
+        is_del = #{isDel,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -388,7 +406,8 @@
       create_time = #{createTime,jdbcType=TIMESTAMP},
       last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP},
       user_id = #{userId,jdbcType=VARCHAR},
-      `desc` = #{desc,jdbcType=VARCHAR}
+      `desc` = #{desc,jdbcType=VARCHAR},
+      `is_del` = #{isDel,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

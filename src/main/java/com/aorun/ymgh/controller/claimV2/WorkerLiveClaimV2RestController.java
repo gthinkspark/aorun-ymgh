@@ -15,6 +15,7 @@ import com.aorun.ymgh.util.jsonp.Jsonp;
 import com.aorun.ymgh.util.jsonp.Jsonp_data;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -51,17 +52,18 @@ public class WorkerLiveClaimV2RestController {
             WorkerLiveClaimDto workerLiveClaimDto = new WorkerLiveClaimDto();
             BeanUtils.copyProperties(workerLiveClaim, workerLiveClaimDto);
             workerLiveClaimDto.setCreateTime(DateFormat.dateToString3(workerLiveClaim.getCreateTime()));
-            List<Resource> resourceList = resourceService.selectArticle(UnionConstant.RESOURCE_ARTICLE_CODE_LIVE_CLAIM, workerLiveClaim.getId() + "");
-            List<Map<String,Object>> resMapList = new ArrayList<Map<String,Object>>();
-            for(Resource resource:resourceList){
-                Map<String,Object> map = new HashMap<String,Object>();
-                map.put("resId",resource.getId());
-                map.put("resCode",resource.getResCode());
-                map.put("tag",resource.getTag());
-                map.put("url",ImagePathUtil.setFilePathStringServerName(resource.getUrl()));
-                resMapList.add(map);
-            }
-            workerLiveClaimDto.setResMapList(resMapList);
+            //列表不需要图片展示
+//            List<Resource> resourceList = resourceService.selectArticle(UnionConstant.RESOURCE_ARTICLE_CODE_LIVE_CLAIM, workerLiveClaim.getId() + "");
+//            List<Map<String,Object>> resMapList = new ArrayList<Map<String,Object>>();
+//            for(Resource resource:resourceList){
+//                Map<String,Object> map = new HashMap<String,Object>();
+//                map.put("resId",resource.getId());
+//                map.put("resCode",resource.getResCode());
+//                map.put("tag",resource.getTag());
+//                map.put("url",ImagePathUtil.setFilePathStringServerName(resource.getUrl()));
+//                resMapList.add(map);
+//            }
+//            workerLiveClaimDto.setResMapList(resMapList);
             workerLiveClaimDtoList.add(workerLiveClaimDto);
         }
         return Jsonp_data.success(workerLiveClaimDtoList);
@@ -77,27 +79,19 @@ public class WorkerLiveClaimV2RestController {
         WorkerLiveClaimDto workerLiveClaimDto = new WorkerLiveClaimDto();
         BeanUtils.copyProperties(workerLiveClaim, workerLiveClaimDto);
         workerLiveClaimDto.setCreateTime(DateFormat.dateToString3(workerLiveClaim.getCreateTime()));
-//        StringBuffer idCardUrlsList = new StringBuffer("");
-//        String explainImgUrls = workerLiveClaim.getExplainImgUrls();
-//        if (explainImgUrls != null && !explainImgUrls.equals("")) {
-//            String _explainImgUrls[] = explainImgUrls.split(",");
-//            for (String explainImgUrl : _explainImgUrls) {
-//                idCardUrlsList.append(ImagePropertiesConfig.LIVE_CLAIM_SERVER_PATH + explainImgUrl).append(",");
-//            }
-//        }
-//        workerLiveClaimDto.setExplainImgUrls(idCardUrlsList.toString());
-        List<Resource> resourceList = resourceService.selectArticle(UnionConstant.RESOURCE_ARTICLE_CODE_LIVE_CLAIM, workerLiveClaim.getId() + "");
-        List<Map<String,Object>> resMapList = new ArrayList<Map<String,Object>>();
-        for(Resource resource:resourceList){
-            Map<String,Object> map = new HashMap<String,Object>();
-            map.put("resId",resource.getId());
-            map.put("resCode",resource.getResCode());
-            map.put("tag",resource.getTag());
-            map.put("url",ImagePathUtil.setFilePathStringServerName(resource.getUrl()));
-            resMapList.add(map);
+        List<Map<String, Object>> resMapList = new ArrayList<Map<String, Object>>();
+        if(!StringUtils.isEmpty(workerLiveClaimDto.getResIds())) {
+            List<Resource> resourceList = resourceService.selectByIds(workerLiveClaimDto.getResIds());
+            for (Resource resource : resourceList) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("resId", resource.getId());
+                map.put("resCode", resource.getResCode());
+                map.put("tag", resource.getTag());
+                map.put("url", ImagePathUtil.setFilePathStringServerName(resource.getUrl()));
+                resMapList.add(map);
+            }
         }
         workerLiveClaimDto.setResMapList(resMapList);
-
         return Jsonp_data.success(workerLiveClaimDto);
     }
 
@@ -137,7 +131,8 @@ public class WorkerLiveClaimV2RestController {
         workerLiveClaim.setMainReason(mainReason);
         workerLiveClaim.setBankName(bankName);
         workerLiveClaim.setCardNumber(cardNumber);
-        workerLiveClaim.setExplainImgUrls(ImagePathUtil.getFileStringName(explainImgUrls));
+//        workerLiveClaim.setExplainImgUrls(ImagePathUtil.getFileStringName(explainImgUrls));
+        workerLiveClaim.setResIds(ids);
         workerLiveClaimService.saveWorkerLiveClaim(workerLiveClaim);
         if(null!=ids&&!"".equals(ids)){
             resourceService.updateBatchByPrimaryKeySelective(ids, UnionConstant.RESOURCE_ARTICLE_CODE_LIVE_CLAIM,workerLiveClaim.getId()+"");
@@ -162,6 +157,7 @@ public class WorkerLiveClaimV2RestController {
     ) {
 
         WorkerLiveClaim workerLiveClaim = workerLiveClaimService.findWorkerLiveClaimById(id);
+        resourceService.delete(workerLiveClaim.getResIds());
         workerLiveClaim.setStatus(1);
         workerLiveClaim.setName(name);
         workerLiveClaim.setPopulation(population);
@@ -171,7 +167,8 @@ public class WorkerLiveClaimV2RestController {
         workerLiveClaim.setMainReason(mainReason);
         workerLiveClaim.setBankName(bankName);
         workerLiveClaim.setCardNumber(cardNumber);
-        workerLiveClaim.setExplainImgUrls(ImagePathUtil.getFileStringName(explainImgUrls));
+//        workerLiveClaim.setExplainImgUrls(ImagePathUtil.getFileStringName(explainImgUrls));
+        workerLiveClaim.setResIds(ids);
         workerLiveClaimService.updateWorkerLiveClaim(workerLiveClaim);
         if(null!=ids&&!"".equals(ids)) {
             resourceService.updateBatchByPrimaryKeySelective(ids, UnionConstant.RESOURCE_ARTICLE_CODE_LIVE_CLAIM, workerLiveClaim.getId() + "");

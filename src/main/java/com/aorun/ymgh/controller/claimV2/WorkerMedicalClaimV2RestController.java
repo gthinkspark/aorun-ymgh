@@ -15,6 +15,7 @@ import com.aorun.ymgh.util.jsonp.Jsonp;
 import com.aorun.ymgh.util.jsonp.Jsonp_data;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -53,17 +54,17 @@ public class WorkerMedicalClaimV2RestController {
             WorkerMedicalClaimDto workerMedicalClaimDto = new WorkerMedicalClaimDto();
             BeanUtils.copyProperties(workerMedicalClaim, workerMedicalClaimDto);
             workerMedicalClaimDto.setCreateTime(DateFormat.dateToString3(workerMedicalClaim.getCreateTime()));
-            List<Resource> resourceList = resourceService.selectArticle(UnionConstant.RESOURCE_ARTICLE_CODE_MEDICAL_CLAIM, workerMedicalClaimDto.getId() + "");
-            List<Map<String,Object>> resMapList = new ArrayList<Map<String,Object>>();
-            for(Resource resource:resourceList){
-                Map<String,Object> map = new HashMap<String,Object>();
-                map.put("resId",resource.getId());
-                map.put("resCode",resource.getResCode());
-                map.put("tag",resource.getTag());
-                map.put("url", ImagePathUtil.setFilePathStringServerName(resource.getUrl()));
-                resMapList.add(map);
-            }
-            workerMedicalClaimDto.setResMapList(resMapList);
+//            List<Resource> resourceList = resourceService.selectArticle(UnionConstant.RESOURCE_ARTICLE_CODE_MEDICAL_CLAIM, workerMedicalClaimDto.getId() + "");
+//            List<Map<String,Object>> resMapList = new ArrayList<Map<String,Object>>();
+//            for(Resource resource:resourceList){
+//                Map<String,Object> map = new HashMap<String,Object>();
+//                map.put("resId",resource.getId());
+//                map.put("resCode",resource.getResCode());
+//                map.put("tag",resource.getTag());
+//                map.put("url", ImagePathUtil.setFilePathStringServerName(resource.getUrl()));
+//                resMapList.add(map);
+//            }
+//            workerMedicalClaimDto.setResMapList(resMapList);
             workerMedicalClaimDtoList.add(workerMedicalClaimDto);
         }
         return Jsonp_data.success(workerMedicalClaimDtoList);
@@ -78,15 +79,17 @@ public class WorkerMedicalClaimV2RestController {
         WorkerMedicalClaimDto workerMedicalClaimDto = new WorkerMedicalClaimDto();
         BeanUtils.copyProperties(workerMedicalClaim, workerMedicalClaimDto);
         workerMedicalClaimDto.setCreateTime(DateFormat.dateToString3(workerMedicalClaim.getCreateTime()));
-        List<Resource> resourceList = resourceService.selectArticle(UnionConstant.RESOURCE_ARTICLE_CODE_MEDICAL_CLAIM, workerMedicalClaimDto.getId() + "");
         List<Map<String,Object>> resMapList = new ArrayList<Map<String,Object>>();
-        for(Resource resource:resourceList){
-            Map<String,Object> map = new HashMap<String,Object>();
-            map.put("resId",resource.getId());
-            map.put("resCode",resource.getResCode());
-            map.put("tag",resource.getTag());
-            map.put("url", ImagePathUtil.setFilePathStringServerName(resource.getUrl()));
-            resMapList.add(map);
+        if(!StringUtils.isEmpty(workerMedicalClaimDto.getResIds())){
+            List<Resource> resourceList = resourceService.selectByIds(workerMedicalClaimDto.getResIds());
+            for(Resource resource:resourceList){
+                Map<String,Object> map = new HashMap<String,Object>();
+                map.put("resId",resource.getId());
+                map.put("resCode",resource.getResCode());
+                map.put("tag",resource.getTag());
+                map.put("url", ImagePathUtil.setFilePathStringServerName(resource.getUrl()));
+                resMapList.add(map);
+            }
         }
         workerMedicalClaimDto.setResMapList(resMapList);
         return Jsonp_data.success(workerMedicalClaimDto);
@@ -122,7 +125,7 @@ public class WorkerMedicalClaimV2RestController {
 
         Long workerId = WorkerMemberUtil.getWorkerId(sid);
         WorkerMedicalClaim workerMedicalClaim = new WorkerMedicalClaim();
-        workerMedicalClaim.setExplainImgUrls(ImagePathUtil.getFileStringName(explainImgUrls));
+//        workerMedicalClaim.setExplainImgUrls(ImagePathUtil.getFileStringName(explainImgUrls));
         workerMedicalClaim.setWorkerId(workerId);
         workerMedicalClaim.setName(name);
         workerMedicalClaim.setPopulation(population);
@@ -133,6 +136,7 @@ public class WorkerMedicalClaimV2RestController {
         workerMedicalClaim.setSelfPayingCase(selfPayingCase);
         workerMedicalClaim.setBankName(bankName);
         workerMedicalClaim.setCardNumber(cardNumber);
+        workerMedicalClaim.setResIds(ids);
         workerMedicalClaimService.saveWorkerMedicalClaim(workerMedicalClaim);
         if(null!=ids&&!"".equals(ids)) {
             resourceService.updateBatchByPrimaryKeySelective(ids, UnionConstant.RESOURCE_ARTICLE_CODE_MEDICAL_CLAIM, workerMedicalClaim.getId() + "");
@@ -159,6 +163,7 @@ public class WorkerMedicalClaimV2RestController {
     ) {
 
         WorkerMedicalClaim workerMedicalClaim = workerMedicalClaimService.findWorkerMedicalClaimById(id);
+        resourceService.delete(workerMedicalClaim.getResIds());
         workerMedicalClaim.setStatus(1);
         workerMedicalClaim.setName(name);
         workerMedicalClaim.setPopulation(population);
@@ -169,7 +174,8 @@ public class WorkerMedicalClaimV2RestController {
         workerMedicalClaim.setSelfPayingCase(selfPayingCase);
         workerMedicalClaim.setBankName(bankName);
         workerMedicalClaim.setCardNumber(cardNumber);
-        workerMedicalClaim.setExplainImgUrls(ImagePathUtil.getFileStringName(explainImgUrls));
+//        workerMedicalClaim.setExplainImgUrls(ImagePathUtil.getFileStringName(explainImgUrls));
+        workerMedicalClaim.setResIds(ids);
         workerMedicalClaimService.updateWorkerMedicalClaim(workerMedicalClaim);
         if(null!=ids&&!"".equals(ids)) {
             resourceService.updateBatchByPrimaryKeySelective(ids, UnionConstant.RESOURCE_ARTICLE_CODE_MEDICAL_CLAIM, workerMedicalClaim.getId() + "");

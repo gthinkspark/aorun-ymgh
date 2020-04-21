@@ -25,12 +25,13 @@
     <result column="bank_name" jdbcType="VARCHAR" property="bankName" />
     <result column="card_number" jdbcType="VARCHAR" property="cardNumber" />
     <result column="explain_img_urls" jdbcType="VARCHAR" property="explainImgUrls" />
+    <result column="res_ids" jdbcType="VARCHAR" property="resIds" />
   </resultMap>
   <sql id="Base_Column_List">
     id, worker_id, name, population, income, company_name, telephone, month_income, worker_number, 
     student_name, relation, exam_score, enroll_info, enroll_school, self_paying_case, 
     status, fail_reason, create_time, update_time, is_readed, bank_name, card_number, 
-    explain_img_urls
+    explain_img_urls,res_ids
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
@@ -50,14 +51,14 @@
       enroll_info, enroll_school, self_paying_case, 
       status, fail_reason, create_time, 
       update_time, is_readed, bank_name, 
-      card_number, explain_img_urls)
+      card_number, explain_img_urls, res_ids)
     values (#{id,jdbcType=BIGINT}, #{workerId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, 
       #{population,jdbcType=INTEGER}, #{income,jdbcType=INTEGER}, #{companyName,jdbcType=VARCHAR}, 
       #{telephone,jdbcType=VARCHAR}, #{monthIncome,jdbcType=INTEGER}, #{workerNumber,jdbcType=INTEGER}, 
       #{studentName,jdbcType=VARCHAR}, #{relation,jdbcType=VARCHAR}, #{examScore,jdbcType=INTEGER}, 
       #{enrollInfo,jdbcType=VARCHAR}, #{enrollSchool,jdbcType=VARCHAR}, #{selfPayingCase,jdbcType=VARCHAR}, 
       1, #{failReason,jdbcType=VARCHAR}, now(),now(),1, #{bankName,jdbcType=VARCHAR},
-      #{cardNumber,jdbcType=VARCHAR}, #{explainImgUrls,jdbcType=VARCHAR})
+      #{cardNumber,jdbcType=VARCHAR}, #{explainImgUrls,jdbcType=VARCHAR}, #{resIds,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.aorun.ymgh.model.WorkerSchoolClaim" useGeneratedKeys="true" keyProperty="id">
     insert into t_worker_school_claim
@@ -131,6 +132,9 @@
       <if test="explainImgUrls != null">
         explain_img_urls,
       </if>
+      <if test="resIds != null">
+        res_ids,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -202,6 +206,9 @@
       <if test="explainImgUrls != null">
         #{explainImgUrls,jdbcType=VARCHAR},
       </if>
+      <if test="resIds != null">
+        #{resIds,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.aorun.ymgh.model.WorkerSchoolClaim">
@@ -268,6 +275,9 @@
       <if test="explainImgUrls != null">
         explain_img_urls = #{explainImgUrls,jdbcType=VARCHAR},
       </if>
+      <if test="resIds != null">
+        res_ids = #{resIds,jdbcType=VARCHAR},
+      </if>
     </set>
     ,update_time = now()
     where id = #{id,jdbcType=BIGINT}
@@ -294,7 +304,8 @@
       is_readed = #{isReaded,jdbcType=INTEGER},
       bank_name = #{bankName,jdbcType=VARCHAR},
       card_number = #{cardNumber,jdbcType=VARCHAR},
-      explain_img_urls = #{explainImgUrls,jdbcType=VARCHAR}
+      explain_img_urls = #{explainImgUrls,jdbcType=VARCHAR},
+      res_ids = #{resIds,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
 

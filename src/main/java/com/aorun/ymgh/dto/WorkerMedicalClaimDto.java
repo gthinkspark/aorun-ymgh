@@ -38,6 +38,16 @@ public class WorkerMedicalClaimDto {
 
     private List<Map<String,Object>> resMapList;
 
+    private String resIds;
+
+    public String getResIds() {
+        return resIds;
+    }
+
+    public void setResIds(String resIds) {
+        this.resIds = resIds;
+    }
+
     public List<Map<String, Object>> getResMapList() {
         return resMapList;
     }

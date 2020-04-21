@@ -15,6 +15,7 @@ import com.aorun.ymgh.util.jsonp.Jsonp;
 import com.aorun.ymgh.util.jsonp.Jsonp_data;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -51,17 +52,17 @@ public class WorkerSchoolClaimV2RestController {
             WorkerSchoolClaimDto workerSchoolClaimDto = new WorkerSchoolClaimDto();
             BeanUtils.copyProperties(workerSchoolClaim, workerSchoolClaimDto);
             workerSchoolClaimDto.setCreateTime(DateFormat.dateToString3(workerSchoolClaim.getCreateTime()));
-            List<Resource> resourceList = resourceService.selectArticle(UnionConstant.RESOURCE_ARTICLE_CODE_SCHOOL_CLAIM, workerSchoolClaimDto.getId() + "");
-            List<Map<String,Object>> resMapList = new ArrayList<Map<String,Object>>();
-            for(Resource resource:resourceList){
-                Map<String,Object> map = new HashMap<String,Object>();
-                map.put("resId",resource.getId());
-                map.put("resCode",resource.getResCode());
-                map.put("tag",resource.getTag());
-                map.put("url", ImagePathUtil.setFilePathStringServerName(resource.getUrl()));
-                resMapList.add(map);
-            }
-            workerSchoolClaimDto.setResMapList(resMapList);
+//            List<Resource> resourceList = resourceService.selectArticle(UnionConstant.RESOURCE_ARTICLE_CODE_SCHOOL_CLAIM, workerSchoolClaimDto.getId() + "");
+//            List<Map<String,Object>> resMapList = new ArrayList<Map<String,Object>>();
+//            for(Resource resource:resourceList){
+//                Map<String,Object> map = new HashMap<String,Object>();
+//                map.put("resId",resource.getId());
+//                map.put("resCode",resource.getResCode());
+//                map.put("tag",resource.getTag());
+//                map.put("url", ImagePathUtil.setFilePathStringServerName(resource.getUrl()));
+//                resMapList.add(map);
+//            }
+//            workerSchoolClaimDto.setResMapList(resMapList);
             workerSchoolClaimDtoList.add(workerSchoolClaimDto);
         }
         return Jsonp_data.success(workerSchoolClaimDtoList);
@@ -76,15 +77,17 @@ public class WorkerSchoolClaimV2RestController {
         WorkerSchoolClaimDto workerSchoolClaimDto = new WorkerSchoolClaimDto();
         BeanUtils.copyProperties(workerSchoolClaim, workerSchoolClaimDto);
         workerSchoolClaimDto.setCreateTime(DateFormat.dateToString3(workerSchoolClaim.getCreateTime()));
-        List<Resource> resourceList = resourceService.selectArticle(UnionConstant.RESOURCE_ARTICLE_CODE_SCHOOL_CLAIM, workerSchoolClaimDto.getId() + "");
-        List<Map<String,Object>> resMapList = new ArrayList<Map<String,Object>>();
-        for(Resource resource:resourceList){
-            Map<String,Object> map = new HashMap<String,Object>();
-            map.put("resId",resource.getId());
-            map.put("resCode",resource.getResCode());
-            map.put("tag",resource.getTag());
-            map.put("url", ImagePathUtil.setFilePathStringServerName(resource.getUrl()));
-            resMapList.add(map);
+        List<Map<String, Object>> resMapList = new ArrayList<Map<String, Object>>();
+        if(!StringUtils.isEmpty(workerSchoolClaimDto.getResIds())) {
+            List<Resource> resourceList = resourceService.selectByIds(workerSchoolClaimDto.getResIds());
+            for (Resource resource : resourceList) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("resId", resource.getId());
+                map.put("resCode", resource.getResCode());
+                map.put("tag", resource.getTag());
+                map.put("url", ImagePathUtil.setFilePathStringServerName(resource.getUrl()));
+                resMapList.add(map);
+            }
         }
         workerSchoolClaimDto.setResMapList(resMapList);
         return Jsonp_data.success(workerSchoolClaimDto);
@@ -135,7 +138,7 @@ public class WorkerSchoolClaimV2RestController {
         Long workerId = WorkerMemberUtil.getWorkerId(sid);
         WorkerSchoolClaim workerSchoolClaim = new WorkerSchoolClaim();
 
-        workerSchoolClaim.setExplainImgUrls(ImagePathUtil.getFileStringName(explainImgUrls));
+//        workerSchoolClaim.setExplainImgUrls(ImagePathUtil.getFileStringName(explainImgUrls));
         workerSchoolClaim.setWorkerId(workerId);
         workerSchoolClaim.setName(name);
         workerSchoolClaim.setPopulation(population);
@@ -152,6 +155,7 @@ public class WorkerSchoolClaimV2RestController {
         workerSchoolClaim.setSelfPayingCase(selfPayingCase);
         workerSchoolClaim.setBankName(bankName);
         workerSchoolClaim.setCardNumber(cardNumber);
+        workerSchoolClaim.setResIds(ids);
         workerSchoolClaimService.saveWorkerSchoolClaim(workerSchoolClaim);
         if(null!=ids&&!"".equals(ids)) {
             resourceService.updateBatchByPrimaryKeySelective(ids, UnionConstant.RESOURCE_ARTICLE_CODE_SCHOOL_CLAIM, workerSchoolClaim.getId() + "");
@@ -184,8 +188,8 @@ public class WorkerSchoolClaimV2RestController {
                                           @RequestParam(name = "ids", required = false) String ids
                                           ) {
         WorkerSchoolClaim workerSchoolClaim = workerSchoolClaimService.findWorkerSchoolClaimById(id);
-
-        workerSchoolClaim.setExplainImgUrls(ImagePathUtil.getFileStringName(explainImgUrls));
+        resourceService.delete(workerSchoolClaim.getResIds());
+//        workerSchoolClaim.setExplainImgUrls(ImagePathUtil.getFileStringName(explainImgUrls));
         workerSchoolClaim.setStatus(1);
         workerSchoolClaim.setName(name);
         workerSchoolClaim.setPopulation(population);
@@ -202,6 +206,7 @@ public class WorkerSchoolClaimV2RestController {
         workerSchoolClaim.setSelfPayingCase(selfPayingCase);
         workerSchoolClaim.setBankName(bankName);
         workerSchoolClaim.setCardNumber(cardNumber);
+        workerSchoolClaim.setResIds(ids);
         workerSchoolClaimService.updateWorkerSchoolClaim(workerSchoolClaim);
         if(null!=ids&&!"".equals(ids)) {
             resourceService.updateBatchByPrimaryKeySelective(ids, UnionConstant.RESOURCE_ARTICLE_CODE_SCHOOL_CLAIM, workerSchoolClaim.getId() + "");

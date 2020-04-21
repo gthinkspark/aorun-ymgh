@@ -35,6 +35,19 @@ public class WorkerLiveClaim {
 
     private String explainImgUrls;
 
+    private String resIds;
+
+    public String getResIds() {
+        return resIds;
+    }
+
+    public void setResIds(String resIds) {
+        this.resIds = resIds;
+    }
+
+    public WorkerLiveClaim() {
+    }
+
     public Long getId() {
         return id;
     }

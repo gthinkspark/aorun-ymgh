@@ -15,6 +15,7 @@ import com.aorun.ymgh.util.jsonp.Jsonp;
 import com.aorun.ymgh.util.jsonp.Jsonp_data;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -52,17 +53,17 @@ public class WorkerTempClaimV2RestController {
             WorkerTempClaimDto workerTempClaimDto = new WorkerTempClaimDto();
             BeanUtils.copyProperties(workerTempClaim, workerTempClaimDto);
             workerTempClaimDto.setCreateTime(DateFormat.dateToString3(workerTempClaim.getCreateTime()));
-            List<Resource> resourceList = resourceService.selectArticle(UnionConstant.RESOURCE_ARTICLE_CODE_TEMP_CLAIM, workerTempClaimDto.getId() + "");
-            List<Map<String,Object>> resMapList = new ArrayList<Map<String,Object>>();
-            for(Resource resource:resourceList){
-                Map<String,Object> map = new HashMap<String,Object>();
-                map.put("resId",resource.getId());
-                map.put("resCode",resource.getResCode());
-                map.put("tag",resource.getTag());
-                map.put("url", ImagePathUtil.setFilePathStringServerName(resource.getUrl()));
-                resMapList.add(map);
-            }
-            workerTempClaimDto.setResMapList(resMapList);
+//            List<Resource> resourceList = resourceService.selectArticle(UnionConstant.RESOURCE_ARTICLE_CODE_TEMP_CLAIM, workerTempClaimDto.getId() + "");
+//            List<Map<String,Object>> resMapList = new ArrayList<Map<String,Object>>();
+//            for(Resource resource:resourceList){
+//                Map<String,Object> map = new HashMap<String,Object>();
+//                map.put("resId",resource.getId());
+//                map.put("resCode",resource.getResCode());
+//                map.put("tag",resource.getTag());
+//                map.put("url", ImagePathUtil.setFilePathStringServerName(resource.getUrl()));
+//                resMapList.add(map);
+//            }
+//            workerTempClaimDto.setResMapList(resMapList);
             workerTempClaimDtoList.add(workerTempClaimDto);
         }
         return Jsonp_data.success(workerTempClaimDtoList);
@@ -77,15 +78,17 @@ public class WorkerTempClaimV2RestController {
         WorkerTempClaimDto workerTempClaimDto = new WorkerTempClaimDto();
         BeanUtils.copyProperties(workerTempClaim, workerTempClaimDto);
         workerTempClaimDto.setCreateTime(DateFormat.dateToString3(workerTempClaim.getCreateTime()));
-        List<Resource> resourceList = resourceService.selectArticle(UnionConstant.RESOURCE_ARTICLE_CODE_TEMP_CLAIM, workerTempClaimDto.getId() + "");
-        List<Map<String,Object>> resMapList = new ArrayList<Map<String,Object>>();
-        for(Resource resource:resourceList){
-            Map<String,Object> map = new HashMap<String,Object>();
-            map.put("resId",resource.getId());
-            map.put("resCode",resource.getResCode());
-            map.put("tag",resource.getTag());
-            map.put("url", ImagePathUtil.setFilePathStringServerName(resource.getUrl()));
-            resMapList.add(map);
+        List<Map<String, Object>> resMapList = new ArrayList<Map<String, Object>>();
+        if(!StringUtils.isEmpty(workerTempClaimDto.getResIds())) {
+            List<Resource> resourceList = resourceService.selectByIds(workerTempClaimDto.getResIds());
+            for (Resource resource : resourceList) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("resId", resource.getId());
+                map.put("resCode", resource.getResCode());
+                map.put("tag", resource.getTag());
+                map.put("url", ImagePathUtil.setFilePathStringServerName(resource.getUrl()));
+                resMapList.add(map);
+            }
         }
         workerTempClaimDto.setResMapList(resMapList);
         return Jsonp_data.success(workerTempClaimDto);
@@ -117,7 +120,7 @@ public class WorkerTempClaimV2RestController {
 
         Long workerId = WorkerMemberUtil.getWorkerId(sid);
         WorkerTempClaim workerTempClaim = new WorkerTempClaim();
-        workerTempClaim.setExplainImgUrls(ImagePathUtil.getFileStringName(explainImgUrls));
+//        workerTempClaim.setExplainImgUrls(ImagePathUtil.getFileStringName(explainImgUrls));
         workerTempClaim.setWorkerId(workerId);
         workerTempClaim.setName(name);
         workerTempClaim.setPopulation(population);
@@ -127,6 +130,7 @@ public class WorkerTempClaimV2RestController {
         workerTempClaim.setMainReason(mainReason);
         workerTempClaim.setBankName(bankName);
         workerTempClaim.setCardNumber(cardNumber);
+        workerTempClaim.setResIds(ids);
         workerTempClaimService.saveWorkerTempClaim(workerTempClaim);
         if(null!=ids&&!"".equals(ids)) {
             resourceService.updateBatchByPrimaryKeySelective(ids, UnionConstant.RESOURCE_ARTICLE_CODE_TEMP_CLAIM, workerTempClaim.getId() + "");
@@ -152,8 +156,8 @@ public class WorkerTempClaimV2RestController {
                                         @RequestParam(name = "ids", required = false) String ids
                                         ) {
         WorkerTempClaim workerTempClaim = workerTempClaimService.findWorkerTempClaimById(id);
-
-        workerTempClaim.setExplainImgUrls(ImagePathUtil.getFileStringName(explainImgUrls));
+        resourceService.delete(workerTempClaim.getResIds());
+//        workerTempClaim.setExplainImgUrls(ImagePathUtil.getFileStringName(explainImgUrls));
         workerTempClaim.setStatus(1);
         workerTempClaim.setName(name);
         workerTempClaim.setPopulation(population);
@@ -163,6 +167,7 @@ public class WorkerTempClaimV2RestController {
         workerTempClaim.setMainReason(mainReason);
         workerTempClaim.setBankName(bankName);
         workerTempClaim.setCardNumber(cardNumber);
+        workerTempClaim.setResIds(ids);
         workerTempClaimService.updateWorkerTempClaim(workerTempClaim);
         if(null!=ids&&!"".equals(ids)) {
             resourceService.updateBatchByPrimaryKeySelective(ids, UnionConstant.RESOURCE_ARTICLE_CODE_TEMP_CLAIM, workerTempClaim.getId() + "");

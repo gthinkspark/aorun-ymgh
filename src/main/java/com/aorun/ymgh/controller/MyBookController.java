@@ -1,18 +1,12 @@
 package com.aorun.ymgh.controller;
 
-import com.aorun.ymgh.controller.login.UserDto;
-import com.aorun.ymgh.model.Message;
-import com.aorun.ymgh.util.CheckObjectIsNull;
-import com.aorun.ymgh.util.PageConstant;
-import com.aorun.ymgh.util.biz.UnionUtil;
-import com.aorun.ymgh.util.cache.redis.RedisCache;
-import com.aorun.ymgh.util.jsonp.Jsonp;
 import com.aorun.ymgh.util.jsonp.Jsonp_data;
-import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -25,10 +19,11 @@ import java.util.Map;
 @RestController
 public class MyBookController {
     private final String BOOK_URL = "http://www.dzzgsw.com/";
+    private final String LEARN_URL = "http://www.dzzgsw.com/activity3/index.html";
 
     //1.列表接口----分页查询
     @RequestMapping(value = "/bookDetail", method = RequestMethod.GET)
-    public Object bookDetail(
+    public Object bookDetai(
             @RequestParam(name = "sid", required = true, defaultValue = "") String sid
     ) {
 //        UserDto user = null;
@@ -47,6 +42,7 @@ public class MyBookController {
 //        }
         Map<String, Object> resultMap = new HashMap<>();
         resultMap.put("bookUrl", BOOK_URL);
+        resultMap.put("learnUrl", LEARN_URL);
         return Jsonp_data.success(resultMap);
     }
 

@@ -8,6 +8,8 @@ import java.util.List;
 
 public interface ResourceService extends BasePageService<Resource> {
 	Resource selectByResCode(String resCode);
+	List<Resource> selectByIds(String ids);
 	List<Resource> selectArticle(String articleCode, String articleValue);
 	int updateBatchByPrimaryKeySelective(String ids, String articleCode, String articleValue);
+	int delete(String ids);
 }

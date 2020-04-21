@@ -32,10 +32,19 @@ public class WorkerLiveClaimDto {
 
     private String explainImgUrls;
 
+    private String resIds;
+
     private List<Map<String,Object>> resMapList;
 
     public List<Map<String, Object>> getResMapList() {
         return resMapList;
+    }
+    public String getResIds() {
+        return resIds;
+    }
+
+    public void setResIds(String resIds) {
+        this.resIds = resIds;
     }
 
     public void setResMapList(List<Map<String, Object>> resMapList) {

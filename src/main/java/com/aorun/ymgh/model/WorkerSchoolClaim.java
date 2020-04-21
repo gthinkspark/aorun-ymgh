@@ -49,6 +49,16 @@ public class WorkerSchoolClaim {
 
     private String explainImgUrls;
 
+    private String resIds;
+
+    public String getResIds() {
+        return resIds;
+    }
+
+    public void setResIds(String resIds) {
+        this.resIds = resIds;
+    }
+
     public Long getId() {
         return id;
     }
