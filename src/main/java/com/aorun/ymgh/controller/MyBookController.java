@@ -18,8 +18,10 @@ import java.util.Map;
 @RequestMapping("/book")
 @RestController
 public class MyBookController {
+    //电子图书
     private final String BOOK_URL = "http://www.dzzgsw.com/";
-    private final String LEARN_URL = "http://www.dzzgsw.com/activity3/index.html";
+    //学习培训
+    private final String LEARN_URL = "http://skills.kjcxchina.com/";
 
     //1.列表接口----分页查询
     @RequestMapping(value = "/bookDetail", method = RequestMethod.GET)
